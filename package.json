@@ -31,7 +31,7 @@
     "@syncfusion/ej2-material-theme": "~25.1.42",
     "angular-calendar": "^0.31.1",
     "angularx-flatpickr": "^7.3.0",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^4.6.2",
     "date-fns": "^3.6.0",
     "dhtmlx-scheduler": "^7.0.3",
     "flatpickr": "^4.6.13",
