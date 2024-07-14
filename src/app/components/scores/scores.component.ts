@@ -97,6 +97,18 @@ export class ScoresComponent implements OnInit{
     }
 
   }
+  getMedalIcon(ranking: number): string {
+    switch (ranking) {
+      case 1:
+        return 'https://img.icons8.com/plasticine/100/gold-medal.png';
+      case 2:
+        return 'https://img.icons8.com/office/100/medal-second-place.png';
+      case 3:
+        return 'https://img.icons8.com/external-flaticons-flat-flat-icons/100/external-bronze-medal-achievements-flaticons-flat-flat-icons-2.png';
+      default:
+        return ''; // Hoặc icon mặc định
+    }
+  }
   fetchData(){
     this.loading = true;
     if (this.selectedGrade.toString()===""||this.selectedGrade.toString().length<=1){
