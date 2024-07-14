@@ -1,0 +1,50 @@
+.navbar {
+  flex-direction: row !important;
+}
+
+.navbar-toggler {
+  order: 2;
+}
+
+.navbar-collapse {
+  order: 3;
+  flex-basis: auto;
+}
+
+.navbar-nav {
+  order: 1;
+}
+
+.navbar-brand {
+  margin-right: auto;
+}
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-get-started {
+  /* Your button styles here */
+}
+.search-main {
+  position: relative;
+}
+
+.search-main input[type="text"] {
+  border: 1px solid #ccc; /* Đường viền */
+  cursor: pointer; /* Thay đổi con trỏ khi hover vào input */
+  border-radius: 5px; /* Bo tròn viền */
+  padding: 9px; /* Khoảng cách nội dung và viền */
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.3); /* Đổ bóng */
+  outline: none; /* Loại bỏ đường viền khi được focus */
+}
+
+.search-main .search {
+  border: none; /* Xóa border của button */
+  background-color: transparent; /* Làm cho button trong suốt */
+  position: absolute;
+  top: 50%; /* Đưa nút lên giữa theo chiều cao */
+  right: 10px; /* Đưa nút về phía phải */
+  transform: translateY(-50%); /* Dịch chuyển nút lên trên 50% */
+  cursor: pointer; /* Biến con trỏ thành hand pointer khi di chuyển vào button */
+}

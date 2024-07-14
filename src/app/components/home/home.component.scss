@@ -1,0 +1,13 @@
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-get-started {
+  margin-right: 10px; /* hoặc bất kỳ giá trị khoảng cách nào bạn muốn */
+}
+
+/* Nút cuối cùng không cần margin */
+.btn-get-started:last-child {
+  margin-right: 0;
+}
