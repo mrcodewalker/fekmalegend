@@ -62,6 +62,7 @@ export class ScoresComponent implements OnInit{
   ngOnInit() {
     debugger;
     this.topRanking = [];
+    this.loading = true;
     this.rankingService.getRankingTop2().subscribe({
       next: (responses: any) =>{
         this.cloneRanking = responses;
@@ -78,6 +79,11 @@ export class ScoresComponent implements OnInit{
               next: (response: any) =>{
                 this.cloneRanking = response;
                 this.topRanking.push(this.cloneRanking);
+                this.cdr.detectChanges()
+                setTimeout(() => {
+                  this.loading = false;
+                  this.hitButton = false;
+                }, 200);
               }
             })
           }
