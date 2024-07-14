@@ -58,6 +58,7 @@ export class ScoresComponent implements OnInit{
               private cdr: ChangeDetectorRef) {
   }
 
+
   ngOnInit() {
     debugger;
     this.topRanking = [];
@@ -65,20 +66,25 @@ export class ScoresComponent implements OnInit{
       next: (responses: any) =>{
         this.cloneRanking = responses;
         this.topRanking.push(this.cloneRanking);
+      },
+      complete:() =>{
+        this.rankingService.getRankingTop1().subscribe({
+          next: (response: any) =>{
+            this.cloneRanking = response;
+            this.topRanking.push(this.cloneRanking);
+          },
+          complete:()=>{
+            this.rankingService.getRankingTop3().subscribe({
+              next: (response: any) =>{
+                this.cloneRanking = response;
+                this.topRanking.push(this.cloneRanking);
+              }
+            })
+          }
+        })
       }
     })
-    this.rankingService.getRankingTop1().subscribe({
-      next: (response: any) =>{
-        this.cloneRanking = response;
-        this.topRanking.push(this.cloneRanking);
-      }
-    })
-    this.rankingService.getRankingTop3().subscribe({
-      next: (response: any) =>{
-        this.cloneRanking = response;
-        this.topRanking.push(this.cloneRanking);
-      }
-    })
+
     debugger;
 
     this.searchService.searchButtonClick$.subscribe(() => {
