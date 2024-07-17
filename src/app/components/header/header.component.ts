@@ -9,9 +9,13 @@ import {SearchService} from "../services/search.service";
 })
 export class HeaderComponent {
   checkHitButton: boolean = false;
+  isMenuOpen: boolean = false;
   constructor(private searchService: SearchService) { }
 
   searchButtonClick() {
     this.searchService.notifySearchButtonClick();
+  }
+  toggleMenu(){
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }

@@ -1,6 +1,7 @@
 .button-container {
   display: flex;
   justify-content: space-between;
+  text-align: center;
 }
 
 .btn-get-started {
@@ -10,4 +11,57 @@
 /* Nút cuối cùng không cần margin */
 .btn-get-started:last-child {
   margin-right: 0;
+
+}
+/* General styles for the hero section */
+#hero {
+  background: #f5f5f5;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.hero-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-container h1, .hero-container h2, .hero-container h3 {
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-get-started a {
+  display: inline-block;
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.btn-get-started a:hover {
+  //background: red;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-get-started a {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .btn-get-started a:last-child {
+    margin-bottom: 0;
+  }
 }
