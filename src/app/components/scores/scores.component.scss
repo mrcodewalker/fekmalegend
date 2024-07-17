@@ -561,4 +561,165 @@ body{
   text-align: center;
   line-height: 18px; /* Căn giữa văn bản trong vòng tròn */
 }
+/* Container styling */
+.container {
+  padding: 20px;
+  background-color: #f5f5f5;
+}
 
+/* Student info section */
+.my_info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.student_name {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.my_info button {
+  margin: 5px;
+  border: none;
+}
+
+.my_info .btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.my_info .btn-outline-success {
+  border: 2px solid #1e7e34;
+}
+
+.my_info .btn-outline-danger {
+  border: 2px solid #dc3545;
+}
+
+.my_info .btn-outline-info {
+  border: 2px solid #17a2b8; /* Outline color blue */
+}
+
+/* Stats section */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.stat {
+  flex: 1;
+  min-width: 150px;
+  margin: 10px;
+  padding: 20px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-figure {
+  margin-bottom: 10px;
+}
+
+.stat-title {
+  font-size: 1rem;
+  color: #555;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.stat .text-success {
+  color: #28a745;
+}
+
+.stat .text-secondary {
+  color: #6c757d;
+}
+
+.stat .text-primary {
+  color: #007bff;
+}
+
+/* Table styling */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+}
+
+.custom-table th, .custom-table td {
+  padding: 10px;
+  text-align: left;
+}
+
+.custom-table thead th {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.custom-table tbody tr {
+  background-color: #fff;
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.custom-table tbody tr.failed-row {
+  background-color: #f8d7da;
+}
+
+.custom-table tbody tr.success-row {
+  background-color: #d4edda;
+}
+
+.custom-table td i.green-icon {
+  color: #28a745;
+}
+
+.custom-table td .red-circle {
+  display: inline-block;
+  background-color: #dc3545;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.custom-table td .red-icon {
+  color: #fff;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .my_info {
+    text-align: center;
+  }
+
+  .my_info button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+.student_code_button{
+  outline-color: #1e7e34;
+}
