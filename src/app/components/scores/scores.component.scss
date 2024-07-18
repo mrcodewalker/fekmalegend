@@ -321,6 +321,7 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 87%;
   z-index: 999; /* Đảm bảo phần tử nổi lên phía trên */
 }
 .main-search-overlay {
@@ -722,4 +723,43 @@ body{
 }
 .student_code_button{
   outline-color: #1e7e34;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-search-input-item input {
+    font-size: 14px;
+    width: 70%;
+    box-shadow: 0 0 0 2px #000;
+    padding: 10px 16px;
+  }
+  .main-search-button {
+    width: 23%;
+    font-size: 14px;
+    padding: 10px 16px;
+    margin-top: 4%; /* Đẩy nút xuống dưới ô nhập liệu */
+    margin-right: 10px;
+  }
+  .select-items {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-search-input-item input {
+    font-size: 12px;
+    width: 70%;
+    box-shadow: 0 0 0 2px #000;
+    padding: 8px 12px;
+  }
+  .main-search-button {
+    width: 23%;
+    font-size: 14px;
+    padding: 10px 16px;
+    margin-top: 4%; /* Đẩy nút xuống dưới ô nhập liệu */
+    margin-right: 10px;
+  }
+  .select-items {
+    width: 80%;
+  }
 }
