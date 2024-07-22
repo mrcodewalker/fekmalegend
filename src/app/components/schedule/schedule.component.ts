@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterService} from "../services/router.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {CalendarDto} from "../dtos/calendar.dto";
 
 @Component({
   selector: 'app-schedule',
@@ -8,10 +9,27 @@ import {Router} from "@angular/router";
   styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit{
-    ngOnInit(): void {
-        throw new Error('Method not implemented.');
+    schedule: CalendarDto = {
+      code: '',
+      message: '',
+      data: [],
+      student_info: {
+        birthday: '',
+        student_code: '',
+        display_name: '',
+        gender: ''
+      }
     }
-    constructor(private route: Router) {
+    ngOnInit(): void {
+      this.router.queryParams.subscribe(params => {
+        if (params['schedule']) {
+          this.schedule = JSON.parse(params['schedule']);
+          // console.log('Received schedule:', this.schedule);
+        }
+      });
+    }
+    constructor(private route: Router,
+                private router: ActivatedRoute) {
     }
     signOut(){
       localStorage.setItem("wibu","false");

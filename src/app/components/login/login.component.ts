@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit{
           debugger;
           if (this.schedule.code==="200"){
             localStorage.setItem("wibu", 'true');
-            this.route.navigate(['schedule']);
+            this.route.navigate(['schedule'], { queryParams: { schedule: JSON.stringify(this.schedule) } });
           } else {
             if (this.schedule.code==="401"){
               alert("Please check your password again!");
