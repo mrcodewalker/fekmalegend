@@ -3,6 +3,7 @@ import {LoginDto} from "../dtos/login.dto";
 import {LoginService} from "../services/login.service";
 import {CalendarDto} from "../dtos/calendar.dto";
 import {Router} from "@angular/router";
+import {SharedService} from "../services/SharedService";
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit{
 
     }
     constructor(private loginService: LoginService,
-                private route: Router) {
+                private route: Router,
+                private sharedService: SharedService) {
     }
     fetchData(){
       if (this.user.username.indexOf("CT")
@@ -57,8 +59,10 @@ export class LoginComponent implements OnInit{
           this.schedule = response;
           debugger;
           if (this.schedule.code==="200"){
+            this.sharedService.updateSchedule(this.schedule);
             localStorage.setItem("wibu", 'true');
-            this.route.navigate(['schedule'], { queryParams: { schedule: JSON.stringify(this.schedule) } });
+            // this.route.navigate(['schedule'], { queryParams: { schedule: JSON.stringify(this.schedule) } });
+            this.route.navigate(['schedule']);
           } else {
             if (this.schedule.code==="401"){
               alert("Please check your password again!");
