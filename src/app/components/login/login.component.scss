@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #1f2029;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: #c4c3ca;
+  overflow-x: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.logo img {
+  height: 26px;
+  width: auto;
+  display: block;
+  margin: 30px auto;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.card-3d-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: auto; /* Adjust height for responsiveness */
+  perspective: 1000px;
+  margin-top: -200px;
+}
+
+.card-3d-wrapper {
+  width: 100%;
+  height: auto; /* Adjust height for responsiveness */
+  transition: transform 0.6s ease-out;
+  transform-style: preserve-3d;
+}
+
+.card-front, .card-back {
+  // Haicodedao
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 350px; /* Adjust height for responsiveness */
+  backface-visibility: hidden;
+  border-radius: 10px;
+  background: #2a2b38;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkbox:checked + .card-3d-wrap .card-3d-wrapper {
+  transform: rotateY(180deg);
+}
+
+.form-group {
+  position: relative;
+  width: 100%;
+  margin: 10px 0; /* Adjust margin for better spacing */
+  display: flex;
+  align-items: center;
+}
+
+.form-style {
+  width: calc(100% - 50px); /* Ensure input fields fit within the card */
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1f2029;
+  color: #c4c3ca;
+  margin-right: 5%;
+  margin-left: 5%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  outline: none;
+  font-size: 16px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 10px; /* Adjust position for better alignment */
+  color: #ffeba7;
+  font-size: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffeba7;
+  color: #102770;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+  background-color: #102770;
+  color: #ffeba7;
+}
+
+.toggle-link {
+  color: #ffeba7;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  margin-top: 20px;
+}
+
+.toggle-link:hover {
+  color: #102770;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+.input-icon-user{
+  margin-left: 5%;
+}
+.input-icon-password{
+  margin-left: 5%;
+}
+h4 {
+  color: #ffeba7;
+  margin-bottom: 20px;
+}
+
+.error {
+  color: #ff6b6b; /* Better visibility */
+  font-size: 14px; /* Adjust font size */
+  margin-top: 5px;
+  text-align: left;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .card-3d-wrap {
+    width: 90%;
+    margin-top: -350px;
+  }
+  .input-icon-user{
+    margin-left: 5%;
+  }
+  .input-icon-password{
+    margin-left: 5%;
+  }
+  .section {
+    padding: 20px;
+  }
+
+  .logo {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin: 10px;
+  }
+
+  .card-front, .card-back {
+    border-radius: 10px;
+    margin-right: 10%;
+  }
+
+  .form-group {
+    padding: 10px 0; /* Reduced padding for smaller screens */
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px 20px; /* Adjust padding */
+  }
+
+  .form-style {
+    font-size: 14px;
+    padding: 10px;
+    width: calc(90%); /* Ensure input fields fit within the card */
+    margin-right: 5%;
+  }
+
+  .input-icon {
+    font-size: 16px; /* Smaller icons for smaller screens */
+    margin-left: 2%;
+  }
+
+  .form-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .form-group input {
+    margin-left: 5%; /* Space between icon and input */
+  }
+
+  .error {
+    font-size: 12px; /* Smaller error text for mobile */
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-3d-wrap {
+    width: 95%;
+    margin-top: -350px;
+  }
+  .input-icon-user{
+    margin-left: 5%;
+  }
+  .input-icon-password{
+    margin-left: 5%;
+  }
+  .btn {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+
+  .form-style {
+    font-size: 12px;
+  }
+
+  .input-icon {
+    font-size: 14px; /* Further reduction for very small screens */
+  }
+}
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.fa-spinner {
+  font-size: 40px; /* Điều chỉnh kích thước spinner */
+  color: #333; /* Màu của spinner */
+}

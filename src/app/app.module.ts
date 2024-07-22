@@ -18,6 +18,8 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {CalendarCommonModule, CalendarModule, DateAdapter} from "angular-calendar";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+import { LoginComponent } from './components/login/login.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
     FooterComponent,
     HomeComponent,
     VirtualCalendarComponent,
+    LoginComponent,
+    ScheduleComponent,
     // CalendarComponent
   ],
   imports: [

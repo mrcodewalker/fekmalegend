@@ -25,6 +25,9 @@ export class HomeComponent implements OnInit{
         this.route.navigate(['scores']);
       });
     }
-
+  getNavLink(): string[] {
+    const isWibu = localStorage.getItem('wibu') === 'true';
+    return isWibu ? ['/schedule'] : ['/login'];
+  }
 
 }

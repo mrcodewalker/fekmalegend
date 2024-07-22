@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/Sign Up</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+  </style>
+</head>
+<body>
+<div *ngIf="loading" class="loading-overlay">
+  <i class="fas fa-spinner fa-spin"></i> <!-- Sử dụng biểu tượng spinner -->
+</div>
+<div class="container">
+  <div class="section">
+    <input type="checkbox" id="reg-log" class="checkbox">
+    <label for="reg-log"></label>
+    <div class="card-3d-wrap">
+      <div class="card-3d-wrapper">
+        <div class="card-front">
+          <div class="section text-center">
+            <h4 style="text-align: center">I do not keep your password, so trust on my programs.</h4>
+            <div *ngIf="user.username.length>8" class="error">
+              Username is required length maximum is 8.
+            </div>
+            <div class="form-group">
+              <i class="input-icon-user fas fa-user"></i>
+              <input type="email" [(ngModel)]="user.username" name="username" class="form-style" placeholder="Please enter your student code" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <i class="input-icon-password fas fa-lock"></i>
+              <input type="password" [(ngModel)]="user.password" name="password" class="form-style" placeholder="Password" autocomplete="off">
+            </div>
+            <button class="btn" style="margin-top: 5%" (click)="fetchData()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('toSignUp').addEventListener('click', function() {
+    document.getElementById('reg-log').checked = true;
+  });
+
+  document.getElementById('toLogIn').addEventListener('click', function() {
+    document.getElementById('reg-log').checked = false;
+  });
+</script>
+</body>
+</html>
