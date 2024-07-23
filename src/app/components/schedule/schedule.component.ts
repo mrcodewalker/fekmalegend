@@ -106,7 +106,7 @@ export class ScheduleComponent implements OnInit{
           // console.log('Received schedule:', this.schedule);
         });
       }
-      console.log(this.schedule);
+      // console.log(this.schedule);
       this.loadEvents();
     }
     constructor(private route: Router,
