@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <p><strong>Description:</strong></p>
+  <p>{{ data.description }}</p>
+  <p><strong>Start:</strong> {{ data.start | date:'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>End:</strong> {{ data.end | date:'dd/MM/yyyy HH:mm' }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

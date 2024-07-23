@@ -20,6 +20,8 @@ import {FullCalendarModule} from "@fullcalendar/angular";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import { LoginComponent } from './components/login/login.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { EventDialogComponent } from './components/event-dialog/event-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
     VirtualCalendarComponent,
     LoginComponent,
     ScheduleComponent,
+    EventDialogComponent,
     // CalendarComponent
   ],
   imports: [
@@ -47,7 +50,8 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    })
+    }),
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

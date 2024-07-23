@@ -119,17 +119,17 @@ export class VirtualCalendarComponent implements OnInit {
     this.selectedDate = date;
   }
   fetchData(){
-    debugger;
+
     this.scheduleService.getSubjects(this.selectedCourse).subscribe({
       next: (response: any) =>{
-        debugger;
+
         this.subjectDTO = response;
       },
       complete: () =>{
-        debugger;
+
       },
       error: (error: any) =>{
-        debugger;
+
         console.log("Error fetching data: "+error.error.message);
       }
     })
@@ -141,7 +141,7 @@ export class VirtualCalendarComponent implements OnInit {
     //   this.alertSubjectWrong = false;
     //   return;
     // }
-    debugger;
+
     if (!this.checkMatchSubject(event)) {
       if (this.selectedSubject && !this.selectedSubjects.some(subject => subject.subject_name === this.selectedSubject)) {
         this.selectedSubjects.push({subject_name: this.selectedSubject});
@@ -165,7 +165,7 @@ export class VirtualCalendarComponent implements OnInit {
   }
   // Check this function
   checkMatchSubject(event : any): boolean{
-    debugger;
+
     let originalSelectedSubjects = [...this.selectedSubjects];
     let clone : string = this.selectedSubject;
     let check : number = 0;
@@ -195,13 +195,13 @@ export class VirtualCalendarComponent implements OnInit {
           indexLab++;
         }
       }
-      debugger;
+
     })
-    debugger;
+
     if (selectedTheory!=0&&selectedLab!=0){
       if (indexTheory!=0||indexLab!=0){
         this.selectedSubjects.forEach((subject) =>{
-          debugger;
+
           const index_last = subject.subject_name.indexOf("(");
           let subject_name = subject.subject_name.substring(0, index_last-1).trim();
           let subject_class = subject.subject_name.substring(index_last).trim();
@@ -215,7 +215,7 @@ export class VirtualCalendarComponent implements OnInit {
               let temp = subject.subject_name;
               subject.subject_name = this.selectedSubject;
               matchFound = true;
-              debugger;
+
             }
             if (dot_index!=-1&&clone_dot_index!=-1){
               let temp = subject.subject_name;
@@ -232,7 +232,7 @@ export class VirtualCalendarComponent implements OnInit {
       }
       if (indexTheory!=0){
         this.selectedSubjects.forEach((response) => {
-          debugger;
+
           const index_last = response.subject_name.indexOf("(");
           let subject_name = response.subject_name.substring(0, index_last-1).trim();
           let subject_class = response.subject_name.substring(index_last).trim();
@@ -242,7 +242,7 @@ export class VirtualCalendarComponent implements OnInit {
           const clone_dot_index = clone.indexOf(".");
           let clone_class = clone.substring(clone_index, clone_dot_index).trim()+")";
           if (subject_name===clone_name){
-            debugger;
+
             let temp = response.subject_name;
             response.subject_name = clone;
 
@@ -257,7 +257,7 @@ export class VirtualCalendarComponent implements OnInit {
       // }
       if (indexLab!=0){
         this.selectedSubjects.forEach((response) => {
-          debugger;
+
           const index_last = response.subject_name.indexOf("(");
           let subject_name = response.subject_name.substring(0, index_last-1).trim();
           let subject_class = response.subject_name.substring(index_last).trim();
@@ -267,7 +267,7 @@ export class VirtualCalendarComponent implements OnInit {
           const clone_dot_index = clone.indexOf(".");
           let clone_class = clone.substring(clone_index, clone_dot_index).trim()+")";
           if (subject_name===clone_name){
-            debugger;
+
             let temp = response.subject_name;
             response.subject_name = clone;
             matchFound = true;
@@ -284,10 +284,10 @@ export class VirtualCalendarComponent implements OnInit {
     return false;
   }
   checkLabSubject(selected: string){
-    debugger;
+
   }
   // checkMatchSubject(event: any): boolean{
-  //   debugger;
+  //
   //   this.selectedSubjects.forEach((subject) => {
   //     const index = subject.subject_name.indexOf("(");
   //     let subject_name = subject.subject_name.substring(0, index-1);
@@ -309,7 +309,7 @@ export class VirtualCalendarComponent implements OnInit {
   //         }
   //       })
   //     }
-  //     debugger;
+  //
   //   })
   //   return false;
   // }
@@ -324,7 +324,7 @@ export class VirtualCalendarComponent implements OnInit {
     return formattedDate;
   }
   updateCalendar() {
-    debugger;
+
     this.listSubject = [];
     this.listSingleSubjects = [];
     let dateList: Date[] = [];
@@ -337,7 +337,7 @@ export class VirtualCalendarComponent implements OnInit {
 
       request.subscribe({
         next: (response: any) => {
-          debugger;
+
           this.subjectDetail = response;
           let i = 0;
           if (dateList.length > 0) {
@@ -396,13 +396,13 @@ export class VirtualCalendarComponent implements OnInit {
             i++;
             this.listSingleSubjects.push(cloneSubject);
           })
-          debugger;
+
         },
         complete: () => {
-          debugger;
+
         },
         error: (error: any) => {
-          debugger;
+
           console.log("Error fetching data: " + error.error.message);
         }
       })
@@ -413,7 +413,7 @@ export class VirtualCalendarComponent implements OnInit {
       this.listSingleSubjects = this.listSingleSubjects.filter(item => item.start instanceof Date);
       this.listSingleSubjects.sort((a, b) => a.start.getTime() - b.start.getTime());
     });
-    debugger;
+
   }
   changeToList(event: any, subject_name: string){
     this.loading = true;
@@ -448,7 +448,7 @@ export class VirtualCalendarComponent implements OnInit {
             // Lưu lại vị trí của môn học trong mảng suggestSubject trước khi thay đổi
             for (let i =0 ;i < this.suggestSubject.length ;i ++){
               if (this.suggestSubject[i]===subject_name){
-                debugger;
+
                 this.suggestSubject[i] = change;
               }
             }
@@ -484,7 +484,7 @@ export class VirtualCalendarComponent implements OnInit {
   }
 
   suggestSubjects(){
-    debugger;
+
     this.listSubject = [];
     this.loading = true;
     this.selectedSubjects = [];
@@ -501,7 +501,7 @@ export class VirtualCalendarComponent implements OnInit {
 
     request.subscribe({
       next: (response: any) => {
-        debugger;
+
         this.listSubject = response.subject_detail;
         this.suggestSubject = response.subject_suggest;
         this.listSubject.forEach((clone =>{
@@ -528,13 +528,13 @@ export class VirtualCalendarComponent implements OnInit {
             this.listSingleSubjects.push(cloneSubject);
           }))
         }))
-        debugger;
+
       },
       complete: () => {
-        debugger;
+
       },
       error: (error: any) => {
-        debugger;
+
         console.log("Error fetching data: " + error.error.message);
       }
     });

@@ -4,6 +4,7 @@ import {LoginService} from "../services/login.service";
 import {CalendarDto} from "../dtos/calendar.dto";
 import {Router} from "@angular/router";
 import {SharedService} from "../services/SharedService";
+import {DataDto} from "../dtos/data.dto";
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,15 @@ export class LoginComponent implements OnInit{
   schedule: CalendarDto = {
     code: '',
     message: '',
-    data: [],
-    student_info: {
-      birthday: '',
-      student_code: '',
-      display_name: '',
-      gender: ''
-    }
+    data: new DataDto({
+      student_info: {
+        birthday: '',
+        student_code: '',
+        display_name: '',
+        gender: ''
+      },
+      student_schedule: []
+    })
   }
   username: string = '';
   password: string = '';
@@ -55,10 +58,11 @@ export class LoginComponent implements OnInit{
       this.loading = true;
       this.loginService.login(this.user).subscribe({
         next: (response: any) => {
-          debugger;
+
           this.schedule = response;
-          debugger;
+
           if (this.schedule.code==="200"){
+            localStorage.setItem("schedule", JSON.stringify(this.schedule));
             this.sharedService.updateSchedule(this.schedule);
             localStorage.setItem("wibu", 'true');
             // this.route.navigate(['schedule'], { queryParams: { schedule: JSON.stringify(this.schedule) } });
@@ -74,11 +78,11 @@ export class LoginComponent implements OnInit{
           }
         },
         complete: () => {
-          debugger;
+
           this.loading = false;
         },
         error: (err: any) => {
-          debugger;
+
           this.loading = false;
           alert(err.error.message);
         }

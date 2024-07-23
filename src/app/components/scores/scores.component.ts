@@ -60,7 +60,7 @@ export class ScoresComponent implements OnInit{
 
 
   ngOnInit() {
-    debugger;
+
     this.topRanking = [];
     this.loading = true;
     this.rankingService.getRankingTop2().subscribe({
@@ -91,7 +91,7 @@ export class ScoresComponent implements OnInit{
       }
     })
 
-    debugger;
+
 
     this.searchService.searchButtonClick$.subscribe(() => {
       this.hitButton=true;
@@ -103,7 +103,7 @@ export class ScoresComponent implements OnInit{
     if (searchHistory) {
       // Chuyển đổi chuỗi JSON thành mảng đối tượng StudentDTO
       this.searched = JSON.parse(searchHistory);
-      debugger;
+
     } else {
       const searched: StudentDto[] = [];
     }
@@ -128,13 +128,13 @@ export class ScoresComponent implements OnInit{
     }
       this.subjectsFailed = 0;
       this.scores = [];
-      debugger;
+
       this.id = 0;
       console.log("Đã bấm nút search");
       this.scoreService.getScoresByStudentCode(this.student_code).subscribe({
         next: (response: any) => {
           this.subjectList = [];
-          debugger;
+
           this.student = response.student_response;
           // if (localStorage.getItem('searchHistory')?.valueOf())
           // localStorage.setItem("searchHistory", localStorage.getItem('searchHistory')?.valueOf()+this.student)
@@ -163,25 +163,25 @@ export class ScoresComponent implements OnInit{
               score_text: scoreItem.score_text,
               subject_name: scoreItem.subject_name
             };
-            debugger;
+
             if (this.scores) this.scores.push(score);
           });
           this.updateFailedSubjects();
-          debugger;
+
           if (this.selectedGrade.toString().toLowerCase()==="xếp hạng trường") {
             this.rankingService.getRanking(this.student_code).subscribe({
               next: (response: any) => {
-                debugger;
+
                 this.collectData = response;
                 this.ranking = this.collectData[0];
                 this.topRanking = this.collectData.slice(1);
               },
               complete: () => {
-                debugger;
+
                 this.hitButton = false;
               },
               error: (error: any) => {
-                debugger;
+
                 console.log("Error fetching data " + error.error.message);
               }
             })
@@ -189,17 +189,17 @@ export class ScoresComponent implements OnInit{
             if (this.selectedGrade.toString().toLowerCase()==="xếp hạng khóa"){
               this.rankingService.getBlockRanking(this.student_code).subscribe({
                 next: (response: any) => {
-                  debugger;
+
                   this.collectData = response;
                   this.ranking = this.collectData[0];
                   this.topRanking = this.collectData.slice(1);
                 },
                 complete: () => {
-                  debugger;
+
                   this.hitButton = false;
                 },
                 error: (error: any) => {
-                  debugger;
+
                   console.log("Error fetching data " + error.error.message);
                 }
               })
@@ -207,17 +207,17 @@ export class ScoresComponent implements OnInit{
             if (this.selectedGrade.toString().toLowerCase()==="xếp hạng chuyên nghành"){
               this.rankingService.getMajorRanking(this.student_code).subscribe({
                 next: (response: any) => {
-                  debugger;
+
                   this.collectData = response;
                   this.ranking = this.collectData[0];
                   this.topRanking = this.collectData.slice(1);
                 },
                 complete: () => {
-                  debugger;
+
                   this.hitButton = false;
                 },
                 error: (error: any) => {
-                  debugger;
+
                   console.log("Error fetching data " + error.error.message);
                 }
               })
@@ -225,17 +225,17 @@ export class ScoresComponent implements OnInit{
               if (this.selectedGrade.toString().toLowerCase()==="xếp hạng lớp"){
                 this.rankingService.getClassRanking(this.student_code).subscribe({
                   next: (response: any) => {
-                    debugger;
+
                     this.collectData = response;
                     this.ranking = this.collectData[0];
                     this.topRanking = this.collectData.slice(1);
                   },
                   complete: () => {
-                    debugger;
+
                     this.hitButton = false;
                   },
                   error: (error: any) => {
-                    debugger;
+
                     console.log("Error fetching data " + error.error.message);
                   }
                 })
@@ -243,17 +243,17 @@ export class ScoresComponent implements OnInit{
                 if (this.selectedGrade.toString().toLowerCase()==="xếp hạng khối"){
                   this.rankingService.getBlockDetailRanking(this.student_code).subscribe({
                     next: (response: any) => {
-                      debugger;
+
                       this.collectData = response;
                       this.ranking = this.collectData[0];
                       this.topRanking = this.collectData.slice(1);
                     },
                     complete: () => {
-                      debugger;
+
                       this.hitButton = false;
                     },
                     error: (error: any) => {
-                      debugger;
+
                       console.log("Error fetching data " + error.error.message);
                     }
                   })
@@ -261,7 +261,7 @@ export class ScoresComponent implements OnInit{
                   if (this.selectedGrade.toString().toLowerCase()==="xếp hạng theo kì"){
                     this.rankingService.getScholarShip(this.student_code).subscribe({
                       next: (response: any) => {
-                        debugger;
+
                         this.collectData = response.ranking_list;
                         this.subjectList = response.subjects_list;
                         if (this.collectData.length===4) {
@@ -280,11 +280,11 @@ export class ScoresComponent implements OnInit{
                         }
                       },
                       complete: () => {
-                        debugger;
+
                         this.hitButton = false;
                       },
                       error: (error: any) => {
-                        debugger;
+
                         console.log("Error fetching data " + error.error.message);
                       }
                     })
@@ -295,11 +295,11 @@ export class ScoresComponent implements OnInit{
           }
         },
         complete: () => {
-          debugger;
+
           this.hitButton = false;
         },
         error: (error: any) => {
-          debugger;
+
           console.log("Error fetching data: " + error.error.message);
         }
       })
