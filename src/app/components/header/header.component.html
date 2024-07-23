@@ -29,20 +29,20 @@
   </div>
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container-fluid">
-
       <button class="navbar-toggler" type="button" (click)="toggleMenu()" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fa fa-bars"></span> Menu
       </button>
       <div class="collapse navbar-collapse" [ngClass]="{ 'show': isMenuOpen }" id="ftco-nav">
         <ul class="navbar-nav m-auto">
-          <li class="nav-item active"><a href="#" routerLink="home" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="#" routerLink="scores" class="nav-link">KMA Ranking</a></li>
-          <li class="nav-item"><a href="#" routerLink="calendar" class="nav-link">Subjects Virtual Filter</a></li>
-          <li class="nav-item"><a href="#" [routerLink]="getNavLink()" class="nav-link">KMA Schedule</a></li>
+          <li class="nav-item" [class.active]="isActive('home')"><a href="#" routerLink="home" class="nav-link" (click)="setActive('home')">Home</a></li>
+          <li class="nav-item" [class.active]="isActive('scores')"><a href="#" routerLink="scores" class="nav-link" (click)="setActive('scores')">KMA Ranking</a></li>
+          <li class="nav-item" [class.active]="isActive('calendar')"><a href="#" routerLink="calendar" class="nav-link" (click)="setActive('calendar')">Subjects Virtual Filter</a></li>
+          <li class="nav-item" [class.active]="isActive('schedule')"><a href="#" [routerLink]="getNavLink()" class="nav-link" (click)="setActive('schedule')">KMA Schedule</a></li>
         </ul>
       </div>
     </div>
   </nav>
+
 
   <!-- END nav -->
 </section>

@@ -48,3 +48,12 @@
   transform: translateY(-50%); /* Dịch chuyển nút lên trên 50% */
   cursor: pointer; /* Biến con trỏ thành hand pointer khi di chuyển vào button */
 }
+.nav-item .nav-link {
+  color: #ffffff;
+  padding: 10px 15px;
+}
+
+.nav-item .nav-link.active {
+  color: red; /* Màu đỏ khi active */
+  font-weight: bold;
+}

@@ -18,6 +18,15 @@ export class HeaderComponent {
   toggleMenu(){
     this.isMenuOpen = !this.isMenuOpen;
   }
+  activeLink: string = 'home';
+
+  setActive(link: string) {
+    this.activeLink = link;
+  }
+
+  isActive(link: string): boolean {
+    return this.activeLink === link;
+  }
   getNavLink(): string[] {
     const isWibu = localStorage.getItem('wibu') === 'true';
     return isWibu ? ['/schedule'] : ['/login'];
