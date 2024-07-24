@@ -9,7 +9,7 @@ import {LoginDto} from "../dtos/login.dto";
 })
 export class LoginService{
   private apiLogin = `${environment.apiBaseUrl}/login/login`;
-  private apiICSExport = `${environment.apiBaseUrl}/calendar/export`;
+  private apiICSExport = `${environment.apiLocalUrl}/calendar/export`;
   constructor(private http: HttpClient) {
   }
   login(loginDTO: LoginDto): Observable<any>{

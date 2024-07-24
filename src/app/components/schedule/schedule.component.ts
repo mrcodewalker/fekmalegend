@@ -23,6 +23,7 @@ import {LoginService} from "../services/login.service";
   styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit{
+  loading: boolean = false;
   schedule: CalendarDto = {
       code: '',
       message: '',
@@ -122,6 +123,7 @@ export class ScheduleComponent implements OnInit{
       this.route.navigate(['login']);
     }
   exportICS() {
+    this.loading = true;
     this.loginService.export(this.schedule).subscribe({
       next: (response: Blob) => {
         // Tạo URL và tải file
@@ -136,6 +138,9 @@ export class ScheduleComponent implements OnInit{
         console.error('Error fetching data:', err.message);
       }
     });
+    setTimeout(() => {
+      this.loading = false;
+    }, 200);
   }
 
   loadEvents() {
