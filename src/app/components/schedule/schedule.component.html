@@ -1,13 +1,22 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <div class="header-container">
-  <!-- Các phần tử khác ở đây -->
   <div class="info-box">
     <p><strong>Name:</strong> {{this.schedule.data.student_info.display_name}}</p>
     <p><strong>Student Code:</strong> {{this.schedule.data.student_info.student_code}}</p>
     <p><strong>Birthday:</strong> {{this.schedule.data.student_info.birthday}}</p>
     <p><strong>Gender:</strong> {{this.schedule.data.student_info.gender}}</p>
   </div>
-  <button class="sign-out-btn" (click)="signOut()">Sign Out</button>
+
+  <div class="button-container">
+    <button class="export-btn" (click)="exportICS()">
+      <i class="fas fa-tools"></i> Export ICS File
+    </button>
+    <button class="sign-out-btn" (click)="signOut()">
+      <i class="fas fa-sign-out-alt"></i> Sign Out
+    </button>
+  </div>
 </div>
+
 <div class="calendar-container">
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>

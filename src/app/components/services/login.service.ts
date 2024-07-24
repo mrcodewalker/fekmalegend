@@ -9,9 +9,13 @@ import {LoginDto} from "../dtos/login.dto";
 })
 export class LoginService{
   private apiLogin = `${environment.apiBaseUrl}/login/login`;
+  private apiICSExport = `${environment.apiLocalUrl}/calendar/export`;
   constructor(private http: HttpClient) {
   }
   login(loginDTO: LoginDto): Observable<any>{
     return this.http.post<any>(this.apiLogin, loginDTO);
+  }
+  export(schedule: any): Observable<any> {
+    return this.http.post<any>(this.apiICSExport, schedule, { responseType: 'blob' as 'json' });
   }
 }

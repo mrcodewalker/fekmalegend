@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'https://codewalker-kma.onrender.com/api/v1',
+  apiLocalUrl: 'http://localhost:8080/api/v1',
   firebaseConfig: {
     apiKey: "YOUR_API_KEY",
     authDomain: "YOUR_AUTH_DOMAIN",

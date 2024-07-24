@@ -15,6 +15,7 @@ import {EventDialogComponent} from "../event-dialog/event-dialog.component";
 import { CalendarApi, EventInput } from '@fullcalendar/core';
 import { format } from 'date-fns';
 import {DataDto} from "../dtos/data.dto";
+import {LoginService} from "../services/login.service";
 
 @Component({
   selector: 'app-schedule',
@@ -112,13 +113,31 @@ export class ScheduleComponent implements OnInit{
     constructor(private route: Router,
                 private router: ActivatedRoute,
                 private sharedService: SharedService,
-                public dialog: MatDialog) {
+                public dialog: MatDialog,
+                private loginService: LoginService) {
     }
     signOut(){
       localStorage.setItem("wibu","false");
       localStorage.removeItem("schedule");
       this.route.navigate(['login']);
     }
+  exportICS() {
+    this.loginService.export(this.schedule).subscribe({
+      next: (response: Blob) => {
+        // Tạo URL và tải file
+        const url = window.URL.createObjectURL(response);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = this.schedule.data.student_info.display_name+"-"+this.schedule.data.student_info.student_code+'.ics';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err: any) => {
+        console.error('Error fetching data:', err.message);
+      }
+    });
+  }
+
   loadEvents() {
 
     // @ts-ignore
