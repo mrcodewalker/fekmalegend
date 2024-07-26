@@ -74,7 +74,7 @@ export class ScoresComponent implements OnInit{
         setTimeout(() => {
           this.loading = false;
           this.hitButton = false;
-        }, 1200);
+        }, 100);
       },
       error: (err: any) => {
         console.log("Error fetching data" + err.error.message);
