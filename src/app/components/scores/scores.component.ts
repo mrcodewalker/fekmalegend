@@ -63,35 +63,24 @@ export class ScoresComponent implements OnInit{
 
     this.topRanking = [];
     this.loading = true;
-    this.rankingService.getRankingTop2().subscribe({
-      next: (responses: any) =>{
-        this.cloneRanking = responses;
-        this.topRanking.push(this.cloneRanking);
+    this.rankingService.getListRanking().subscribe({
+      next: (response : any) => {
+        this.cloneRanking = response;
+        this.topRanking = response;
+        debugger;
       },
-      complete:() =>{
-        this.rankingService.getRankingTop1().subscribe({
-          next: (response: any) =>{
-            this.cloneRanking = response;
-            this.topRanking.push(this.cloneRanking);
-          },
-          complete:()=>{
-            this.rankingService.getRankingTop3().subscribe({
-              next: (response: any) =>{
-                this.cloneRanking = response;
-                this.topRanking.push(this.cloneRanking);
-                this.cdr.detectChanges()
-                setTimeout(() => {
-                  this.loading = false;
-                  this.hitButton = false;
-                }, 200);
-              }
-            })
-          }
-        })
+      complete: () => {
+
+      },
+      error: (err: any) => {
+        console.log("Error fetching data" + err.error.message);
       }
     })
-
-
+    this.cdr.detectChanges()
+    setTimeout(() => {
+      this.loading = false;
+      this.hitButton = false;
+    }, 200);
 
     this.searchService.searchButtonClick$.subscribe(() => {
       this.hitButton=true;

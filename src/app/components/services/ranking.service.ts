@@ -14,9 +14,7 @@ export class RankingService{
   private apiBlockDetailsRanking = `${environment.apiBaseUrl}/ranking/block_details`;
   private apiScholarShip = `${environment.apiBaseUrl}/semester/scholarship`;
 
-  private apiGetRankingTop1 = `${environment.apiBaseUrl}/ranking/top/1`;
-  private apiGetRankingTop2 = `${environment.apiBaseUrl}/ranking/top/2`;
-  private apiGetRankingTop3 = `${environment.apiBaseUrl}/ranking/top/3`;
+  private apiGetListRanking = `${environment.apiBaseUrl}/ranking/top`;
 
   constructor(private http: HttpClient) {
   }
@@ -44,13 +42,7 @@ export class RankingService{
     const params = new HttpParams().set('student_code', student_code);
     return this.http.get<any>(this.apiBlockDetailsRanking, { params });
   }
-  getRankingTop1() :Observable<any>{
-    return this.http.get<any>(this.apiGetRankingTop1);
-  }
-  getRankingTop2() :Observable<any>{
-    return this.http.get<any>(this.apiGetRankingTop2);
-  }
-  getRankingTop3() :Observable<any>{
-    return this.http.get<any>(this.apiGetRankingTop3);
+  getListRanking() :Observable<any>{
+    return this.http.get<any>(this.apiGetListRanking);
   }
 }

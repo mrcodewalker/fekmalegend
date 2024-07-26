@@ -15,7 +15,8 @@ const routes: Routes = [
   { path : '', component: HomeComponent},
   { path: 'calendar', component: VirtualCalendarComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'schedule', component: ScheduleComponent}
+  { path: 'schedule', component: ScheduleComponent},
+  { path: '**', component: HomeComponent }
 ];
 @NgModule({
   imports: [
