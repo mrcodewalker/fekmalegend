@@ -70,17 +70,16 @@ export class ScoresComponent implements OnInit{
         debugger;
       },
       complete: () => {
-
+        this.cdr.detectChanges()
+        setTimeout(() => {
+          this.loading = false;
+          this.hitButton = false;
+        }, 1200);
       },
       error: (err: any) => {
         console.log("Error fetching data" + err.error.message);
       }
     })
-    this.cdr.detectChanges()
-    setTimeout(() => {
-      this.loading = false;
-      this.hitButton = false;
-    }, 200);
 
     this.searchService.searchButtonClick$.subscribe(() => {
       this.hitButton=true;
