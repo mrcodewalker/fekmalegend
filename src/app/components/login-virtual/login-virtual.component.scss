@@ -185,3 +185,33 @@
   font-size: 40px;
   color: #333;
 }
+/* Điều chỉnh cho tất cả các màn hình */
+.box-login .inner-wrap .inner-form .input label {
+  font-size: 1.4rem; /* Kích thước font mặc định */
+  /* Có thể thêm padding, margin nếu cần */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1200px) {
+  .box-login .inner-wrap .inner-form .input label {
+    font-size: 1.3rem; /* Giảm kích thước font cho màn hình nhỏ hơn */
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .box-login .inner-wrap .inner-form .input label {
+    font-size: 1.2rem; /* Giảm kích thước font cho màn hình nhỏ hơn */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .box-login .inner-wrap .inner-form .input label {
+    font-size: 1.1rem; /* Giảm kích thước font cho màn hình nhỏ hơn */
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .box-login .inner-wrap .inner-form .input label {
+    font-size: 1rem; /* Giảm kích thước font cho màn hình nhỏ hơn */
+  }
+}
