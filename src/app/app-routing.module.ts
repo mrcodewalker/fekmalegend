@@ -7,6 +7,7 @@ import {HomeComponent} from "./components/home/home.component";
 import {VirtualCalendarComponent} from "./components/virtual-calendar/virtual-calendar.component";
 import {LoginComponent} from "./components/login/login.component";
 import {ScheduleComponent} from "./components/schedule/schedule.component";
+import {LoginVirtualComponent} from "./components/login-virtual/login-virtual.component";
 
 const routes: Routes = [
   // { path: '', component: AppComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'calendar', component: VirtualCalendarComponent},
   { path: 'login', component: LoginComponent},
   { path: 'schedule', component: ScheduleComponent},
+  { path: 'login/virtual', component:  LoginVirtualComponent},
   { path: '**', component: HomeComponent }
 ];
 @NgModule({

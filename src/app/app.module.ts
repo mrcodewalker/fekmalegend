@@ -22,6 +22,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { EventDialogComponent } from './components/event-dialog/event-dialog.component';
+import { LoginVirtualComponent } from './components/login-virtual/login-virtual.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { EventDialogComponent } from './components/event-dialog/event-dialog.com
     LoginComponent,
     ScheduleComponent,
     EventDialogComponent,
+    LoginVirtualComponent,
     // CalendarComponent
   ],
   imports: [

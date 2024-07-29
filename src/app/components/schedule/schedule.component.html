@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <div *ngIf="loading" class="loading-overlay">
-  <i class="fas fa-spinner fa-spin"></i> <!-- Sử dụng biểu tượng spinner -->
+  <i class="fas fa-spinner fa-spin"></i>
 </div>
 <div class="header-container">
   <div class="info-box">
@@ -9,7 +9,6 @@
     <p><strong>Birthday:</strong> {{this.schedule.data.student_info.birthday}}</p>
     <p><strong>Gender:</strong> {{this.schedule.data.student_info.gender}}</p>
   </div>
-
   <div class="button-container">
     <button class="export-btn" (click)="exportICS()">
       <i class="fas fa-tools"></i> Export ICS File
@@ -19,7 +18,6 @@
     </button>
   </div>
 </div>
-
 <div class="calendar-container">
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>

@@ -1,0 +1,188 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.box-login {
+  background: url(./images/photo.jpg);
+  background-size: cover;
+  overflow: hidden;
+  height: 100vh; /* Đặt chiều cao để phủ toàn màn hình */
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+}
+
+.box-login .inner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+}
+
+.box-login .inner-wrap .inner-form {
+  width: 90%;
+  max-width: 40rem; /* Giới hạn chiều rộng tối đa */
+  padding: 2rem 3rem; /* Giảm padding */
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1.5rem; /* Giảm border-radius */
+  box-shadow: rgba(136, 165, 191, 0.48) 4px 2px 8px 0px, rgba(255, 255, 255, 0.8) -4px -2px 8px 0px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  position: relative;
+  margin: 0 auto; /* Căn giữa form */
+}
+
+.box-login .inner-wrap .inner-form .inner-image img {
+  width: 50%; /* Giảm kích thước ảnh */
+}
+
+.box-login .inner-wrap .inner-form .input {
+  position: relative;
+  margin: 1.5rem auto;
+  font-size: 1.8rem;
+  width: 100%;
+}
+
+.box-login .inner-wrap .inner-form .input input {
+  width: 100%;
+  height: 3.5rem; /* Giảm chiều cao của trường nhập liệu */
+  border: 1px solid gray;
+  border-radius: 0.5rem; /* Giảm border-radius */
+  padding: 0 10px;
+  font-size: 1.6rem; /* Giảm kích thước font */
+  outline: none;
+}
+
+.box-login .inner-wrap .inner-form .input label {
+  position: absolute;
+  top: 50%;
+  left: 0.5rem; /* Điều chỉnh vị trí của label */
+  font-size: 1.4rem; /* Giảm kích thước font của label */
+  transform: translateY(-50%);
+  padding: 0 0.5rem;
+  pointer-events: none;
+  transition: 0.5s;
+  color: #ADAFCA;
+}
+
+.box-login .inner-wrap .inner-form .input input:focus~label,
+.box-login .inner-wrap .inner-form .input input:valid~label {
+  top: -1rem;
+  font-size: 1rem;
+  left: 0.5rem;
+  background: #073552;
+  padding: 0 0.5rem;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(136, 165, 191, 0.48) 4px 2px 8px 0px, rgba(255, 255, 255, 0.8) -4px -2px 8px 0px;
+}
+
+.box-login .inner-wrap .inner-form .button {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.box-login .inner-wrap .inner-form .button button {
+  border: 2px solid #fff;
+  background: #252525;
+  color: #fff;
+  padding: 1rem 2rem; /* Giảm padding */
+  font-size: 1.8rem; /* Giảm kích thước font */
+  border-radius: 2rem; /* Giảm border-radius */
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.box-login .inner-wrap .inner-form .button button:hover {
+  border: 2px solid #252525;
+  color: #252525;
+  background-color: #fff;
+}
+
+.box-login .inner-wrap .inner-form .inner-title {
+  text-align: center;
+  font-size: 1.8rem; /* Giảm kích thước tiêu đề */
+  margin-bottom: 3rem; /* Giảm khoảng cách dưới tiêu đề */
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.6rem; /* Giảm kích thước icon */
+  color: #ADAFCA;
+}
+
+.error-message {
+  color: red;
+  font-size: 1.4rem; /* Giảm kích thước lỗi */
+  display: none;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1200px) {
+  .box-login .inner-wrap .inner-form {
+    padding: 1.5rem 2rem; /* Giảm padding */
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .box-login .inner-wrap .inner-form {
+    padding: 1rem; /* Giảm padding */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .box-login .inner-wrap .inner-form {
+    padding: 1rem; /* Giảm padding */
+  }
+
+  .box-login .inner-wrap .inner-form .input input {
+    height: 3rem; /* Giảm chiều cao trường nhập liệu */
+  }
+
+  .box-login .inner-wrap .inner-form .button button {
+    padding: 0.8rem 1.5rem; /* Giảm padding */
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .box-login .inner-wrap .inner-form {
+    padding: 1rem;
+  }
+
+  .box-login .inner-wrap .inner-form .input input {
+    height: 2.8rem; /* Giảm chiều cao trường nhập liệu */
+  }
+
+  .box-login .inner-wrap .inner-form .button button {
+    padding: 0.8rem 1.2rem; /* Giảm padding */
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.fa-spinner {
+  font-size: 40px;
+  color: #333;
+  animation: spin 1s linear infinite;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Login</title>
+</head>
+
+<body>
+<div *ngIf="loading" class="loading-overlay">
+  <i class="fas fa-spinner fa-spin"></i> <!-- Sử dụng biểu tượng spinner -->
+</div>
+<div class="box-login">
+  <div class="container">
+    <div class="inner-wrap">
+
+      <div class="inner-form">
+        <div class="inner-image">
+<!--          <img src="app/components/login-virtual/images/photo-login.png" alt="KMA"/>-->
+        </div>
+        <form>
+          <h2 class="inner-title" style="color: navajowhite; text-align: center">
+            Your account data will be secured in this website.
+          </h2>
+          <div class="input">
+            <input type="text" name="text" [(ngModel)]="user.username" required />
+            <label>Please enter your student code</label>
+          </div>
+          <div class="input">
+            <input [type]="passwordFieldType" [(ngModel)]="user.password" name="password" required />
+            <label>Password</label>
+            <span class="toggle-password" (click)="togglePasswordVisibility()">
+              👁️
+            </span>
+          </div>
+          <div class="error-message" id="error-message">Vui lòng nhập thông tin</div>
+          <div class="button">
+            <button class="btn" type="submit" (click)="fetchData()">Sign In</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="main.js"></script>
+
+</body>
+
+</html>

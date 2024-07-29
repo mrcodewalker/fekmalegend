@@ -9,6 +9,7 @@ import {LoginDto} from "../dtos/login.dto";
 })
 export class LoginService{
   private apiLogin = `${environment.apiBaseUrl}/login/login`;
+  private apiVirtualCalendar = `${environment.apiBaseUrl}/login/login/virtual_calendar`;
   private apiICSExport = `${environment.apiBaseUrl}/calendar/export`;
   constructor(private http: HttpClient) {
   }
@@ -17,5 +18,8 @@ export class LoginService{
   }
   export(schedule: any): Observable<any> {
     return this.http.post<any>(this.apiICSExport, schedule, { responseType: 'blob' as 'json' });
+  }
+  getVirtualCalendar(loginDTO: LoginDto): Observable<any>{
+    return this.http.post<any>(this.apiVirtualCalendar, loginDTO);
   }
 }

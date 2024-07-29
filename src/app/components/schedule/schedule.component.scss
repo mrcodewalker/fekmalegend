@@ -141,3 +141,13 @@ html, body {
   font-size: 40px; /* Điều chỉnh kích thước spinner */
   color: #333; /* Màu của spinner */
 }
+.text-dark {
+  color: #000000; /* Dark black color */
+  font-weight: bold; /* Make the text bold */
+}
+.calendar-container .fc-event-title,
+.calendar-container .fc-event-time,
+.calendar-container .fc {
+  color: #000000 !important; /* Dark black color */
+  font-weight: bold !important; /* Make the text bold */
+}

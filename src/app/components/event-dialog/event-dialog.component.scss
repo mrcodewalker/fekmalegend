@@ -6,3 +6,6 @@
 .mat-dialog-actions {
   justify-content: flex-end;
 }
+body.dialog-open {
+  overflow: hidden;
+}

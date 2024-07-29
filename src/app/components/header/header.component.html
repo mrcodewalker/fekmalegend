@@ -36,7 +36,7 @@
         <ul class="navbar-nav m-auto">
           <li class="nav-item" [class.active]="isActive('home')"><a href="#" routerLink="home" class="nav-link" (click)="setActive('home')">Home</a></li>
           <li class="nav-item" [class.active]="isActive('scores')"><a href="#" routerLink="scores" class="nav-link" (click)="setActive('scores')">KMA Ranking</a></li>
-          <li class="nav-item" [class.active]="isActive('calendar')"><a href="#" routerLink="calendar" class="nav-link" (click)="setActive('calendar')">Subjects Virtual Filter</a></li>
+          <li class="nav-item" [class.active]="isActive('calendar')"><a href="#" [routerLink]="getCalendarLink()" class="nav-link" (click)="setActive('calendar')">Subjects Virtual Filter</a></li>
           <li class="nav-item" [class.active]="isActive('schedule')"><a href="#" [routerLink]="getNavLink()" class="nav-link" (click)="setActive('schedule')">KMA Schedule</a></li>
         </ul>
       </div>

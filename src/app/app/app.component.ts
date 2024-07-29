@@ -11,7 +11,6 @@ export class AppComponent implements OnInit{
   constructor(private routerService: RouterService) {
   }
     ngOnInit(): void {
-      debugger;
       // this.routerService.navigateToScores(['/scores']);
     }
 

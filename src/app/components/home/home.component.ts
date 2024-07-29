@@ -29,5 +29,8 @@ export class HomeComponent implements OnInit{
     const isWibu = localStorage.getItem('wibu') === 'true';
     return isWibu ? ['/schedule'] : ['/login'];
   }
-
+  getCalendarLink(): string[] {
+    const isJack = localStorage.getItem('jack') === 'true';
+    return isJack ? ['/calendar'] : ['/login/virtual'];
+  }
 }

@@ -202,7 +202,10 @@ export class ScheduleComponent implements OnInit{
     //   alert('No events on this day.');
     // }
   }
+  currentScrollPosition: number = 0;
+
   handleEventClick(arg: any) {
+    this.currentScrollPosition = window.scrollY;
     this.dialog.open(EventDialogComponent, {
       data: {
         title: arg.event.title,
@@ -210,6 +213,8 @@ export class ScheduleComponent implements OnInit{
         start: arg.event.start,
         end: arg.event.end,
       }
+    }).afterClosed().subscribe(() => {
+      window.scrollTo(0, this.currentScrollPosition);
     });
   }
 }

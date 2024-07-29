@@ -5,6 +5,8 @@ import {CalendarDto} from "../dtos/calendar.dto";
 import {Router} from "@angular/router";
 import {SharedService} from "../services/SharedService";
 import {DataDto} from "../dtos/data.dto";
+import {ResponseVirtualDto} from "../dtos/response.virtual.dto";
+import {VirtualCalendarDto} from "../dtos/virtual.calendar.dto";
 
 @Component({
   selector: 'app-login',
@@ -15,6 +17,16 @@ export class LoginComponent implements OnInit{
   user: LoginDto = {
     username: '',
     password: ''
+  }
+  virtual: ResponseVirtualDto = {
+    virtual_calendar : [{
+      base_time: '',
+      course: '',
+      details: [],
+      course_name: ''
+    }],
+    message: '',
+    code: ''
   }
   loading: boolean = false;
   schedule: CalendarDto = {
@@ -55,6 +67,7 @@ export class LoginComponent implements OnInit{
         alert("Please check your information again!");
         return;
       }
+
       this.loading = true;
       this.loginService.login(this.user).subscribe({
         next: (response: any) => {
@@ -74,6 +87,41 @@ export class LoginComponent implements OnInit{
             } else {
               alert("An error has been founded, try again");
               localStorage.setItem("wibu", 'false');
+            }
+          }
+        },
+        complete: () => {
+
+          this.loading = false;
+        },
+        error: (err: any) => {
+
+          this.loading = false;
+          alert(err.error.message);
+        }
+      });
+    }
+    fetchVirtualCalendar(){
+      this.loading = true;
+      this.loginService.getVirtualCalendar(this.user).subscribe({
+        next: (response: any) => {
+
+          this.virtual = response;
+          debugger;
+
+          if (this.virtual.code==="200"){
+            localStorage.setItem("virtual_calendar", JSON.stringify(this.virtual));
+            // this.sharedService.updateSchedule(this.schedule);
+            localStorage.setItem("codewalker", 'true');
+            // this.route.navigate(['schedule'], { queryParams: { schedule: JSON.stringify(this.schedule) } });
+            this.route.navigate(['calendar']);
+          } else {
+            if (this.schedule.code==="401"){
+              alert("Please check your password again!");
+              localStorage.setItem("codewalker", 'false');
+            } else {
+              alert("An error has been founded, try again");
+              localStorage.setItem("codewalker", 'false');
             }
           }
         },
