@@ -1,1 +1,135 @@
-<a (click)="signOut()">Click here to sign out</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div *ngIf="loading" class="loading-overlay">
+  <i class="fas fa-spinner fa-spin"></i> <!-- Sử dụng biểu tượng spinner -->
+</div>
+<div class="container">
+  <div class="vertical-list-container">
+    <h3 class="title">Registration</h3>
+    <div class="vertical-scroll-container">
+      <ul class="vertical-list" *ngFor="let subject of this.listSubjects">
+        <li class="list-item">{{ subject.course_name }}<button class="remove-btn" (click)="removeItem(subject)">&times;</button></li>
+      </ul>
+    </div>
+  </div>
+  <div class="select">
+    <div class="selected">
+      {{this.selectedCourse}}
+      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
+        <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path>
+      </svg>
+    </div>
+    <div class="options">
+      <div *ngFor="let key of keys" [attr.title]="key" (click)="selectCourse(key)">
+        <input [id]="key" name="option" type="radio" [checked]="key === selectedCourse" />
+        <label class="option" [for]="key">{{ key }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="select">
+    <div class="selected">
+      {{this.selectedCourseName}}
+      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
+        <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path>
+      </svg>
+    </div>
+    <div class="options">
+      <div *ngFor="let key of map.get(selectedCourse)" [attr.title]="key" (click)="selectCourseName(key)">
+        <input [id]="key" name="option" type="radio" [checked]="key === selectedCourseName" />
+        <label class="option" [for]="key">{{ key }}</label>
+      </div>
+    </div>
+  </div>
+  <button class="outline-button" (click)="fetchRegistrationData()">
+    <span>Fetch</span>
+  </button>
+</div>
+<div class="container mt-4">
+  <div class="button-container text-center">
+    <button class="btn btn-success" (click)="saveWishList()">
+      <i class="fas fa-save"></i> Save
+    </button>
+    <button class="btn btn-warning" (click)="refreshList()">
+      <i class="fas fa-trash-alt"></i> Remove All
+    </button>
+    <button class="btn btn-primary" (click)="exportTxtFile()">
+      <i class="fas fa-file-text"></i> Export Txt File
+    </button>
+    <button class="btn btn-info">
+      <i class="fas fa-file-download" (click)="exportICSFile()"></i> Export ICS File
+    </button>
+    <button class="btn btn-danger" (click)="signOut()">
+      <i class="fas fa-sign-out-alt"></i> Sign Out
+    </button>
+  </div>
+</div>
+<div class="container mt-4">
+  <div class="table-container">
+    <table class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th>Selected</th>
+        <th>Course Name</th>
+        <th>Teacher</th>
+        <th>Study Location</th>
+        <th>Study Days</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Sample Data Rows -->
+      <tr *ngFor="let detail of this.schedule" (click)="updateSelected(detail)">
+        <td class="checkbox-container" >
+          <div class="heart-container" title="Like">
+            <input type="checkbox" class="checkbox"
+                   [checked]="isLiked(detail)"
+                   (change)="updateSelected(detail)"
+                   id="Give-It-An-Id">
+            <div class="svg-container">
+              <svg viewBox="0 0 24 24" class="svg-outline" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z">
+                </path>
+              </svg>
+              <svg viewBox="0 0 24 24" class="svg-filled" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z">
+                </path>
+              </svg>
+              <svg class="svg-celebrate" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10,10 20,20"></polygon>
+                <polygon points="10,50 20,50"></polygon>
+                <polygon points="20,80 30,70"></polygon>
+                <polygon points="90,10 80,20"></polygon>
+                <polygon points="90,50 80,50"></polygon>
+                <polygon points="80,80 70,70"></polygon>
+              </svg>
+            </div>
+          </div>
+        </td>
+        <td>{{ detail.course_name }}</td>
+        <td *ngIf="detail.teacher.length>3">{{ detail.teacher }}</td>
+        <td *ngIf="detail.teacher.length<3">Giảng viên mời</td>
+        <td>{{ detail.study_location }}</td>
+        <td [innerHTML]="processBaseTime(detail.base_time)"></td>
+      </tr>
+      <!-- Repeat the above row for each item in the data -->
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="calendar-container">
+  <full-calendar [options]="calendarOptions"></full-calendar>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

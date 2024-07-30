@@ -1,62 +1,213 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
 .container {
   display: flex;
-  justify-content: flex-start; /* Canh lề sang trái */
-  align-items: center; /* Căn giữa các dropdown theo chiều dọc */
-  margin-bottom: 20px; /* Khoảng cách dưới của container */
+  align-items: center;
+  justify-content: center; /* Center elements in the container */
+  gap: 1rem; /* Space between elements */
+  padding: 10px;
+  flex-wrap: wrap; /* Allow elements to wrap when not enough space */
 }
 
-.select-event {
-  text-align: center;
-  margin-left: 5px;
-  padding: 8px; /* Thu nhỏ khoảng cách padding cho dropdown */
-  border: 1px solid #ccc; /* Đường viền của dropdown */
-  border-radius: 5px; /* Bo góc của dropdown */
-  font-size: 14px; /* Thu nhỏ kích thước chữ cho dropdown */
-  width: 20%; /* Chiều rộng của dropdown */
-  box-sizing: border-box; /* Đảm bảo độ rộng và chiều cao tính cả border và padding */
-}
-.main-search-button {
-  border: none; /* Loại bỏ đường viền */
-  background-color: #007bff !important; /* Màu nền */
-  color: #fff !important; /* Màu chữ */
-  padding: 10px 20px; /* Kích thước lề */
-  border-radius: 15px; /* Bo góc */
-  font-size: 14px; /* Cỡ chữ */
-  cursor: pointer; /* Con trỏ chuột khi hover */
-  margin-left: 5px;
-  transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển đổi màu */
+.select {
+  width: 30%; /* Fixed size for select element */
+  cursor: pointer;
+  position: relative;
+  transition: 300ms;
+  color: white;
 }
 
-.main-search-button:hover {
-  background-color: #0056b3 !important; /* Màu nền khi hover */
-}
-.searching{
-  justify-content: center;
-}
-.subjects-selected {
-  max-width: 800px; /* Đặt chiều rộng tối đa */
-  margin: 0 auto; /* Canh giữa thẻ */
-  padding: 20px; /* Khoảng cách padding */
-  background-color: #f0f0f0; /* Màu nền */
-  border-radius: 10px; /* Bo góc */
-}
-.delete-button {
-  background-color: #ff0000; /* Màu nền đỏ */
-  color: #ffffff; /* Màu chữ trắng */
-  border: none; /* Không có đường viền */
-  border-radius: 50%; /* Bo tròn góc để tạo hình tròn */
-  width: 20px; /* Độ rộng của nút */
-  height: 20px; /* Độ cao của nút */
-  font-size: 12px; /* Kích thước chữ */
-  cursor: pointer; /* Con trỏ chuột thành dạng bàn tay khi di chuyển vào nút */
+.selected {
+  background-color: #2a2f3b;
+  padding: 5px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 100; /* Ensure select element is not obscured */
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.delete-button:hover {
-  background-color: #ff6666; /* Màu nền đỏ nhạt khi di chuột vào */
+.arrow {
+  height: 10px;
+  transform: rotate(-90deg);
+  width: 25px;
+  fill: white;
+  transition: 300ms;
 }
 
-.delete-button:focus {
-  outline: none; /* Loại bỏ đường viền khi nút được focus */
+.options {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #2a2f3b;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  visibility: hidden; /* Hide options when not hovered */
+  transition: opacity 300ms, visibility 300ms;
+  z-index: 200; /* Ensure dropdown is on top */
+  width: 100%; /* Ensure size fits select element */
+}
+
+.select:hover > .options {
+  opacity: 1;
+  visibility: visible; /* Show options on hover */
+}
+
+.select:hover > .selected .arrow {
+  transform: rotate(0deg);
+}
+
+.option {
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #2a2f3b;
+  width: 100%; /* Ensure option does not stretch */
+  font-size: 15px;
+}
+
+.option:hover {
+  background-color: #323741;
+}
+
+.options input[type="radio"] {
+  display: none;
+}
+
+.options label {
+  display: block; /* Ensure label is clickable */
+}
+
+.options label::before {
+  content: attr(data-txt);
+}
+
+.options input[type="radio"]:checked + label {
+  display: none;
+}
+
+.options input[type="radio"]#all:checked + label {
+  display: none;
+}
+
+.select:has(.options input[type="radio"]#all:checked) .selected::before {
+  content: attr(data-default);
+}
+.select:has(.options input[type="radio"]#option-1:checked) .selected::before {
+  content: attr(data-one);
+}
+.select:has(.options input[type="radio"]#option-2:checked) .selected::before {
+  content: attr(data-two);
+}
+.select:has(.options input[type="radio"]#option-3:checked) .selected::before {
+  content: attr(data-three);
+}
+
+button {
+  background: #fff;
+  border: none;
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  width: 120px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: skew(-21deg);
+  margin-left: 1rem; /* Space between select elements and button */
+  position: relative;
+  z-index: 100; /* Ensure button is on top */
+}
+
+span {
+  display: inline-block;
+  transform: skew(21deg);
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  left: 0;
+  background: rgb(20, 20, 20);
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+button:hover {
+  color: #ffffff;
+}
+
+button:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .select {
+    width: 70%; /* Full width on smaller screens */
+    position: relative; /* Ensure select element is not obscured */
+  }
+
+  button {
+    width: 70%; /* Adjust button width for smaller screens */
+    margin-left: 0; /* Remove margin on smaller screens */
+  }
+}
+
+.table-container {
+  max-height: 400px; /* Set a fixed height for the table container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto; /* Enable horizontal scrolling if needed */
+  position: relative; /* Ensure container is positioned relative for fixed columns */
+}
+
+table {
+  width: 100%; /* Make the table width 100% of its container */
+  border-collapse: collapse; /* Ensure table borders collapse properly */
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #343a40;
+  color: #fff;
+  z-index: 1; /* Ensure header stays on top */
+}
+
+tbody tr {
+  background-color: #343a40; /* Dark background for rows */
+  color: black; /* Text color */
+}
+
+tbody tr:nth-child(even) {
+  color: #ffffff; /* Text color */
+  background-color: #495057; /* Alternate row color */
+}
+
+.checkbox-container {
+  position: sticky;
+  left: 0; /* Keep checkbox column fixed horizontally */
+  background-color: #343a40; /* Match table row background */
+  z-index: 2; /* Ensure checkbox column stays on top */
+  text-align: center; /* Center align checkbox */
 }
 .loading-overlay {
   position: fixed;
@@ -75,333 +226,481 @@
   font-size: 40px; /* Điều chỉnh kích thước spinner */
   color: #333; /* Màu của spinner */
 }
-:host {
-  --calendar-width: 100%;
-
-  .cal-month-view {
-    width: var(--calendar-width);
-  }
-
-  .cal-month-cell {
-    height: 100px;
-    border: 1px solid #ddd;
-  }
-
-  .cal-day-badge {
-    background-color: #007bff;
-    color: #fff;
-  }
-}
-/* Import Google font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-.wrapper{
-  width: 60%; /* Đặt chiều rộng của .wrapper là 60% của màn hình */
-  max-width: 450px; /* Tối đa là 450px */
-  height: 300px; /* Đặt chiều cao của .wrapper là 300px */
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-  margin: 0 auto; /* Canh giữa thẻ */
-  padding: 20px; /* Khoảng cách padding */
-}
-.wrapper header{
-  display: flex;
-  align-items: center;
-  padding: 25px 30px 10px;
-  justify-content: space-between;
-}
-header .icons{
-  display: flex;
-}
-header .icons span{
-  height: 38px;
-  width: 38px;
-  margin: 0 1px;
-  cursor: pointer;
-  color: #878787;
-  text-align: center;
-  line-height: 38px;
-  font-size: 1.9rem;
-  user-select: none;
-  border-radius: 50%;
-}
-.icons span:last-child{
-  margin-right: -10px;
-}
-header .icons span:hover{
-  background: #f2f2f2;
-}
-header .current-date{
-  font-size: 1.45rem;
-  font-weight: 500;
-}
-.calendar{
-  padding: 20px;
-}
-.calendar ul{
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  text-align: center;
-}
-.calendar .days{
-  margin-bottom: 20px;
-}
-.calendar li{
-  color: #333;
-  width: calc(100% / 7);
-  font-size: 1.07rem;
-}
-.calendar .weeks li{
-  font-weight: 500;
-  cursor: default;
-}
-.calendar .days li{
-  z-index: 1;
-  cursor: pointer;
+.heart-container {
+  --heart-color: rgb(255, 91, 137);
   position: relative;
-  margin-top: 30px;
+  width: 50px;
+  height: 50px;
+  transition: .3s;
+  margin-left: 10px;
 }
-.days li.inactive{
-  color: #aaa;
-}
-.days li.active{
-  color: #fff;
-}
-.days li::before{
+
+.heart-container .checkbox {
   position: absolute;
-  content: "";
-  left: 50%;
-  top: 50%;
-  height: 40px;
-  width: 40px;
-  z-index: -1;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-.days li.active::before{
-  background: #9B59B6;
-}
-.days li:not(.active):hover::before{
-  background: #f2f2f2;
-}
-.md-switching-view-cont {
+  width: 100%;
   height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
 }
 
-.md-switching-view-cont .mbsc-segmented {
-  margin: 0;
-}
-
-.md-switching-view-cont .mbsc-segmented.mbsc-material,
-.md-switching-view-cont .mbsc-segmented.mbsc-windows {
-  padding: 0;
-}
-
-.md-switching-view-cont .mbsc-segmented .mbsc-segmented-button {
-  padding: 0 1px;
-}
-
-.md-switching-view-cont .mbsc-segmented .mbsc-icon {
-  font-size: 20px;
-}
-
-.md-switching-view-cont .mbsc-segmented-button.mbsc-windows {
-  border: 0;
-}
-
-.cal-header-picker {
-  -webkit-flex: 1 0 auto;
-  -moz-box-flex: 1;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
+.heart-container .svg-container {
+  width: 100%;
+  height: 100%;
   display: flex;
-  -webkit-justify-content: center;
-  -moz-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
+  align-items: center;
 }
 
-.cal-header-nav {
-  width: 165px;
-}
-
-.cal-header-nav .mbsc-calendar-title.mbsc-material {
-  font-size: 16px;
-}
-.hero{
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg,#6ac1c5,#bda5ff);
-}
-body{
-  background-color: #eee;
-}
-
-.mt-70{
-  margin-top: 70px;
-}
-
-.mb-70{
-  margin-bottom: 70px;
-}
-
-.card {
-  box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
-  border-width: 0;
-  transition: all .2s;
-}
-
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(26,54,126,0.125);
-  border-radius: .25rem;
-}
-
-.card-body {
-  flex: 1 1 auto;
-  padding: 1.25rem;
-}
-.vertical-timeline {
-  width: 100%;
-  position: relative;
-  padding: 1.5rem 0 1rem;
-}
-
-.vertical-timeline::before {
-  content: '';
+.heart-container .svg-outline,
+.heart-container .svg-filled {
+  fill: var(--heart-color);
   position: absolute;
-  top: 0;
-  left: 67px;
-  height: 100%;
-  width: 4px;
-  background: #e9ecef;
-  border-radius: .25rem;
 }
 
-.vertical-timeline-element {
-  position: relative;
-  margin: 0 0 1rem;
-}
-
-.vertical-timeline--animate .vertical-timeline-element-icon.bounce-in {
-  visibility: visible;
-  animation: cd-bounce-1 .8s;
-}
-.vertical-timeline-element-icon {
-  position: absolute;
-  top: 0;
-  left: 60px;
-}
-
-.vertical-timeline-element-icon .badge-dot-xl {
-  box-shadow: 0 0 0 5px #fff;
-}
-
-.badge-dot-xl {
-  width: 18px;
-  height: 18px;
-  position: relative;
-}
-.badge:empty {
+.heart-container .svg-filled {
+  animation: keyframes-svg-filled 1s;
   display: none;
 }
 
-
-.badge-dot-xl::before {
-  content: '';
-  width: 10px;
-  height: 10px;
-  border-radius: .25rem;
+.heart-container .svg-celebrate {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  margin: -5px 0 0 -5px;
-  background: #fff;
+  animation: keyframes-svg-celebrate .5s;
+  animation-fill-mode: forwards;
+  display: none;
+  stroke: var(--heart-color);
+  fill: var(--heart-color);
+  stroke-width: 2px;
 }
 
-.vertical-timeline-element-content {
-  position: relative;
-  margin-left: 90px;
-  font-size: .8rem;
+.heart-container .checkbox:checked~.svg-container .svg-filled {
+  display: block
 }
 
-.vertical-timeline-element-content .timeline-title {
-  font-size: .8rem;
+.heart-container .checkbox:checked~.svg-container .svg-celebrate {
+  display: block
+}
+
+@keyframes keyframes-svg-filled {
+  0% {
+    transform: scale(0);
+  }
+
+  25% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(1);
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes keyframes-svg-celebrate {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+    display: none;
+  }
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Khoảng cách giữa các nút */
+  margin-top: 20px; /* Khoảng cách từ các phần tử phía trên */
+}
+
+.button-container .btn {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Khoảng cách giữa biểu tượng và văn bản */
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
   text-transform: uppercase;
-  margin: 0 0 .5rem;
-  padding: 2px 0 0;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển màu khi hover */
+}
+
+.button-container .btn i {
+  font-size: 1.2em; /* Kích thước biểu tượng */
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+.horizontal-list-container {
+  position: fixed; /* Đặt cố định ở góc màn hình */
+  top: 10px; /* Khoảng cách từ trên */
+  left: 10px; /* Khoảng cách từ trái */
+  width: 300px; /* Chiều rộng của danh sách */
+  max-height: 100px; /* Chiều cao tối đa của danh sách */
+  background-color: #f8f9fa; /* Màu nền sáng */
+  border: 1px solid #dee2e6; /* Viền xung quanh */
+  border-radius: 5px; /* Các góc bo tròn */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  padding: 10px;
+  overflow: hidden; /* Ẩn phần nội dung ngoài khung */
+  z-index: 1000; /* Đảm bảo thanh cuộn nằm trên cùng */
+}
+
+.title {
+  margin: 0;
+  padding-bottom: 8px; /* Khoảng cách dưới tiêu đề */
+  font-size: 18px; /* Kích thước chữ tiêu đề */
+  color: #333; /* Màu chữ tiêu đề */
+  border-bottom: 1px solid #dee2e6; /* Viền dưới tiêu đề */
+  font-weight: 600; /* Đậm chữ tiêu đề */
+}
+
+.horizontal-scroll-container {
+  overflow-x: auto; /* Cho phép cuộn ngang */
+  white-space: nowrap; /* Ngăn cách các mục nằm trên cùng một dòng */
+  padding-bottom: 5px; /* Khoảng cách dưới thanh cuộn */
+}
+
+.horizontal-list {
+  list-style: none; /* Loại bỏ dấu chấm */
+  padding: 0;
+  margin: 0;
+  display: flex; /* Sử dụng flex để căn chỉnh các mục theo hàng */
+}
+
+.list-item {
+  display: flex; /* Sử dụng flex để căn chỉnh nội dung */
+  align-items: center; /* Căn chỉnh theo chiều dọc */
+  background-color: #ffffff; /* Màu nền cho từng mục */
+  border: 1px solid #ced4da; /* Viền cho từng mục */
+  border-radius: 4px; /* Bo tròn các góc của mục */
+  padding: 8px 12px;
+  margin-right: 10px; /* Khoảng cách giữa các mục */
+  font-size: 14px; /* Kích thước chữ */
+  color: #333; /* Màu chữ */
+  transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển đổi */
+}
+
+.list-item:hover {
+  background-color: #e9ecef; /* Màu nền khi di chuột qua */
+  color: #007bff; /* Màu chữ khi di chuột qua */
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #dc3545; /* Màu đỏ cho dấu x */
+  cursor: pointer;
+  font-size: 16px; /* Kích thước dấu x */
+  line-height: 1;
+  margin-left: 10px; /* Khoảng cách giữa tên môn học và dấu x */
+  transition: color 0.3s;
+}
+
+.remove-btn:hover {
+  color: #c82333; /* Màu đỏ đậm khi di chuột qua */
+}
+.vertical-list-container {
+  margin: 0; /* Xóa bỏ lề ngoài để thẻ sát vào lề bên trái */
+  padding: 0; /* Xóa bỏ khoảng cách bên trong nếu cần */
+  width: 70%; /* Đặt chiều rộng 100% để đảm bảo nó chiếm toàn bộ chiều rộng của phần tử chứa nó */
+}
+
+.title {
+  margin: 0; /* Xóa bỏ lề ngoài cho tiêu đề để nó không có khoảng cách phía trên hoặc dưới */
+  padding: 10px 0; /* Thêm khoảng cách phía trên và dưới cho tiêu đề nếu cần */
+  font-size: 1.5em; /* Kích thước font cho tiêu đề */
+}
+
+.vertical-scroll-container {
+  overflow-y: auto; /* Thêm cuộn dọc nếu nội dung vượt quá chiều cao của phần tử */
+  max-height: 400px; /* Chiều cao tối đa cho vùng cuộn dọc, điều chỉnh tùy theo nhu cầu */
+  padding: 0; /* Xóa bỏ khoảng cách bên trong nếu cần */
+}
+
+.vertical-list {
+  list-style-type: none; /* Loại bỏ dấu đầu dòng */
+  padding: 0; /* Xóa bỏ khoảng cách bên trong */
+  margin: 0; /* Xóa bỏ khoảng cách bên ngoài */
+}
+
+.list-item {
+  padding: 10px; /* Khoảng cách bên trong cho từng mục trong danh sách */
+  border-bottom: 1px solid #ddd; /* Đường viền dưới cho các mục trong danh sách */
+  display: flex; /* Sử dụng Flexbox để căn chỉnh các phần tử con */
+  justify-content: space-between; /* Đặt khoảng cách đều giữa nội dung và nút xóa */
+  align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.remove-btn {
+  background: none; /* Xóa nền của nút */
+  border: none; /* Xóa viền của nút */
+  color: red; /* Màu sắc cho nút xóa */
+  font-size: 1.2em; /* Kích thước font cho nút xóa */
+  cursor: pointer; /* Hiển thị con trỏ chuột dạng tay khi hover */
+  padding: 0; /* Xóa bỏ khoảng cách bên trong */
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Căn trái các phần tử */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.info-box {
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+}
+
+.info-box p {
+  margin: 0 0 10px 0;
+}
+
+.info-box strong {
   font-weight: bold;
 }
 
-.vertical-timeline-element-content .vertical-timeline-element-date {
-  display: block;
+
+.export-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.export-btn:hover {
+  background-color: #0056b3;
+}
+
+.sign-out-btn {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sign-out-btn:hover {
+  background-color: #e60000;
+}
+
+.calendar-container {
+  max-width: 80%;
+  margin: 40px auto;
+  padding: 0 10px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.full-calendar {
   position: absolute;
-  left: -90px;
   top: 0;
-  padding-right: 10px;
-  text-align: right;
-  color: #adb5bd;
-  font-size: .7619rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+/* Đảm bảo tất cả văn bản trong calendar là màu đen đậm */
+.full-calendar * {
+  color: #000000 !important; /* Màu đen đậm */
+}
+
+@media (max-width: 768px) {
+  .calendar-container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .full-calendar {
+    height: 400px;
+  }
+
+  .info-box {
+    width: 50%;
+    top: 10px;
+    left: 10px;
+  }
+
+  .button-container {
+    gap: 8px;
+    margin-top: 10px; /* Khoảng cách từ info-box xuống */
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-container .full-calendar {
+    height: 300px;
+  }
+
+  .info-box {
+    width: 80%;
+    top: 5px;
+    left: 5px;
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.fa-spinner {
+  font-size: 40px; /* Điều chỉnh kích thước spinner */
+  color: #333; /* Màu của spinner */
+}
+.text-dark {
+  color: #000000; /* Dark black color */
+  font-weight: bold; /* Make the text bold */
+}
+.calendar-container .fc-event-title,
+.calendar-container .fc-event-time,
+.calendar-container .fc {
+  color: #000000 !important; /* Dark black color */
+  font-weight: bold !important; /* Make the text bold */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.button-container button {
+  margin: 10px;
+  font-size: 16px; /* Default font size */
+  padding: 10px 20px; /* Default padding */
+}
+
+@media (max-width: 767px) {
+  .button-container button {
+    font-size: 14px; /* Smaller font size for mobile */
+    padding: 8px 16px; /* Smaller padding for mobile */
+  }
+}
+.table-container {
+  overflow-x: auto;
+}
+
+.table thead th {
   white-space: nowrap;
 }
 
-.vertical-timeline-element-content:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.selected {
-  font-size: 20px !important; /* Đổi kích thước */
-  color: wheat !important; /* Đổi màu chữ */
-  background-color: black !important;
-}
-/* Thiết lập chiều cao cho dropdown */
-.mdb-select {
-  height: 40px;
+.table tbody td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-/* Thiết lập kiểu chữ cho label */
-.select-label {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333; /* Màu chữ */
+/* Flexbox style for study_days column */
+.study-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px; /* Space between items */
+  max-width: 300px; /* Adjust as needed */
 }
 
-/* Thiết lập màu nền cho dropdown */
-.mdb-select .select-dropdown {
-  background-color: #f8f9fa; /* Màu nền */
+.study-days div {
+  flex: 1 1 auto;
+  min-width: 80px; /* Minimum width of each item */
+  text-align: center; /* Center the content */
+  box-sizing: border-box;
 }
 
-/* Thiết lập màu chữ cho dropdown */
-.mdb-select .select-dropdown .select-option {
-  color: #333; /* Màu chữ */
+@media (max-width: 767px) {
+  .study-days {
+    max-width: 100%;
+  }
 }
-.check-button {
-  background-color: green;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 20px; /* Độ rộng của nút */
-  height: 20px; /* Độ cao của nút */
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.check-button:hover {
-  background-color: lightgreen; /* Màu nền xanh lá cây nhạt khi di chuột vào */
-}
-
-.check-button:focus {
-  outline: none; /* Loại bỏ đường viền khi nút được focus */
+/* Styles for the outline-button class */
+.outline-button {
+  background-color: transparent; /* Transparent background */
+  border: 2px solid black; /* Border color and width */
+  color: black; /* Text color */
+  padding: 10px 20px; /* Padding */
+  font-size: 16px; /* Font size */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 

@@ -151,3 +151,116 @@ html, body {
   color: #000000 !important; /* Dark black color */
   font-weight: bold !important; /* Make the text bold */
 }
+/* Đảm bảo container của bạn sử dụng Flexbox */
+.header-container {
+  display: flex;
+  flex-direction: column; /* Đặt các phần tử theo chiều dọc */
+  align-items: center; /* Căn giữa các phần tử theo chiều ngang */
+  text-align: center; /* Căn giữa nội dung văn bản */
+  padding: 20px; /* Khoảng cách xung quanh */
+}
+
+/* Thông tin học sinh */
+.info-box {
+  background-color: #f9f9f9; /* Màu nền nhẹ cho thông tin học sinh */
+  border: 1px solid #ddd; /* Đường viền mảnh */
+  border-radius: 8px; /* Góc bo tròn nhẹ */
+  padding: 20px; /* Khoảng cách bên trong */
+  margin-bottom: 20px; /* Khoảng cách dưới để tách biệt với nút */
+  max-width: 500px; /* Chiều rộng tối đa */
+  width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+}
+
+/* Nút xuất và đăng xuất */
+.button-container {
+  display: flex; /* Sử dụng Flexbox để căn giữa các nút */
+  gap: 10px; /* Khoảng cách giữa các nút */
+  justify-content: center; /* Căn giữa các nút theo chiều ngang */
+  width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+}
+
+.export-btn, .sign-out-btn {
+  background-color: #007bff; /* Màu nền nút */
+  color: white; /* Màu chữ */
+  border: none; /* Xóa đường viền mặc định */
+  border-radius: 5px; /* Góc bo tròn cho nút */
+  padding: 10px 20px; /* Khoảng cách bên trong nút */
+  cursor: pointer; /* Con trỏ chuột khi di chuột qua nút */
+  font-size: 16px; /* Kích thước chữ */
+}
+
+.export-btn {
+  background-color: #28a745; /* Màu nền của nút xuất ICS */
+}
+
+.sign-out-btn {
+  background-color: #dc3545; /* Màu nền của nút đăng xuất */
+}
+
+.export-btn:hover, .sign-out-btn:hover {
+  opacity: 0.9; /* Hiệu ứng khi di chuột qua nút */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Khoảng cách giữa các nút */
+  margin-top: 20px;
+}
+
+button {
+  background: #1e90ff; /* Màu nền đậm hơn để nút nổi bật hơn */
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  font-size: 16px;
+  border-radius: 12px; /* Bo góc mềm mại */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.4s, transform 0.3s;
+  font-weight: bold; /* Chữ đậm hơn */
+}
+
+button i {
+  margin-right: 10px;
+}
+
+button:hover {
+  background: #4682b4; /* Màu nền sáng hơn khi hover */
+  transform: scale(1.1); /* Phóng đại khi hover */
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.4); /* Hiệu ứng sóng mạnh hơn */
+  transition: width 0.4s, height 0.4s, top 0.4s, left 0.4s;
+  border-radius: 50%;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+}
+
+button:hover::before {
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+}
+
+button span {
+  position: relative;
+  z-index: 1;
+}
+
+.export-btn {
+  background: #27ae60; /* Màu nền cho nút xuất */
+}
+
+.sign-out-btn {
+  background: #c0392b; /* Màu nền cho nút đăng xuất */
+}
