@@ -85,7 +85,7 @@
         <div class="input-wrapper">
           <input class="main-search-input-item" [(ngModel)]="student_code" type="text" placeholder="Please enter student code..." />
         </div>
-        <div class="select" (click)="toggleDropdown()">
+        <div class="select" (click)="toggleDropdown()" [class.active]="isDropdownOpen">
           <div class="selected">
             {{this.selectedGrade}}
             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">

@@ -360,9 +360,8 @@ export class ScoresComponent implements OnInit{
   updateOption(option: any){
     this.selectedGrade = option;
   }
+  isDropdownOpen = false;
   toggleDropdown() {
-    const selectElement = document.querySelector('.select');
-    // @ts-ignore
-    selectElement.classList.toggle('active');
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 }
