@@ -111,6 +111,11 @@ export class ScoresComponent implements OnInit{
   }
   fetchData(){
     this.loading = true;
+    // if (!this.searched.indexOf(this.student)){
+    //   this.searched.push(this.student);
+    //   localStorage.setItem('searchHistory', this.searched.toString());
+    //   debugger;
+    // }
     if (this.selectedGrade.toString()===""||this.selectedGrade.toString().length<=1){
       alert("You must choose selection");
     }
@@ -327,4 +332,7 @@ export class ScoresComponent implements OnInit{
   }
   protected readonly style = style;
   protected readonly alert = alert;
+  deleteHistory(index: any){
+    this.searched = this.searched.filter(student => student!==index);
+  }
 }

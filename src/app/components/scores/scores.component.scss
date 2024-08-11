@@ -57,10 +57,6 @@ body{
   position: relative;
 }
 
-.main-search-input-item input:first-child {
-  border-radius: 100%;
-}
-
 .main-search-input-item input {
   float: left;
   border: none;
@@ -73,8 +69,16 @@ body{
   background: #4DB7FE;
   width: 100%; /* Đặt chiều rộng của nút là 100% */
   display: block; /* Chuyển nút sang dạng block để nó sẽ chiếm toàn bộ chiều rộng của container */
-  outline-color: black!important;
+  border: none; /* Đảm bảo không có viền bên trong nút */
+  outline: 2px solid black; /* Thêm viền ngoài đậm 2px màu đen */
+  border-radius: 0; /* Xóa bo góc nếu có */
+  cursor: pointer; /* Thay đổi con trỏ chuột khi hover */
 }
+
+.main-search-button:hover {
+  background-color: #0056b3;
+}
+
 
 
 .main-search-button {
@@ -87,6 +91,7 @@ body{
   border: none;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
+  margin-top: 2%;
   cursor: pointer;
 }
 
@@ -114,15 +119,34 @@ body{
   .main-search-input-item {
     width: 100%;
     border: 1px solid #eee;
+    border-radius: 6px; /* Bo góc cho khung bao ngoài input */
     height: 50px;
-    border: none;
     margin-bottom: 10px;
+    padding: 0 15px; /* Khoảng cách bên trong */
+    display: flex; /* Sử dụng flex để căn chỉnh nội dung */
+    align-items: center; /* Căn giữa nội dung theo chiều dọc */
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng bóng mờ nhẹ cho khung bao */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease; /* Hiệu ứng chuyển tiếp cho box-shadow và màu viền */
   }
 
   .main-search-input-item input {
-    border-radius: 6px !important;
+    width: 100%; /* Đảm bảo input chiếm toàn bộ chiều rộng của khung bao */
+    height: 100%; /* Đảm bảo input chiếm toàn bộ chiều cao của khung bao */
+    border: none; /* Loại bỏ viền mặc định của input */
     background: #fff;
+    border-radius: 6px; /* Bo góc cho input để đồng nhất với khung bao ngoài */
+    padding: 0 15px; /* Khoảng cách bên trong input */
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước của input */
+    font-size: 16px; /* Kích thước chữ của input */
+    color: #333; /* Màu chữ của input */
   }
+
+  .main-search-input-item input:focus {
+    outline: none; /* Loại bỏ outline mặc định khi tập trung vào input */
+    box-shadow: 0 0 0 3px rgba(77, 183, 254, 0.3); /* Tạo hiệu ứng outline khi input được chọn */
+    border-color: #4DB7FE; /* Thay đổi màu viền của khung bao khi input được chọn */
+  }
+
 
   .main-search-button {
     border: none; /* Loại bỏ đường viền */
@@ -322,46 +346,74 @@ body{
   left: 50%;
   transform: translate(-50%, -50%);
   width: 87%;
-  z-index: 999; /* Đảm bảo phần tử nổi lên phía trên */
+  z-index: 999; /* Ensure the element is on top */
 }
+
 .main-search-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ mờ */
-  z-index: 9999; /* Đảm bảo thanh tìm kiếm nằm trên tất cả các phần khác */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  z-index: 9999; /* Ensure the search bar overlay is above all other elements */
   display: flex;
-  justify-content: center; /* Canh giữa theo chiều ngang */
-  align-items: center; /* Canh giữa theo chiều dọc */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
 
 .main-search-wrapper {
-  max-width: 80%; /* Chiều rộng tối đa */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset, 0 0 10px rgba(0, 0, 0, 0.5); /* Hiệu ứng shadow và blur */
+  max-width: 80%; /* Maximum width */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Outer shadow effect */
+  background-color: #fff9ec;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 .main-search-input {
-  width: 100%; /* Chiều rộng của thanh tìm kiếm */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset, 0 0 10px rgba(0, 0, 0, 0.5); /* Hiệu ứng shadow và blur */
+  width: 100%; /* Full width search input */
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset; /* Inner shadow effect */
   background-color: #fff9ec;
-
+  border: 1px solid #ddd;
 }
 
 .cancel-button-container {
-  display: flex!important; /* Sử dụng flexbox */
+  display: flex!important; /* Use flexbox */
+  justify-content: flex-end; /* Align the cancel button to the right */
+}
+
+.search-history {
+  margin-top: 15px;
+}
+
+.search-history h5 {
+  display: flex;
+  align-items: center;
+}
+
+.search-history h5 .fa-times {
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .search-history .cancel-button {
-  background-color: red!important; /* Đặt màu nền là màu đỏ */
-  color: white!important; /* Đặt màu chữ là trắng */
-  border: none!important; /* Loại bỏ viền */
-  padding: 8px 16px!important; /* Đặt khoảng cách giữa nội dung và viền của nút */
-  border-radius: 4px!important; /* Đặt góc bo tròn cho nút */
-  margin-left: auto!important; /* Đẩy nút sang bên phải cùng */
+  background-color: red!important; /* Set background color to red */
+  color: white!important; /* Set text color to white */
+  border: none!important; /* Remove border */
+  padding: 8px 16px!important; /* Padding for the button */
+  border-radius: 4px!important; /* Rounded corners for the button */
+  margin-left: auto!important; /* Push the button to the far right */
   margin-top: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
 }
+
+.search-history .cancel-button:hover {
+  background-color: darkred!important; /* Darken the background on hover */
+}
+
 .select-choice{
   margin-top: 10px;
   transition: background-color 0.3s; /* Hiệu ứng chuyển đổi màu nền */
@@ -762,4 +814,41 @@ body{
   .select-items {
     width: 80%;
   }
+}
+.btn.delete-history {
+  background-color: transparent;
+  border: none;
+  color: #dc3545; /* Bootstrap's 'danger' color for the trash icon */
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 8px;
+  transition: color 0.3s ease;
+}
+
+.btn.delete-history:hover {
+  color: #bd2130; /* Slightly darker red on hover */
+}
+
+.btn.delete-history i {
+  pointer-events: none; /* Prevent the icon from interfering with the button click */
+}
+.cancel-button {
+  background-color: red; /* Red background color */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  padding: 8px 12px; /* Add some padding */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-left: 10px; /* Space away from the dropdown */
+  border-radius: 4px; /* Slightly rounded corners */
+  font-size: 16px; /* Increase font size */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.cancel-button i {
+  margin-right: 4px; /* Space between icon and text */
+}
+
+.cancel-button:hover {
+  background-color: darkred; /* Darker red on hover */
 }

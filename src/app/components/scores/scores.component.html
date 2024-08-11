@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <link rel="stylesheet" href="fonts/icomoon/style.css">
 
@@ -39,43 +40,41 @@
 <div class="content">
   <div class="main-search-input-wrap">
     <div class="overlay" *ngIf="hitButton"></div>
-    <div class="main-search-input fl-wrap select-choice" *ngIf="hitButton==true">
+    <div class="main-search-input fl-wrap select-choice" *ngIf="hitButton">
       <div class="main-search-input-item">
         <input type="text" [(ngModel)]="student_code" placeholder="Please enter your student code...">
       </div>
-      <button class="main-search-button icon-search" (click)="fetchData()"></button>
+      <div class="main-search-controls">
+        <select [(ngModel)]="selectedGrade" class="select-items">
+          <option value="Xếp hạng khóa">Xếp hạng khóa</option>
+          <option value="Xếp hạng khối">Xếp hạng khối</option>
+          <option value="Xếp hạng trường">Xếp hạng trường</option>
+          <option value="Xếp hạng lớp">Xếp hạng lớp</option>
+          <option value="Xếp hạng chuyên nghành">Xếp hạng chuyên ngành</option>
+          <option value="Xếp hạng theo kì">Xếp hạng theo kì gần nhất (ScholarShip)</option>
+        </select>
+        <button class="main-search-button" (click)="fetchData()">
+          <i class="fa fa-search"></i>
+        </button>
+        <button class="cancel-button" (click)="this.hitButton=false">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
       <div class="search-history">
-        <div class="row" style="margin-left: 5px">
-          <select [(ngModel)]="selectedGrade" class="select-items">
-            <option value="Xếp hạng khóa">Xếp hạng khóa</option>
-            <option value="Xếp hạng khối">Xếp hạng khối</option>
-            <option value="Xếp hạng trường">Xếp hạng trường</option>
-            <option value="Xếp hạng lớp">Xếp hạng lớp</option>
-            <option value="Xếp hạng chuyên nghành">Xếp hạng chuyên ngành</option>
-            <option value="Xếp hạng theo kì">Xếp hạng theo kì gần nhất (ScholarShip)</option>
-          </select>
-          <!-- Nút people chiếm 2 cột -->
-<!--          <div class="col-6">-->
-<!--            <button class="icon-people people-button"  (click)="this.classRanking=true; this.schoolRanking=false; alert('cc'); this.hitButton=false">Xếp hạng khối</button>-->
-<!--          </div>-->
-<!--          <div class="col-6">-->
-<!--            <button class="icon-people people-button" (click)="this.classRanking=false; this.schoolRanking=true; this.hitButton=false">Xếp hạng trường</button>-->
-<!--          </div>-->
-          <!-- Nút cancel chiếm 1 cột -->
-<div class="col-2"></div>
-        </div>
-        <button class="icon-cancel cancel-button" (click)="this.hitButton=false"></button>
-        <h5 class="icon-youtube_searched_for"> Lịch sử tìm kiếm</h5>
+        <h5 style="text-align: center"><i class="fa fa-history"></i> Lịch sử tìm kiếm</h5>
         <div class="container-fluid searched" [ngClass]="{'horizontal': searched.length > 3}">
-        <div class="my_info_searched" *ngFor="let student of this.searched" (click)="updateStudentCode(student.student_code)">
-          <h3 class="student_name">{{ student.student_name }}</h3>
-          <button type="button" class="btn btn-outline-success mr-md-3 mb-2 mb-md-0">
-            {{ student.student_code }} <i class="ion-ios-heart ml-1"></i>
-          </button>
-          <button type="button" class="btn btn-outline-danger mr-md-3 mb-2 mb-md-0">
-            <i class="ion-ios-heart mr-1"></i> {{ student.student_class }}
-          </button>
-        </div>
+          <div class="my_info_searched" *ngFor="let student of this.searched" (click)="updateStudentCode(student.student_code)">
+            <h3 class="student_name">{{ student.student_name }}</h3>
+            <button type="button" class="btn btn-outline-success mr-md-3 mb-2 mb-md-0">
+              {{ student.student_code }} <i class="fa fa-heart ml-1"></i>
+            </button>
+            <button type="button" class="btn btn-outline-danger mr-md-3 mb-2 mb-md-0">
+              <i class="fa fa-heart mr-1"></i> {{ student.student_class }}
+            </button>
+            <button type="button" class="btn delete-history" (click)="deleteHistory(student)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
