@@ -1731,3 +1731,60 @@ html, body {
     overflow-y: auto; /* Allow scrolling if the list is long */
   }
 }
+.select {
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  color: white;
+}
+
+.selected {
+  background-color: #2a2f3b;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+}
+
+.arrow {
+  fill: white;
+  transition: transform 0.3s;
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #2a2f3b;
+  border-radius: 5px;
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 1000;
+}
+
+.options.show-options {
+  opacity: 1;
+  visibility: visible;
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #323741;
+}
+
+.options input[type="radio"] {
+  display: none;
+}
+
+.options label {
+  display: block;
+}
