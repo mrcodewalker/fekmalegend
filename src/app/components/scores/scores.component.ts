@@ -26,8 +26,17 @@ export class ScoresComponent implements OnInit{
   classRanking: boolean = false;
   schoolRanking: boolean = true;
   hitButton: boolean = false;
+  historyOptions: StudentDto[] = [];
   searched: StudentDto[] = [];
   topRanking: RankingDto[] = [];
+  rankingOptions: string[] = [
+    "Xếp hạng khóa",
+    "Xếp hạng khối",
+    "Xếp hạng trường",
+    "Xếp hạng lớp",
+    "Xếp hạng chuyên ngành",
+    "Xếp hạng theo kì gần nhất"
+  ];
   subjectsFailed: number = 0;
   subjectList: SubjectDto[] = [];
   cloneRanking: RankingDto = {
@@ -60,9 +69,14 @@ export class ScoresComponent implements OnInit{
 
 
   ngOnInit() {
+    const history = localStorage.getItem('historyOptions');
+    if (history){
+      this.historyOptions = JSON.parse(history);
+    }
 
     this.topRanking = [];
     this.loading = true;
+
     this.rankingService.getListRanking().subscribe({
       next: (response : any) => {
         this.cloneRanking = response;
@@ -251,7 +265,7 @@ export class ScoresComponent implements OnInit{
                     }
                   })
                 } else {
-                  if (this.selectedGrade.toString().toLowerCase()==="xếp hạng theo kì"){
+                  if (this.selectedGrade.toString().toLowerCase()==="xếp hạng theo kì gần nhất"){
                     this.rankingService.getScholarShip(this.student_code).subscribe({
                       next: (response: any) => {
 
@@ -296,11 +310,15 @@ export class ScoresComponent implements OnInit{
           console.log("Error fetching data: " + error.error.message);
         }
       })
-      console.log(this.student.student_name+"\n"+this.scores?.toString());
       this.cdr.detectChanges()
     setTimeout(() => {
       this.loading = false;
       this.hitButton = false;
+      const exists = this.historyOptions.some(code => code.student_code === this.student_code);
+      if (!exists) {
+        this.historyOptions.push(this.student);
+        localStorage.setItem('historyOptions', JSON.stringify(this.historyOptions));
+      }
     }, 2000);  }
   onSubmit() {
     this.fetchData();
@@ -332,7 +350,12 @@ export class ScoresComponent implements OnInit{
   }
   protected readonly style = style;
   protected readonly alert = alert;
-  deleteHistory(index: any){
-    this.searched = this.searched.filter(student => student!==index);
+  deleteHistory(index: any, event: Event){
+    event.stopPropagation();
+    this.historyOptions = this.historyOptions.filter(student => student!==index);
+    localStorage.setItem('historyOptions', JSON.stringify(this.historyOptions));
+  }
+  updateOption(option: any){
+    this.selectedGrade = option;
   }
 }
