@@ -316,8 +316,10 @@ export class ScoresComponent implements OnInit{
       this.hitButton = false;
       const exists = this.historyOptions.some(code => code.student_code === this.student_code);
       if (!exists) {
-        this.historyOptions.push(this.student);
-        localStorage.setItem('historyOptions', JSON.stringify(this.historyOptions));
+        if (this.student_code!==''||this.student_code!==null) {
+          this.historyOptions.push(this.student);
+          localStorage.setItem('historyOptions', JSON.stringify(this.historyOptions));
+        }
       }
     }, 2000);  }
   onSubmit() {
@@ -357,5 +359,10 @@ export class ScoresComponent implements OnInit{
   }
   updateOption(option: any){
     this.selectedGrade = option;
+  }
+  toggleDropdown() {
+    const selectElement = document.querySelector('.select');
+    // @ts-ignore
+    selectElement.classList.toggle('active');
   }
 }

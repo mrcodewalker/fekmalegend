@@ -85,7 +85,7 @@
         <div class="input-wrapper">
           <input class="main-search-input-item" [(ngModel)]="student_code" type="text" placeholder="Please enter student code..." />
         </div>
-        <div class="select">
+        <div class="select" (click)="toggleDropdown()">
           <div class="selected">
             {{this.selectedGrade}}
             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
@@ -99,12 +99,8 @@
             </div>
           </div>
         </div>
-        <button class="outline-button" (click)="fetchData()">
-          <span>Fetch</span>
-        </button>
       </div>
-
-      <!-- Search History Section -->
+        <!-- Search History Section -->
       <div class="search-history">
         <h3>Search History</h3>
         <ul>
