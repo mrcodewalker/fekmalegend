@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, Input, OnInit} from '@angular/core';
 import {ScoreService} from "../services/score.service";
 import {ScoreDto} from "../dtos/score.dto";
 import {StudentDto} from "../dtos/student.dto";
@@ -361,7 +361,19 @@ export class ScoresComponent implements OnInit{
     this.selectedGrade = option;
   }
   isDropdownOpen = false;
-  toggleDropdown() {
+
+  toggleDropdown(event: Event) {
+    event.stopPropagation(); // Prevent event bubbling
     this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+// Close the dropdown if clicking outside of it
+  @HostListener('document:click', ['$event'])
+  closeDropdown(event: Event) {
+    if (!this.isDropdownOpen) return;
+    const target = event.target as HTMLElement;
+    if (!target.closest('.select')) {
+      this.isDropdownOpen = false;
+    }
   }
 }
