@@ -81,7 +81,6 @@ export class ScoresComponent implements OnInit{
       next: (response : any) => {
         this.cloneRanking = response;
         this.topRanking = response;
-        debugger;
       },
       complete: () => {
         this.cdr.detectChanges()

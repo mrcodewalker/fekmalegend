@@ -109,7 +109,6 @@ export class VirtualCalendarComponent implements OnInit {
       this.detailCourse.get(response.course_name).add(response.details);
     });
     this.loadEvents();
-    debugger;
   }
     signOut(){
     localStorage.setItem('jack','false');
@@ -138,7 +137,6 @@ export class VirtualCalendarComponent implements OnInit {
     setTimeout(() => {
       this.loading = false;
     }, 200);
-    debugger;
   }
   processBaseTime(baseTime: string): string {
     const sections = baseTime.split('Từ');
@@ -204,7 +202,6 @@ export class VirtualCalendarComponent implements OnInit {
       }
     }
     this.loadEvents();
-    debugger;
   }
 
   updateHeartIcon(isUnique: boolean) {
@@ -216,7 +213,6 @@ export class VirtualCalendarComponent implements OnInit {
         heartIcon.classList.remove('active');
       }
     }
-    debugger
   }
 
   isLiked(detail: any): boolean {

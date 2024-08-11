@@ -22,6 +22,7 @@ export class HeaderComponent {
 
   setActive(link: string) {
     this.activeLink = link;
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
   isActive(link: string): boolean {

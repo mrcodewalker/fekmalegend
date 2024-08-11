@@ -107,7 +107,6 @@ export class LoginComponent implements OnInit{
         next: (response: any) => {
 
           this.virtual = response;
-          debugger;
 
           if (this.virtual.code==="200"){
             localStorage.setItem("virtual_calendar", JSON.stringify(this.virtual));
