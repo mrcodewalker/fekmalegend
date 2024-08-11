@@ -169,7 +169,7 @@ export class ScheduleComponent implements OnInit{
       '4,5,6': { start: '09:35', end: '12:00' },
       '7,8,9': { start: '12:30', end: '14:55' },
       '10,11,12': { start: '15:05', end: '17:30' },
-      '13,14,15': { start: '18:00', end: '21:00' }
+      '13,14,15,16': { start: '18:00', end: '20:30' }
     };
 
     return timeMapping[lessons] || { start: '00:00', end: '23:59' }; // Giá trị mặc định nếu không tìm thấy lesson
