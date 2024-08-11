@@ -1717,3 +1717,17 @@ html, body {
     margin-top: 10px; /* Khoảng cách trên nút xóa khi hiển thị dưới cùng */
   }
 }
+.options {
+  display: block; /* Ensure it's not set to 'none' */
+  position: absolute;
+  z-index: 1000; /* High z-index to ensure it appears on top */
+}
+
+@media (max-width: 768px) {
+  .options {
+    /* Adjust styles for mobile devices */
+    width: 100%; /* Full width on mobile */
+    max-height: 200px; /* Limit the height to ensure it fits within the screen */
+    overflow-y: auto; /* Allow scrolling if the list is long */
+  }
+}
