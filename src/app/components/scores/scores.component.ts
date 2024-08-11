@@ -316,7 +316,7 @@ export class ScoresComponent implements OnInit{
       this.hitButton = false;
       const exists = this.historyOptions.some(code => code.student_code === this.student_code);
       if (!exists) {
-        if (this.student_code!==''||this.student_code!==null) {
+        if (this.student_code!==''&&this.student_code!==null&&this.student_code.length>6) {
           this.historyOptions.push(this.student);
           localStorage.setItem('historyOptions', JSON.stringify(this.historyOptions));
         }
