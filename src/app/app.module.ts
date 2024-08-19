@@ -65,26 +65,10 @@ import {NotificationService} from "./components/services/notification.service";
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [
-    NotificationService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (notificationService: NotificationService) => () => notificationService.requestNotificationPermission(),
-      deps: [NotificationService],
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').then(registration => {
-        console.log('Service Worker registered with scope:', registration.scope);
-      }).catch(error => {
-        console.error('Service Worker registration failed:', error);
-      });
-    }
-  }
+
 }
 
