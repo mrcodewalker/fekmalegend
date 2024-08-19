@@ -1853,3 +1853,74 @@ button.btn-outline-info {
   margin-top: 20px;
   text-align: center;
 }
+.student-card-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px;
+  padding: 20px;
+}
+
+.student-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 30%;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.student-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.medal-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.info {
+  padding: 10px;
+}
+
+.name {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.class, .student-id, .gpa, .ranking {
+  font-size: 1.1em;
+  margin: 5px 0;
+  color: #333;
+}
+
+.class i, .student-id i, .gpa i, .ranking i {
+  margin-right: 8px;
+  color: #777;
+}
+
+.top1 {
+  background: #f8d7da;
+  border: 2px solid #e6a1a1;
+}
+
+.top2 {
+  background: #d4edda;
+  border: 2px solid #c3e6cb;
+}
+
+.top3 {
+  background: #d1ecf1;
+  border: 2px solid #bee5eb;
+}

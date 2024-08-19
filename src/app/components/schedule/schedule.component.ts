@@ -99,6 +99,7 @@ export class ScheduleComponent implements OnInit{
       //     // console.log('Received schedule:', this.schedule);
       //   }
       // });
+      this.requestNotificationPermission();
       const savedSchedule = localStorage.getItem('schedule');
       if (savedSchedule) {
         this.schedule = JSON.parse(savedSchedule);
@@ -117,7 +118,54 @@ export class ScheduleComponent implements OnInit{
                 public dialog: MatDialog,
                 private loginService: LoginService) {
     }
-    signOut(){
+  requestNotificationPermission() {
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission().then(permission => {
+        if (permission !== 'granted') {
+          console.error('Notification permission denied.');
+        }
+      });
+    }
+  }
+  scheduleEventNotifications() {
+    const events = this.schedule.data.student_schedule.flatMap(item => {
+      const dates = item.study_days.split(' ');
+      const lessons = item.lessons.split(' ');
+      return dates.map((date: any, index: number) => {
+        const { start } = this.getLessonTimeRange(lessons[index]);
+        const eventDateTime = moment(`${date} ${start}`, 'DD/MM/YYYY HH:mm').toDate();
+        return {
+          title: item.course_name,
+          start: eventDateTime,
+          description: `Location: ${item.study_location}, Teacher: ${item.teacher}`
+        };
+      });
+    });
+
+    const now = new Date();
+    events.forEach(event => {
+      const eventTime = event.start.getTime();
+      const notificationTime = eventTime - 30 * 60 * 1000; // 30 minutes before the event
+
+      if (notificationTime > now.getTime()) {
+        const timeoutDuration = notificationTime - now.getTime();
+        setTimeout(() => {
+          this.showNotification(event);
+        }, timeoutDuration);
+      }
+    });
+  }
+
+  showNotification(event: any) {
+    if (Notification.permission === 'granted') {
+      new Notification('Upcoming Event', {
+        body: `Your event "${event.title}" is starting soon. Location: ${event.description}`,
+        icon: 'https://actvn.edu.vn/Images/Uploadimages/Logo%20HV/0001.jpg' // Optional: Path to an icon image
+      });
+    }
+  }
+
+  signOut(){
       localStorage.setItem("wibu","false");
       localStorage.removeItem("schedule");
       this.route.navigate(['login']);
@@ -162,6 +210,7 @@ export class ScheduleComponent implements OnInit{
         };
       });
     });
+    this.scheduleEventNotifications();
   }
    getLessonTimeRange  (lessons: string): { start: string, end: string }  {
     const timeMapping: { [key: string]: { start: string, end: string } } = {

@@ -1,6 +1,6 @@
 import {MatListModule} from "@angular/material/list";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { NgModule } from '@angular/core';
+import {NgModule, isDevMode, APP_INITIALIZER} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,9 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { EventDialogComponent } from './components/event-dialog/event-dialog.component';
 import { LoginVirtualComponent } from './components/login-virtual/login-virtual.component';
+import { Top100Component } from './components/top100/top100.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import {NotificationService} from "./components/services/notification.service";
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { LoginVirtualComponent } from './components/login-virtual/login-virtual.
     ScheduleComponent,
     EventDialogComponent,
     LoginVirtualComponent,
+    Top100Component,
     // CalendarComponent
   ],
   imports: [
@@ -53,12 +57,34 @@ import { LoginVirtualComponent } from './components/login-virtual/login-virtual.
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    MatDialogModule
+    MatDialogModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
-  providers: [],
+  providers: [
+    NotificationService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (notificationService: NotificationService) => () => notificationService.requestNotificationPermission(),
+      deps: [NotificationService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-
+  constructor() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').then(registration => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      }).catch(error => {
+        console.error('Service Worker registration failed:', error);
+      });
+    }
+  }
 }
 

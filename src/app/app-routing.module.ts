@@ -8,6 +8,8 @@ import {VirtualCalendarComponent} from "./components/virtual-calendar/virtual-ca
 import {LoginComponent} from "./components/login/login.component";
 import {ScheduleComponent} from "./components/schedule/schedule.component";
 import {LoginVirtualComponent} from "./components/login-virtual/login-virtual.component";
+import {Top100Component} from "./components/top100/top100.component";
+import { MatDialogModule } from '@angular/material/dialog'; // Thêm module này nếu sử dụng Angular Material
 
 const routes: Routes = [
   // { path: '', component: AppComponent },
@@ -18,6 +20,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'schedule', component: ScheduleComponent},
   { path: 'login/virtual', component:  LoginVirtualComponent},
+  { path: 'top100', component:  Top100Component},
   { path: '**', component: HomeComponent }
 ];
 @NgModule({
