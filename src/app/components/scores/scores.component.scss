@@ -1924,3 +1924,26 @@ button.btn-outline-info {
   background: #d1ecf1;
   border: 2px solid #bee5eb;
 }
+@media (max-width: 600px) {
+  .student-card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .student-card {
+    width: 90%; /* Full width with some margin on small screens */
+  }
+
+  .name {
+    font-size: 1.2em;
+  }
+
+  .class, .student-id, .gpa, .ranking {
+    font-size: 1em;
+  }
+
+  .medal-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
