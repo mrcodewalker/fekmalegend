@@ -3,7 +3,8 @@
 </h2>
 <mat-dialog-content>
   <p><i class="fas fa-info-circle"></i> <strong> Description:</strong></p>
-  <p>{{ data.description }}</p>
+  <p><i class="fas fa-map-marker-alt"></i> <strong> Location:</strong> {{ this.location }}</p>
+  <p><i class="fas fa-user-tie"></i> <strong> Teacher:</strong> {{ this.teacher }}</p>
   <p><i class="fas fa-clock"></i> <strong> Start:</strong> {{ data.start | date:'dd/MM/yyyy HH:mm' }}</p>
   <p><i class="fas fa-hourglass-end"></i> <strong> End:</strong> {{ data.end | date:'dd/MM/yyyy HH:mm' }}</p>
 </mat-dialog-content>
