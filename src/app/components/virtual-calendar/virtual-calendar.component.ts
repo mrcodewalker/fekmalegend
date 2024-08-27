@@ -397,7 +397,11 @@ export class VirtualCalendarComponent implements OnInit {
       window.scrollTo(0, this.currentScrollPosition);
     });
   }
-  exportTxtFile() {
+  async exportTxtFile() {
+    if (this.listSubjects.length===0){
+      await this.openDialog('Warning', `No subject contains in the list, Please try again!`);
+      return;
+    }
     const content = this.listSubjects.map(subject => subject.course_name).join('\n');
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
@@ -407,25 +411,37 @@ export class VirtualCalendarComponent implements OnInit {
     link.click();
     URL.revokeObjectURL(url);
   }
-  exportICSFile() {
+
+  async exportICSFile() {
+    // console.log('Export function called'); // Kiểm tra khi hàm được gọi
+    if (this.listSubjects.length === 0) {
+      await this.openDialog('Warning', 'No subject contains in the list, Please try again!');
+      return;
+    }
+
     this.loading = true;
+
     this.calendarFakeICS.data.student_schedule = this.listSubjects;
+
     this.loginService.export(this.calendarFakeICS).subscribe({
       next: (response: Blob) => {
-        // Tạo URL và tải file
+        // Create URL and download file
         const url = window.URL.createObjectURL(response);
         const a = document.createElement('a');
         a.href = url;
         a.download = 'kma_legend.ics';
+        document.body.appendChild(a); // Required for Firefox
         a.click();
+        document.body.removeChild(a); // Remove the element after clicking
         window.URL.revokeObjectURL(url);
       },
       error: (err: any) => {
         console.error('Error fetching data:', err.message);
+        this.openDialog('Error', 'Failed to export ICS file. Please try again.');
+      },
+      complete: () => {
+        this.loading = false;
       }
     });
-    setTimeout(() => {
-      this.loading = false;
-    }, 200);
   }
 }
