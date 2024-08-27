@@ -13,7 +13,7 @@ export class RankingService{
   private apiMajorRanking = `${environment.apiBaseUrl}/ranking/major`;
   private apiBlockDetailsRanking = `${environment.apiBaseUrl}/ranking/block_details`;
   private apiScholarShip = `${environment.apiBaseUrl}/semester/scholarship`;
-  private apiTop100 = `${environment.apiLocalUrl}/semester/top100`;
+  private apiTop100 = `${environment.apiBaseUrl}/semester/top100`;
 
   private apiGetListRanking = `${environment.apiBaseUrl}/ranking/top`;
 
