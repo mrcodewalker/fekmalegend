@@ -261,24 +261,32 @@ export class VirtualCalendarComponent implements OnInit {
     localStorage.setItem('wish',JSON.stringify(this.listSubjects));
     this.openDialog('Information', `Your data has been saved successfully!`);
   }
-  refreshList(){
+  async refreshList() {
+    await this.openDialog('Information', `All of subjects have been deleted successfully!`);
+
     localStorage.removeItem('wish');
+
+    // Perform navigation after the dialog is closed
     this.router.navigate(['/calendar']).then(() => {
       window.location.reload();
     });
+
     this.loadEvents();
   }
+
   removeItem(key: any) {
     this.listSubjects = this.listSubjects.filter(subject => subject !== key);
     this.loadEvents();
   }
-  openDialog(title: string, message: string) {
-    console.log('Opening dialog with title:', title); // Debug line
-    this.dialog.open(DialogComponent, {
+  openDialog(title: string, message: string): Promise<void> {
+    const dialogRef = this.dialog.open(DialogComponent, {
       data: { title, message },
-      width: '300px'
+      width: '400px'
     });
+
+    return dialogRef.afterClosed().toPromise();
   }
+
 
 
   scheduleVirtual: CalendarDto = {
