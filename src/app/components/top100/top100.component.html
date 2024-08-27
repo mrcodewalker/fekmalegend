@@ -1,1 +1,40 @@
-<p>top100 works!</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div class="effect-container">
+  <div class="flower-container"></div>
+  <div class="confetti-container-left"></div>
+  <div class="confetti-container-right"></div>
+</div>
+
+<div class="leaderboard-container">
+  <h2 class="leaderboard-title">The Best Students</h2>
+  <div class="leaderboard">
+    <div class="leaderboard-header">
+      <div class="header-item">Rank</div>
+      <div class="header-item">Name</div>
+      <div class="header-item">Class</div>
+      <div class="header-item">Score</div>
+    </div>
+    <div class="leaderboard-list">
+      <div *ngFor="let student of this.students" class="leaderboard-item" [ngClass]="getRankClass(student.ranking)">
+        <div class="item-rank">
+          <ng-container *ngIf="student.ranking === 1">
+            <i class="fa-solid fa-medal gold"></i>
+          </ng-container>
+          <ng-container *ngIf="student.ranking === 2">
+            <i class="fa-solid fa-medal silver"></i>
+          </ng-container>
+          <ng-container *ngIf="student.ranking === 3">
+            <i class="fa-solid fa-medal bronze"></i>
+          </ng-container>
+          <ng-container *ngIf="student.ranking > 3">
+            {{ student.ranking }}
+          </ng-container>
+        </div>
+        <div class="item-name">{{ student.student_name }}</div>
+        <div class="item-score">{{ student.student_class }}</div>
+        <div class="item-score">{{ student.gpa }}</div>
+      </div>
+    </div>
+  </div>
+</div>

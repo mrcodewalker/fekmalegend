@@ -13,6 +13,7 @@ export class RankingService{
   private apiMajorRanking = `${environment.apiBaseUrl}/ranking/major`;
   private apiBlockDetailsRanking = `${environment.apiBaseUrl}/ranking/block_details`;
   private apiScholarShip = `${environment.apiBaseUrl}/semester/scholarship`;
+  private apiTop100 = `${environment.apiLocalUrl}/semester/top100`;
 
   private apiGetListRanking = `${environment.apiBaseUrl}/ranking/top`;
 
@@ -25,6 +26,9 @@ export class RankingService{
   getScholarShip(student_code: string): Observable<any>{
     const params = new HttpParams().set('student_code', student_code);
     return this.http.get<any>(this.apiScholarShip, { params });
+  }
+  getListTop100(): Observable<any>{
+    return this.http.get<any>(this.apiTop100);
   }
   getClassRanking(student_code: string): Observable<any>{
     const params = new HttpParams().set('student_code', student_code);
