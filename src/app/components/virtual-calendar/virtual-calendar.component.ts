@@ -17,6 +17,7 @@ import {MatDialog} from "@angular/material/dialog";
 import moment from "moment/moment";
 import {EventDialogComponent} from "../event-dialog/event-dialog.component";
 import {LoginService} from "../services/login.service";
+import {DialogComponent} from "../dialog/dialog.component";
 
 @Component({
   selector: 'app-virtual-calendar',
@@ -158,7 +159,7 @@ export class VirtualCalendarComponent implements OnInit {
     let isUnique = true;
 
     for (let subject of this.listSubjects) {
-      // Kiểm tra nếu subject hiện tại không phải là chính nó
+      // Check if the subject is not itself
       if (subject.course_name !== this.addToList.course_name) {
         const existingStudyDays = subject.study_days.split(' ');
         const existingLessons = subject.lessons.split(' ');
@@ -167,7 +168,7 @@ export class VirtualCalendarComponent implements OnInit {
           if (existingStudyDays.includes(newDay)) {
             for (let newLesson of newLessons) {
               if (existingLessons.includes(newLesson)) {
-                alert(`2 môn bị trùng nhau gồm ${this.addToList.course_name} và ${subject.course_name}`);
+                this.openDialog('Warning', `2 môn bị trùng nhau gồm \n${this.addToList.course_name} \nvà \n${subject.course_name}`);
                 isUnique = false;
                 break;
               }
@@ -197,7 +198,7 @@ export class VirtualCalendarComponent implements OnInit {
       if (index !== -1) {
         this.listSubjects[index] = this.addToList;
       } else {
-        // Nếu không tìm thấy, thêm phần tử mới vào mảng
+        // If not found, add a new item to the array
         this.listSubjects.push(this.addToList);
       }
     }
@@ -258,7 +259,7 @@ export class VirtualCalendarComponent implements OnInit {
   }
   saveWishList(){
     localStorage.setItem('wish',JSON.stringify(this.listSubjects));
-    alert("Your data has been saved successfully!");
+    this.openDialog('Information', `Your data has been saved successfully!`);
   }
   refreshList(){
     localStorage.removeItem('wish');
@@ -271,6 +272,15 @@ export class VirtualCalendarComponent implements OnInit {
     this.listSubjects = this.listSubjects.filter(subject => subject !== key);
     this.loadEvents();
   }
+  openDialog(title: string, message: string) {
+    console.log('Opening dialog with title:', title); // Debug line
+    this.dialog.open(DialogComponent, {
+      data: { title, message },
+      width: '300px'
+    });
+  }
+
+
   scheduleVirtual: CalendarDto = {
     code: '',
     message: '',

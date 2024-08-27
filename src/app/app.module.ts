@@ -26,6 +26,7 @@ import { LoginVirtualComponent } from './components/login-virtual/login-virtual.
 import { Top100Component } from './components/top100/top100.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {NotificationService} from "./components/services/notification.service";
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {NotificationService} from "./components/services/notification.service";
     EventDialogComponent,
     LoginVirtualComponent,
     Top100Component,
+    DialogComponent,
     // CalendarComponent
   ],
   imports: [
@@ -66,8 +68,8 @@ import {NotificationService} from "./components/services/notification.service";
     })
   ],
   providers: [],
-  bootstrap: [AppComponent]
-})
+  bootstrap: [AppComponent],
+  })
 export class AppModule {
 
 }

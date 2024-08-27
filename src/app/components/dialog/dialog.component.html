@@ -1,0 +1,16 @@
+<div class="container">
+<h2 mat-dialog-title class="dialog-title" [ngClass]="{'warning-title': data.title === 'Warning'}">
+  <i class="fas fa-calendar-alt"></i> {{ data.title }}
+</h2>
+<mat-dialog-content>
+  <p *ngIf="data.title === 'Warning'" class="warning-content">
+    <i class="fas fa-exclamation-triangle"></i> {{ data.message }}
+  </p>
+  <p *ngIf="data.title !== 'Warning'" class="notification-content">
+    <i class="fas fa-info-circle"></i> {{ data.message }}
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close><i class="fas fa-times-circle"></i> Close</button>
+</mat-dialog-actions>
+</div>
