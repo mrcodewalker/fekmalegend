@@ -63,8 +63,8 @@
     <button class="btn btn-primary" (click)="exportTxtFile()">
       <i class="fas fa-file-text"></i> Export Txt File
     </button>
-    <button class="btn btn-info">
-      <i class="fas fa-file-download" (click)="exportICSFile()"></i> Export ICS File
+    <button (click)="exportICSFile()" class="export-btn">
+      <i class="fas fa-file-export"></i> Export ICS File
     </button>
     <button class="btn btn-danger" (click)="signOut()">
       <i class="fas fa-sign-out-alt"></i> Sign Out

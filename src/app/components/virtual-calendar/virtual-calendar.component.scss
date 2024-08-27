@@ -759,3 +759,18 @@ html, body {
     font-size: 14px;
   }
 }
+.export-btn {
+  background-color: #6f42c1; /* Màu tím đậm cho nền nút */
+  color: #fff; /* Màu chữ trắng */
+  border: none; /* Không có viền */
+  padding: 12px 24px; /* Padding rộng hơn để tạo cảm giác sang trọng */
+  border-radius: 5px; /* Góc bo tròn để tạo cảm giác hiện đại */
+  font-size: 16px; /* Kích thước chữ dễ đọc */
+  font-weight: 600; /* Đậm chữ để nổi bật hơn */
+  text-transform: uppercase; /* Viết hoa chữ để làm nổi bật */
+  cursor: pointer; /* Hiển thị con trỏ chuột dạng tay khi hover */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng chuyển màu và biến dạng khi hover */
+  display: inline-flex; /* Sử dụng flex để căn chỉnh nội dung bên trong */
+  align-items: center; /* Căn chỉnh nội dung theo chiều dọc */
+  justify-content: center; /* Căn giữa nội dung */
+}
