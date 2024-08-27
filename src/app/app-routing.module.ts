@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'schedule', component: ScheduleComponent},
   { path: 'login/virtual', component:  LoginVirtualComponent},
-  { path: 'top100', component:  Top100Component},
+  { path: 'best/students', component:  Top100Component},
   { path: '**', component: HomeComponent }
 ];
 @NgModule({

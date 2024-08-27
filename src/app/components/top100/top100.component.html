@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+<div *ngIf="loading" class="loading-overlay">
+  <i class="fas fa-spinner fa-spin"></i> <!-- Sử dụng biểu tượng spinner -->
+</div>
 <div class="effect-container">
   <div class="flower-container"></div>
   <div class="confetti-container-left"></div>
