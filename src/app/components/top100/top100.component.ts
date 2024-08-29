@@ -59,13 +59,6 @@ export class Top100Component implements OnInit {
     }
   }
 
-  @HostListener('mouseout', ['$event'])
-  onMouseOut(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-    if (this.dropdownElement && !this.dropdownElement.contains(target)) {
-      this.isDropdownOpen = false;
-    }
-  }
 
   fetchData() {
     // Simulate fetch data logic
