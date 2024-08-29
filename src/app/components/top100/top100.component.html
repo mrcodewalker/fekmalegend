@@ -7,9 +7,30 @@
   <div class="confetti-container-left"></div>
   <div class="confetti-container-right"></div>
 </div>
-
 <div class="leaderboard-container">
-  <h2 class="leaderboard-title">The Best Students</h2>
+  <div class="search-input" (mouseover)="onMouseOver($event)" (mouseout)="onMouseOut($event)">
+    <div class="select" (click)="toggleDropdown($event)">
+      <div class="selected">
+        {{ selectedGrade }}
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow" [class.open]="isDropdownOpen">
+          <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path>
+        </svg>
+      </div>
+      <div class="options" [style.opacity]="isDropdownOpen ? '1' : '0'" [style.visibility]="isDropdownOpen ? 'visible' : 'hidden'">
+        <div *ngFor="let option of rankingOptions" (click)="updateOption(option)">
+          <input [id]="option" name="option" type="radio" [checked]="option === selectedGrade" />
+          <label class="option" [for]="option">{{ option }}</label>
+        </div>
+      </div>
+    </div>
+    <button class="outline-button" (click)="fetchData()">
+      <span>Fetch</span>
+    </button>
+    <button class="export-button" (click)="exportToExcel()">
+      <i class="fas fa-file-excel"></i> Export to Excel
+    </button>
+  </div>
+  <h2 class="leaderboard-title">List of prospective scholarship recipients.</h2>
   <div class="leaderboard">
     <div class="leaderboard-header">
       <div class="header-item">Rank</div>

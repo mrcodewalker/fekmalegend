@@ -228,3 +228,311 @@
 .bronze {
   color: #cd7f32; /* Màu huy chương đồng */
 }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center elements in the container */
+  gap: 1rem; /* Space between elements */
+  padding: 10px;
+  flex-wrap: wrap; /* Allow elements to wrap when not enough space */
+}
+
+.select {
+  width: 30%; /* Fixed size for select element */
+  cursor: pointer;
+  position: relative;
+  transition: 300ms;
+  color: white;
+}
+
+.selected {
+  background-color: #2a2f3b;
+  padding: 5px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 100; /* Ensure select element is not obscured */
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrow {
+  height: 10px;
+  transform: rotate(-90deg);
+  width: 25px;
+  fill: white;
+  transition: 300ms;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #2a2f3b;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  visibility: hidden; /* Hide options when not hovered */
+  transition: opacity 300ms, visibility 300ms;
+  z-index: 200; /* Ensure dropdown is on top */
+  width: 100%; /* Ensure size fits select element */
+}
+
+.select:hover > .options {
+  opacity: 1;
+  visibility: visible; /* Show options on hover */
+}
+
+.select:hover > .selected .arrow {
+  transform: rotate(0deg);
+}
+
+.option {
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #2a2f3b;
+  width: 100%; /* Ensure option does not stretch */
+  font-size: 15px;
+}
+
+.option:hover {
+  background-color: #323741;
+}
+
+.options input[type="radio"] {
+  display: none;
+}
+
+.options label {
+  display: block; /* Ensure label is clickable */
+}
+
+.options label::before {
+  content: attr(data-txt);
+}
+
+.options input[type="radio"]:checked + label {
+  display: none;
+}
+
+.options input[type="radio"]#all:checked + label {
+  display: none;
+}
+
+.select:has(.options input[type="radio"]#all:checked) .selected::before {
+  content: attr(data-default);
+}
+.select:has(.options input[type="radio"]#option-1:checked) .selected::before {
+  content: attr(data-one);
+}
+.select:has(.options input[type="radio"]#option-2:checked) .selected::before {
+  content: attr(data-two);
+}
+.select:has(.options input[type="radio"]#option-3:checked) .selected::before {
+  content: attr(data-three);
+}
+
+button {
+  background: #fff;
+  border: none;
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  width: 120px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: skew(-21deg);
+  margin-left: 1rem; /* Space between select elements and button */
+  position: relative;
+  z-index: 100; /* Ensure button is on top */
+}
+
+span {
+  display: inline-block;
+  transform: skew(21deg);
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  left: 0;
+  background: rgb(20, 20, 20);
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+button:hover {
+  color: #ffffff;
+}
+
+button:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .select {
+    width: 70%; /* Full width on smaller screens */
+    position: relative; /* Ensure select element is not obscured */
+  }
+
+  button {
+    width: 70%; /* Adjust button width for smaller screens */
+    margin-left: 0; /* Remove margin on smaller screens */
+  }
+}
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Căn giữa theo chiều ngang */
+  justify-content: center; /* Căn giữa theo chiều dọc nếu cần */
+  margin-bottom: 20px; /* Khoảng cách dưới cùng nếu cần */
+}
+
+.search-input {
+  display: flex;
+  margin-bottom: 5%;
+  align-items: center; /* Căn giữa các phần tử con theo chiều dọc */
+  justify-content: center; /* Căn giữa các phần tử con theo chiều ngang */
+  gap: 10px; /* Khoảng cách giữa các phần tử con */
+}
+
+/* Căn giữa phần tử dropdown */
+.select {
+  width: 200px; /* Hoặc bất kỳ chiều rộng nào bạn muốn */
+  position: relative;
+}
+
+.selected {
+  background-color: #2a2f3b;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrow {
+  height: 10px;
+  transform: rotate(-90deg);
+  width: 25px;
+  fill: white;
+  transition: 300ms;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #2a2f3b;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms, visibility 300ms;
+  width: 100%;
+}
+
+.select:hover > .options,
+.options:hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+.select:hover > .selected .arrow {
+  transform: rotate(0deg);
+}
+
+/* Style cho button */
+.outline-button {
+  background: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: skew(-21deg);
+  position: relative;
+  z-index: 100;
+}
+
+.outline-button span {
+  display: inline-block;
+  transform: skew(21deg);
+}
+
+.outline-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  left: 0;
+  background: rgb(20, 20, 20);
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+.outline-button:hover {
+  color: #ffffff;
+}
+
+.outline-button:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+.export-button {
+  display: flex;
+  align-items: center;
+  background-color: #1e7e34; /* Excel green */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.export-button i {
+  margin-right: 8px; /* Space between icon and text */
+  font-size: 20px; /* Icon size */
+}
+
+
+.export-button:focus {
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Focus outline */
+}
+
+.export-button:active {
+  background-color: #124b1b; /* Even darker green for active state */
+}

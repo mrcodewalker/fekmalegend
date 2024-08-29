@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../enviroments/enviroment";
 import {Observable} from "rxjs";
+import {SingleStringDto} from "../dtos/single.string.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class RankingService{
   private apiMajorRanking = `${environment.apiBaseUrl}/ranking/major`;
   private apiBlockDetailsRanking = `${environment.apiBaseUrl}/ranking/block_details`;
   private apiScholarShip = `${environment.apiBaseUrl}/semester/scholarship`;
-  private apiTop100 = `${environment.apiBaseUrl}/semester/top100`;
+  private apiTop100 = `${environment.apiLocalUrl}/semester/top100`;
+  private apiGetScholarship = `${environment.apiLocalUrl}/semester/filter/scholarship`;
+
 
   private apiGetListRanking = `${environment.apiBaseUrl}/ranking/top`;
 
@@ -29,6 +32,9 @@ export class RankingService{
   }
   getListTop100(): Observable<any>{
     return this.http.get<any>(this.apiTop100);
+  }
+  getListScholarship(data: SingleStringDto): Observable<any>{
+    return this.http.post<any>(this.apiGetScholarship, data);
   }
   getClassRanking(student_code: string): Observable<any>{
     const params = new HttpParams().set('student_code', student_code);
