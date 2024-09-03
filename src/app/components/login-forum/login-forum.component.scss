@@ -1,0 +1,228 @@
+/* Background for the entire page */
+body {
+  background-color: #2c3e50; /* Dark background for the whole page */
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container for the auth form */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.auth-container {
+  width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Darker shadow */
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f5f5f5; /* Light background for the form */
+}
+
+.auth-toggle {
+  display: flex;
+  justify-content: space-around;
+  background-color: #4CAF50; /* Bright green for toggle buttons */
+  color: white;
+}
+
+.auth-toggle button {
+  flex: 1;
+  padding: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+  color: white;
+}
+
+.auth-toggle button:hover,
+.auth-toggle button.active {
+  background-color: #66BB6A; /* Lighter green on hover */
+}
+
+.form-container {
+  padding: 20px;
+  transition: all 0.5s ease;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #4CAF50; /* Bright green for the headings */
+}
+
+form input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #fff; /* White background for inputs */
+  color: #333; /* Darker text color */
+}
+
+form input:focus {
+  border-color: #66BB6A; /* Border color change on focus */
+  outline: none;
+}
+
+form button {
+  padding: 10px;
+  border: none;
+  background-color: #4CAF50; /* Button background */
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background-color: #66BB6A; /* Button hover color */
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.5s ease;
+}
+
+.forum-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-section textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.post-section button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.posts-list {
+  margin-top: 20px;
+}
+
+.post {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.actions button:hover {
+  color: #4CAF50;
+}
+
+.post textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.post button {
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.social-login button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 0 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%; /* Đặt chiều rộng nút để phù hợp với kích thước form */
+  max-width: 150px; /* Đặt chiều rộng tối đa cho nút */
+}
+
+.social-login .google {
+  background: #db4437; /* Google Red */
+}
+
+.social-login .facebook {
+  background: #4267B2; /* Facebook Blue */
+}
+
+.social-login .github {
+  background: #333; /* GitHub Dark Gray */
+}
+
+.social-login .google:hover {
+  background: #c1351d;
+}
+
+.social-login .facebook:hover {
+  background: #365899;
+}
+
+.social-login .github:hover {
+  background: #444; /* GitHub Darker Gray */
+}
+
+.social-login i {
+  margin-right: 8px;
+}

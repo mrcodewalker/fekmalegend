@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
 import { ScoresComponent } from './components/scores/scores.component';
-import {HttpClientJsonpModule, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -27,6 +27,8 @@ import { Top100Component } from './components/top100/top100.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {NotificationService} from "./components/services/notification.service";
 import { DialogComponent } from './components/dialog/dialog.component';
+import {AuthInterceptor} from "./components/services/auth.interceptor";
+import { LoginForumComponent } from './components/login-forum/login-forum.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     LoginVirtualComponent,
     Top100Component,
     DialogComponent,
+    LoginForumComponent,
     // CalendarComponent
   ],
   imports: [
@@ -67,7 +70,13 @@ import { DialogComponent } from './components/dialog/dialog.component';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   })
 export class AppModule {
