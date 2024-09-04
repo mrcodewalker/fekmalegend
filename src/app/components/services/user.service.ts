@@ -15,6 +15,8 @@ export class UserService {
   private apiOauth2Google = `${environment.apiLocalUrl}/oauth2/authorization/google`;
   private apiLogOutGoogle = `${environment.apiLocalUrl}/logout`;
   private apiLogOutGoogle2 = `${environment.apiLocalUrl}/login?logout`;
+  private apiViewProfile = `${environment.apiLocalUrl}/users/profile`;
+  private apiUpdateAvatar = `${environment.apiLocalUrl}/users/query`;
 
 
   constructor(private http: HttpClient) {
@@ -24,6 +26,13 @@ export class UserService {
     return this.http.post(this.apiLogin, loginDTO, {
       headers: { 'Content-Type': 'application/json' }
     });
+  }
+  updateAvatar(id: any, avatar: any): Observable<any>{
+    const params = new HttpParams().set('avatar', avatar);
+    return this.http.get(this.apiUpdateAvatar+`/${id}`, {params});
+  }
+  viewProfile(id: any): Observable<any>{
+    return this.http.get(this.apiViewProfile+`/${id}`);
   }
   logoutOauth2Google(): Observable<any> {
     return this.http.get(this.apiLogOutGoogle);

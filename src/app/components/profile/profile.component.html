@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="profile-container" *ngIf="profileData">
+  <div class="profile-card">
+    <div class="profile-avatar">
+      <img [src]=profileData.avatar alt="Avatar">
+    </div>
+    <div class="profile-info">
+      <input type="text" placeholder="Enter image URL" class="img-url-input" [(ngModel)]="profileData.avatar" (input)="updateAvatar()">
+      <h2 class="profile-username">{{ profileData.username }}</h2>
+      <p class="profile-email"><i class="fas fa-envelope"></i> Email: <span>{{profileData.email}}</span></p>
+      <p class="profile-provider"><i class="fas fa-user-circle"></i> Provider: <span>{{ profileData.provider_name }}</span></p>
+      <div class="profile-buttons">
+        <button class="btn save-btn">
+          <i class="fas fa-save"></i> Save
+        </button>
+        <button class="btn recovery-btn">
+          <i class="fas fa-key"></i> Recovery Password
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

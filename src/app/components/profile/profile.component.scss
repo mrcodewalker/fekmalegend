@@ -1,0 +1,132 @@
+/* styles.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.profile-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.profile-avatar img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 3px solid #4e94f3;
+}
+
+.profile-info {
+  margin-top: 15px;
+}
+
+.profile-username {
+  font-size: 24px;
+  color: #333;
+  margin: 10px 0;
+}
+
+.profile-email, .profile-provider {
+  font-size: 16px;
+  color: #555;
+  margin: 10px 0;
+}
+
+.profile-email i, .profile-provider i {
+  color: #4e94f3;
+  margin-right: 8px;
+}
+
+.profile-email span, .profile-provider span {
+  color: #000;
+}
+
+@media (max-width: 600px) {
+  .profile-card {
+    padding: 15px;
+  }
+
+  .profile-avatar img {
+    width: 80px;
+    height: 80px;
+  }
+}
+.img-url-input {
+  margin-top: 10px;
+  padding: 8px;
+  width: 80%;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 14px;
+  transition: border-color 0.3s;
+
+  &:focus {
+    outline: none;
+    border-color: #4e94f3;
+  }
+}
+.profile-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+.btn {
+  flex: 1; /* Giúp các nút có cùng kích thước */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.save-btn {
+  background-color: #28a745;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.save-btn:hover {
+  background-color: #218838;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.recovery-btn {
+  background-color: #dc3545;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recovery-btn:hover {
+  background-color: #c82333;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn i {
+  margin-right: 8px;
+}
+

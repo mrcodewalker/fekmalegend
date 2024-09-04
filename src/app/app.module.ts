@@ -1,6 +1,6 @@
 import {MatListModule} from "@angular/material/list";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import {NgModule, isDevMode, APP_INITIALIZER} from '@angular/core';
+import {NgModule, isDevMode} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,10 +25,10 @@ import { EventDialogComponent } from './components/event-dialog/event-dialog.com
 import { LoginVirtualComponent } from './components/login-virtual/login-virtual.component';
 import { Top100Component } from './components/top100/top100.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import {NotificationService} from "./components/services/notification.service";
 import { DialogComponent } from './components/dialog/dialog.component';
 import {AuthInterceptor} from "./components/services/auth.interceptor";
 import { LoginForumComponent } from './components/login-forum/login-forum.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { LoginForumComponent } from './components/login-forum/login-forum.compon
     Top100Component,
     DialogComponent,
     LoginForumComponent,
+    ProfileComponent,
     // CalendarComponent
   ],
   imports: [

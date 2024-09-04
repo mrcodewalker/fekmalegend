@@ -9,6 +9,7 @@ import {EventDialogComponent} from "../event-dialog/event-dialog.component";
 import {SignupDto} from "../dtos/signup.dto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {PostService} from "../services/post.service";
 
 // @ts-ignore
 @Component({
@@ -37,14 +38,30 @@ export class LoginForumComponent implements OnInit{
     username: this.signUpDTO.username,
     password: this.signUpDTO.password
   }
+  currentPage = 0;
+  totalPages = 0;
   newPostContent: string = '';
   posts: any[] = [];
+  pages: number[] = [];
+  forumItems = [
+    {
+      title: 'Http client post raw content',
+      content: 'ciungulete replied 7 hours ago',
+      image_url: 'https://img.icons8.com/?size=100&id=aVI7R6wBB2ge&format=png&color=000000',
+      replies: 2,
+      created_at: new Date(),
+      author_name: 'Hai Code Dao',
+      views: 32
+    },
+    // Add more items as needed
+  ];
   constructor(
     private route:ActivatedRoute,
     private http: HttpClient, private router: Router,
     private userService: UserService,
     protected authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private postService: PostService
   ) {
   }
   ngOnInit(): void {
@@ -55,8 +72,8 @@ export class LoginForumComponent implements OnInit{
       const username = params['username'];
       const password = params['password'];
       if (token) {
-        this.user_id = userId;
         this.authService.saveToken(token);
+        this.authService.saveUserId(userId)
         const newUrl = window.location.pathname;
         window.history.replaceState({}, document.title, newUrl);
         // const onClose = () => {
@@ -71,16 +88,53 @@ export class LoginForumComponent implements OnInit{
         }
       }
     });
+    this.loadPosts();
   }
   isLogin = true;
   currentScrollPosition: number = 0;
+  changePage(page: number) {
+    if (page >= 0 && page < this.totalPages) {
+      this.currentPage = page;
+      this.loadPosts();
+    }
+  }
+  loadPosts() {
+    this.postService.collectData(this.currentPage).subscribe(response => {
+      this.forumItems = response.post_response.map((item: any) => ({
+        ...item,
+        created_at: this.formatDateFromArray(item.created_at), // Convert and format the date array,
+        views: 100
+      }));
+      this.totalPages = response.total_pages;
 
+      this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
+    });
+  }
   showLogin() {
     this.isLogin = true;
   }
-
+  async fetchProfileData() {
+      const data = await this.userService.viewProfile(this.authService.getUserId()).toPromise();
+      if (data.username == null || data.username === 'null') {
+        this.openDialog("Warning", "Do not touch to users data");
+        return;
+      }
+      debugger;
+      // Điều hướng đến trang view/profile với dữ liệu profile
+      this.router.navigate(['view/profile'], { state: { profileData: data } });
+  }
   showSignUp() {
     this.isLogin = false;
+  }
+  updatePagesArray() {
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
+  }
+  isFirstPage(): boolean {
+    return this.currentPage === 0;
+  }
+
+  isLastPage(): boolean {
+    return this.currentPage === this.totalPages - 1;
   }
   openDialogUrl(title: string, message: string, onClose: () => void): void {
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -118,6 +172,7 @@ export class LoginForumComponent implements OnInit{
     const data = await this.userService.login(this.loginDTO).toPromise();
     if (data.status==='200'){
       this.authService.saveToken(data.token);
+      this.authService.saveUserId(data.id);
       await this.openDialog("Login Successfully!", "Please enjoy your time!");
       window.location.reload();
     } else {
@@ -182,6 +237,7 @@ export class LoginForumComponent implements OnInit{
   async signOut(){
     this.userService.logoutOauth2Google().toPromise();
     this.authService.clearToken();
+    this.authService.clearUserId();
     this.router.navigate(['/login/forum']);
     this.userService.logoutOauth2Google2().toPromise();
   }
@@ -212,18 +268,28 @@ export class LoginForumComponent implements OnInit{
     }
   }
 
-  showCommentSection(postId: number) {
-    const post = this.posts.find(p => p.id === postId);
-    if (post) {
-      post.showComments = !post.showComments;
-    }
+  formatDate(date: Date): string {
+    const hours = this.padZero(date.getHours());
+    const minutes = this.padZero(date.getMinutes());
+    const day = this.padZero(date.getDate());
+    const month = this.padZero(date.getMonth() + 1); // Months are zero-based
+    const year = date.getFullYear();
+
+    return `${hours}:${minutes} ${day}/${month}/${year}`;
   }
 
-  addComment(postId: number) {
-    const post = this.posts.find(p => p.id === postId);
-    if (post && post.newComment.trim()) {
-      post.comments.push(post.newComment);
-      post.newComment = '';
-    }
+  padZero(value: number): string {
+    return value < 10 ? `0${value}` : `${value}`;
   }
+  formatDateFromArray(dateArray: number[]): string {
+    if (dateArray.length !== 6) {
+      return 'Invalid date';
+    }
+
+    const [year, month, day, hour, minute, second] = dateArray;
+    const date = new Date(year, month - 1, day, hour, minute, second); // Month is zero-based in JS
+
+    return this.formatDate(date);
+  }
+
 }

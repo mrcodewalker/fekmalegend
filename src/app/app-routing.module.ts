@@ -10,7 +10,8 @@ import {ScheduleComponent} from "./components/schedule/schedule.component";
 import {LoginVirtualComponent} from "./components/login-virtual/login-virtual.component";
 import {Top100Component} from "./components/top100/top100.component";
 import { MatDialogModule } from '@angular/material/dialog';
-import {LoginForumComponent} from "./components/login-forum/login-forum.component"; // Thêm module này nếu sử dụng Angular Material
+import {LoginForumComponent} from "./components/login-forum/login-forum.component";
+import {ProfileComponent} from "./components/profile/profile.component"; // Thêm module này nếu sử dụng Angular Material
 
 const routes: Routes = [
   // { path: '', component: AppComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'login/virtual', component:  LoginVirtualComponent},
   { path: 'best/students', component:  Top100Component},
   { path: 'login/forum', component:  LoginForumComponent},
+  { path: 'view/profile', component:  ProfileComponent},
   { path: '**', component: HomeComponent }
 ];
 @NgModule({

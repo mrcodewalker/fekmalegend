@@ -12,8 +12,12 @@
   <div class="container">
     <div class="auth-container">
       <div class="auth-toggle">
-        <button (click)="showLogin()" [class.active]="isLogin">Login</button>
-        <button (click)="showSignUp()" [class.active]="!isLogin">Sign Up</button>
+        <button (click)="showLogin()" [class.active]="isLogin">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <button (click)="showSignUp()" [class.active]="!isLogin">
+          <i class="fas fa-user-plus"></i> Sign Up
+        </button>
       </div>
 
       <div class="form-container">
@@ -50,33 +54,76 @@
 </div>
 
 <div *ngIf="authService.getToken()">
-  <button (click)="signOut()">Sign Out</button>
-  <body>
   <div class="forum-container">
-    <h1>Welcome to the Forum</h1>
-    <div class="post-section">
-      <textarea placeholder="Write your post here..." [(ngModel)]="newPostContent"></textarea>
-      <button (click)="createPost()">Post</button>
+    <div class="forum-sidebar">
+      <button class="btn btn-primary btn-new-discussion">
+        <i class="fas fa-plus"></i> New Discussion
+      </button>
+      <button class="btn btn-primary btn-profile" (click)="fetchProfileData()">
+        <i class="fas fa-user"></i> Your Profile
+      </button>
+      <ul class="forum-nav">
+        <li><a href="#" class="active"><i class="fas fa-th-list"></i> All Threads</a></li>
+        <li><a href="#"><i class="fas fa-fire"></i> Popular this week</a></li>
+        <li><a href="#"><i class="fas fa-star"></i> Popular all time</a></li>
+        <li><a href="#"><i class="fas fa-check-circle"></i> Solved</a></li>
+        <li><a href="#"><i class="fas fa-question-circle"></i> Unsolved</a></li>
+        <li><a href="#"><i class="fas fa-clock"></i> No replies yet</a></li>
+      </ul>
+      <button class="btn btn-signout" (click)="signOut()">
+        <i class="fa fa-sign-out-alt"></i> Sign Out
+      </button>
     </div>
 
-    <div class="posts-list">
-      <div class="post" *ngFor="let post of posts">
-        <h3>{{ post.username }}</h3>
-        <p>{{ post.content }}</p>
-        <div class="actions">
-          <button (click)="likePost(post.id)">❤️ {{ post.likes }}</button>
-          <button (click)="showCommentSection(post.id)">💬 Comment</button>
+    <div class="forum-content">
+      <div class="forum-header">
+        <select class="forum-select">
+          <option value="latest"><i class="fas fa-calendar-day"></i> Latest</option>
+          <option value="oldest"><i class="fas fa-calendar-alt"></i> Oldest</option>
+          <option value="popular"><i class="fas fa-thumbs-up"></i> Most Popular</option>
+        </select>
+        <div class="forum-search">
+          <input type="text" placeholder="Search forum" />
+          <i class="fa fa-search"></i>
         </div>
-        <div *ngIf="post.showComments">
-          <textarea placeholder="Write a comment..." [(ngModel)]="post.newComment"></textarea>
-          <button (click)="addComment(post.id)">Add Comment</button>
-          <div *ngFor="let comment of post.comments">
-            <p>{{ comment }}</p>
+      </div>
+
+      <div class="forum-list">
+        <div class="forum-item" *ngFor="let item of forumItems">
+          <div class="forum-item-content">
+            <img class="forum-item-avatar" [src]="item.image_url" alt="User Avatar" />
+            <div class="forum-item-details">
+              <h6 class="forum-item-title">{{ item.title }}</h6>
+              <p class="forum-item-content">{{ item.content }}</p>
+              <p class="forum-item-author">author: {{ item.author_name }}</p>
+              <p class="forum-item-date">{{ item.created_at }}</p>
+              <div class="forum-item-meta">
+                <span class="forum-item-replies"><i class="fas fa-comments"></i> {{ item.replies }} replies</span>
+                <span class="forum-item-views"><i class="fas fa-eye"></i> {{ item.views }} views</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+
+      <div class="forum-pagination">
+        <ul class="pagination">
+          <!-- Previous Arrow -->
+          <li [ngClass]="{'disabled': isFirstPage()}">
+            <a (click)="changePage(currentPage - 1)" [attr.aria-disabled]="isFirstPage() ? 'true' : null">«</a>
+          </li>
+          <!-- Page Numbers -->
+          <li *ngFor="let page of pages">
+            <a [class.active]="page === currentPage" (click)="changePage(page)">{{ page + 1 }}</a>
+          </li>
+          <!-- Next Arrow -->
+          <li [ngClass]="{'disabled': isLastPage()}">
+            <a (click)="changePage(currentPage + 1)" [attr.aria-disabled]="isLastPage() ? 'true' : null">»</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-  </body>
 </div>
 </html>
