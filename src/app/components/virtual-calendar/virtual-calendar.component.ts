@@ -8,7 +8,7 @@ import {SharedService} from "../services/SharedService";
 import {StudentScheduleDto} from "../dtos/student.schedule.dto";
 import {CalendarDto} from "../dtos/calendar.dto";
 import {DataDto} from "../dtos/data.dto";
-import {Calendar, CalendarOptions} from "@fullcalendar/core";
+import {CalendarOptions} from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import momentPlugin from "@fullcalendar/moment";
