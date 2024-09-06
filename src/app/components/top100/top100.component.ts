@@ -36,7 +36,7 @@ export class Top100Component implements OnInit {
   toggleDropdown(event: Event) {
     event.stopPropagation(); // Prevent event bubbling
     this.isDropdownOpen = !this.isDropdownOpen;
-  
+
   }
 
   updateOption(option: any) {

@@ -2,8 +2,6 @@ import {ChangeDetectorRef, Component, HostListener, Input, OnInit} from '@angula
 import {ScoreService} from "../services/score.service";
 import {ScoreDto} from "../dtos/score.dto";
 import {StudentDto} from "../dtos/student.dto";
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import * as ts from 'typescript';
 import {ScoreResponse} from "../responses/score.response";
 import {RankingDto} from "../dtos/ranking.dto";
 import {RankingService} from "../services/ranking.service";
