@@ -29,6 +29,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import {AuthInterceptor} from "./components/services/auth.interceptor";
 import { LoginForumComponent } from './components/login-forum/login-forum.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     DialogComponent,
     LoginForumComponent,
     ProfileComponent,
+    PostDetailComponent,
     // CalendarComponent
   ],
   imports: [

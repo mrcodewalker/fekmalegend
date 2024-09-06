@@ -33,19 +33,35 @@ export class ProfileComponent implements OnInit{
     if (!this.profileData) {
       this.router.navigate(['/login/forum']);
     }
+    this.fetchProfileData();
+  }
+  async fetchProfileData() {
+    const data = await this.userService.viewProfile(this.authService.getUserId()).toPromise();
+    if (data.username == null || data.username === 'null') {
+      await this.openDialog("Warning", "Do not touch to users data");
+      return;
+    }
+    this.profileData = data;
+    this.updateAvatar();
+    debugger;
+    // Điều hướng đến trang view/profile với dữ liệu profile
   }
   updateAvatar() {
     const avatarImg = document.getElementById('avatar-img') as HTMLImageElement;
     avatarImg.src = this.profileData.avatar;
   }
-  // async updateAvatarReal(){
-  //   const data = await this.userService.updateAvatar(this.authService.getUserId(), this.profileData.avatar).toPromise();
-  //   if (data.status==='200'){
-  //       this.openDialog("Congratulations!", "Data has been updated successfully!");
-  //   } else {
-  //     this.openDialog("Warning", "Something went wrong, please try again!");
-  //   }
-  // }
+  async updateAvatarReal(){
+    const data = await this.userService.updateAvatar(this.authService.getUserId(), this.profileData.avatar).toPromise();
+    debugger;
+    if (data.status==='200'){
+        await this.openDialog("Congratulations!", "Data has been updated successfully!");
+        this.fetchProfileData();
+      window.location.reload();
+    } else {
+      await this.openDialog("Warning", "Something went wrong, please try again!");
+    }
+    window.location.reload();
+  }
   openDialog(title: string, message: string): Promise<void> {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: { title, message },
@@ -53,5 +69,8 @@ export class ProfileComponent implements OnInit{
     });
 
     return dialogRef.afterClosed().toPromise();
+  }
+  goBack(){
+    window.history.back();
   }
 }

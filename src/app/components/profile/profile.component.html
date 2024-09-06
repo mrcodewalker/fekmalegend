@@ -14,19 +14,26 @@
     </div>
     <div class="profile-info">
       <input type="text" placeholder="Enter image URL" class="img-url-input" [(ngModel)]="profileData.avatar" (input)="updateAvatar()">
-      <h2 class="profile-username">{{ profileData.username }}</h2>
+      <h2 class="profile-username"><i class="fas fa-user"></i> {{ profileData.username }}</h2>
       <p class="profile-email"><i class="fas fa-envelope"></i> Email: <span>{{profileData.email}}</span></p>
       <p class="profile-provider"><i class="fas fa-user-circle"></i> Provider: <span>{{ profileData.provider_name }}</span></p>
       <div class="profile-buttons">
-        <button class="btn save-btn">
+        <button class="btn save-btn" (click)="this.updateAvatarReal()">
           <i class="fas fa-save"></i> Save
         </button>
         <button class="btn recovery-btn">
           <i class="fas fa-key"></i> Recovery Password
         </button>
       </div>
+      <!-- Nút Back để quay lại trang chủ -->
+      <button class="btn back-btn" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </button>
     </div>
   </div>
 </div>
+
+<script>
+</script>
 </body>
 </html>

@@ -56,40 +56,56 @@
 <div *ngIf="authService.getToken()">
   <div class="forum-container">
     <div class="forum-sidebar">
-      <button class="btn btn-primary btn-new-discussion">
+      <button class="btn btn-primary btn-new-discussion" (click)="openModal()">
         <i class="fas fa-plus"></i> New Discussion
       </button>
       <button class="btn btn-primary btn-profile" (click)="fetchProfileData()">
         <i class="fas fa-user"></i> Your Profile
       </button>
       <ul class="forum-nav">
-        <li><a href="#" class="active"><i class="fas fa-th-list"></i> All Threads</a></li>
-        <li><a href="#"><i class="fas fa-fire"></i> Popular this week</a></li>
-        <li><a href="#"><i class="fas fa-star"></i> Popular all time</a></li>
-        <li><a href="#"><i class="fas fa-check-circle"></i> Solved</a></li>
-        <li><a href="#"><i class="fas fa-question-circle"></i> Unsolved</a></li>
-        <li><a href="#"><i class="fas fa-clock"></i> No replies yet</a></li>
+        <li><a href="#" [ngClass]="{'active': activeClass === 'allThreads'}" (click)="setActive('allThreads', $event); this.loadPosts()"><i class="fas fa-th-list"></i> All Threads</a></li>
+        <li><a href="#" [ngClass]="{'active': activeClass === 'popularThisWeek'}" (click)="setActive('popularThisWeek', $event); this.popularThisWeek()"><i class="fas fa-fire"></i> Popular this week</a></li>
+        <li><a href="#" [ngClass]="{'active': activeClass === 'popularAllTime'}" (click)="setActive('popularAllTime', $event); this.popularAllTimes()"><i class="fas fa-star"></i> Popular all time</a></li>
+        <li><a href="#" [ngClass]="{'active': activeClass === 'noRepliesYet'}" (click)="setActive('noRepliesYet', $event); this.noReplies()"><i class="fas fa-clock"></i> No replies yet</a></li>
       </ul>
       <button class="btn btn-signout" (click)="signOut()">
         <i class="fa fa-sign-out-alt"></i> Sign Out
       </button>
     </div>
 
+    <div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>New Discussion</h2>
+        <form>
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" [(ngModel)]="title" placeholder="Enter title" required />
+          </div>
+          <div class="form-group">
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" [(ngModel)]="content" placeholder="Enter content" required></textarea>
+          </div>
+          <button type="submit" (click)="submit()">Submit</button>
+        </form>
+      </div>
+    </div>
+
     <div class="forum-content">
       <div class="forum-header">
-        <select class="forum-select">
+        <select class="forum-select" (change)="onFilterChange($event)">
           <option value="latest"><i class="fas fa-calendar-day"></i> Latest</option>
           <option value="oldest"><i class="fas fa-calendar-alt"></i> Oldest</option>
           <option value="popular"><i class="fas fa-thumbs-up"></i> Most Popular</option>
         </select>
         <div class="forum-search">
-          <input type="text" placeholder="Search forum" />
+          <input type="text" placeholder="Search forum" [(ngModel)]="searchTerm" (input)="onSearch()" />
           <i class="fa fa-search"></i>
         </div>
       </div>
 
       <div class="forum-list">
-        <div class="forum-item" *ngFor="let item of forumItems">
+        <div class="forum-item" *ngFor="let item of forumItems" (click)="openPost(item)">
           <div class="forum-item-content">
             <img class="forum-item-avatar" [src]="item.image_url" alt="User Avatar" />
             <div class="forum-item-details">
@@ -105,6 +121,84 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="selectedPost" class="post-detail-overlay" (click)="closePostDetail()">
+        <div class="post-detail" (click)="$event.stopPropagation()">
+          <h2>{{ selectedPost.title }}</h2>
+          <img class="post-image" [src]="selectedPost.image_url" alt="Post Image">
+          <div *ngIf="isEditing">
+            <textarea [(ngModel)]="selectedPost.content" rows="5" cols="50"></textarea>
+          </div>
+          <div *ngIf="!isEditing">
+            <p>{{ selectedPost.content }}</p>
+          </div>
+          <p class="forum-item-author" style="width: 30%!important;">author: {{ selectedPost.author_name }}</p>
+          <p class="forum-item-date">Posted on: {{ selectedPost.created_at | date: 'short' }}</p>
+
+          <!-- Hiển thị nút Edit và Delete nếu người dùng hiện tại là tác giả của bài viết -->
+
+          <div class="post-actions" *ngIf="currentUserName === selectedPost.author_name">
+            <button class="btn btn-ok" *ngIf="isEditing" (click)="updatePost()">
+              <i class="fas fa-check"></i> OK
+            </button>
+            <button class="btn btn-edit" (click)="toggleEdit()" (click)="editPost(this.selectedPost.post_id, this.selectedPost.content)">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+            <button class="btn btn-delete" (click)="deletePost()">
+              <i class="fas fa-trash-alt"></i> Delete
+            </button>
+          </div>
+
+          <!-- Bình luận -->
+          <div class="comments-section">
+            <h3>Comments</h3>
+            <div class="comment" *ngFor="let comment of comments">
+              <img class="comment-avatar" [src]="comment.avatar" alt="Commenter Avatar">
+              <div class="comment-content">
+                <strong>{{ comment.author_name }}</strong>
+                <textarea *ngIf="isEditingComment(comment.comment_id)"
+                          [(ngModel)]="this.editCommentContent"
+                          rows="4"
+                          cols="50"
+                          placeholder="Edit your comment..."></textarea>
+                <p *ngIf="!this.isEditingComment(comment.comment_id)">
+                  {{ showMoreComments.has(comment.id) ? comment.content : getShortContent(comment.content) }}
+                </p>
+                <button *ngIf="isLongComment(comment.content)" (click)="toggleShowMore(comment.id)">
+                  {{ showMoreComments.has(comment.id) ? 'Show less' : 'Show more' }}
+                </button>
+                <p class="forum-item-date">{{ comment.created_at | date: 'short' }}</p>
+              </div>
+              <div class="comment-actions" *ngIf="comment.author_name === currentUserName">
+                <button class="btn btn-ok" *ngIf="isEditingComment(comment.comment_id)" (click)="saveEditComment(comment.comment_id)">
+                  <i class="fas fa-check"></i> OK
+                </button>
+                <button class="btn btn-edit" *ngIf="!isEditingComment(comment.comment_id)" (click)="editComment(comment.comment_id, comment.content)">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-delete" (click)="deleteComment(comment.comment_id)">
+                  <i class="fas fa-trash-alt"></i> Delete
+                </button>
+              </div>
+            </div>
+
+
+          <!-- Thêm bình luận -->
+            <div class="add-comment">
+              <textarea [(ngModel)]="newComment" placeholder="Add a comment..."></textarea>
+              <div class="button-group">
+              <button (click)="addComment()">
+                <i class="fas fa-paper-plane"></i> Post Comment
+              </button>
+              <button class="close-btn" (click)="closePostDetail()">
+                <i class="fas fa-times"></i> Close
+              </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
 
       <div class="forum-pagination">

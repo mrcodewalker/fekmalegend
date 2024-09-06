@@ -1,0 +1,13 @@
+<!-- Nền mờ -->
+<div class="overlay" *ngIf="isOpen" (click)="closePostDetail()"></div>
+
+<!-- Bài post chi tiết -->
+<div class="post-detail-modal" *ngIf="isOpen">
+  <div class="post-content">
+    <button class="close-btn" (click)="closePostDetail()">&times;</button>
+    <!-- Nội dung bài post -->
+    <h2>{{ postTitle }}</h2>
+    <p>{{ postContent }}</p>
+    <!-- Thêm các nội dung khác của bài post tại đây -->
+  </div>
+</div>

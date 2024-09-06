@@ -678,5 +678,666 @@ form button:hover {
   outline: none; /* Loại bỏ đường viền focus mặc định */
 }
 
+/* Đặt chiều rộng, chiều cao và các thuộc tính khác của mỗi bài post */
+.forum-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+/* Khi hover vào bài post, làm cho nó nổi lên */
+.forum-item:hover {
+  transform: translateY(-10px); /* Nổi lên */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); /* Tạo bóng đổ sâu hơn */
+}
+
+/* Đặt thêm hiệu ứng cho các phần tử bên trong post nếu cần */
+.forum-item:hover .forum-item-title {
+  color: #007bff; /* Thay đổi màu tiêu đề khi hover */
+}
+
+.forum-item:hover .forum-item-meta {
+  color: #555; /* Thay đổi màu thông tin meta khi hover */
+}
 
 /* Additional styling for the sidebar and buttons if needed */
+/* Làm mờ nền khi hiển thị chi tiết bài viết */
+/* Làm mờ nền khi hiển thị chi tiết bài viết */
+.post-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Nền làm mờ đậm hơn */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Hiển thị trên cùng */
+}
+
+/* Chi tiết bài viết ở giữa màn hình */
+.post-detail {
+  background-color: white;
+  padding: 40px; /* Tăng padding để tạo khoảng cách rộng hơn */
+  border-radius: 12px; /* Tăng độ bo góc */
+  text-align: left;
+  animation: fadeIn 0.5s ease-out;
+  width: 900px;
+  max-width: 90%; /* Tăng kích thước */
+  max-height: 90%; /* Tăng kích thước */
+  overflow-y: auto; /* Thêm thanh cuộn nếu nội dung quá lớn */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Thêm bóng đổ để nổi bật hơn */
+}
+
+/* Hiệu ứng fade-in cho hình ảnh */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Hình ảnh trong bài viết */
+.post-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  animation: fadeImage 2s ease-in-out;
+}
+
+/* Hiệu ứng mờ dần cho hình ảnh */
+@keyframes fadeImage {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Nút đóng */
+.close-btn {
+  background-color: #dc3545; /* Màu đỏ */
+  color: white;
+  border: none;
+  padding: 12px 24px; /* Tăng kích thước nút */
+  cursor: pointer;
+  border-radius: 6px; /* Tăng độ bo góc */
+  margin-top: 20px;
+  font-size: 16px; /* Tăng kích thước chữ */
+}
+
+/* Bình luận */
+.comments-section {
+  margin-top: 20px;
+  text-align: left;
+  max-height: 500px; /* Đặt kích thước tối đa cho phần bình luận */
+  overflow-y: auto; /* Thêm thanh cuộn nếu cần */
+  border-top: 1px solid #ddd; /* Đường viền trên để phân tách */
+  padding-top: 20px;
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px; /* Tăng khoảng cách giữa các bình luận */
+  border-bottom: 1px solid #eee; /* Đường viền dưới để phân tách */
+  padding-bottom: 10px;
+}
+
+.comment-avatar {
+  width: 70px; /* Tăng kích thước avatar */
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid #007bff; /* Viền màu xanh cho avatar */
+}
+
+.comment-content {
+  max-width: 90%;
+}
+
+.comment-content strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.comment-content .forum-item-date {
+  font-size: 0.9em; /* Kích thước chữ nhỏ hơn một chút */
+  color: #888; /* Màu chữ xám */
+  margin-top: 5px;
+}
+
+/* Thêm bình luận */
+.add-comment {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-comment textarea {
+  width: 100%;
+  height: 150px; /* Tăng kích thước textarea */
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px; /* Tăng kích thước chữ */
+}
+
+.add-comment button {
+  background-color: #007bff; /* Màu xanh dương */
+  color: white;
+  border: none;
+  padding: 12px 24px; /* Tăng kích thước nút */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px; /* Tăng kích thước chữ */
+}
+.close-btn {
+  background-color: #dc3545!important; /* Màu đỏ */
+  color: white;
+  border: none;
+  padding: 8px 16px; /* Kích thước nhỏ hơn */
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px; /* Kích thước chữ nhỏ hơn */
+  transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng động */
+  width: 45%; /* Chiếm một nửa chiều rộng */
+  box-sizing: border-box; /* Đảm bảo padding không làm ảnh hưởng đến chiều rộng */
+  display: inline-block; /* Để hiển thị cạnh nhau */
+}
+
+.close-btn:hover {
+  background-color: #c82333!important; /* Màu đỏ đậm khi hover */
+  transform: scale(1.1); /* Tăng kích thước nhẹ khi hover */
+}
+
+/* Nút thêm bình luận */
+.add-comment button {
+  background-color: #007bff; /* Màu xanh dương */
+  color: white;
+  border: none;
+  padding: 8px 16px; /* Kích thước nhỏ hơn */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px; /* Kích thước chữ nhỏ hơn */
+  transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng động */
+  width: 45%; /* Chiếm một nửa chiều rộng */
+  box-sizing: border-box; /* Đảm bảo padding không làm ảnh hưởng đến chiều rộng */
+  display: inline-block; /* Để hiển thị cạnh nhau */
+}
+
+.add-comment button:hover {
+  background-color: #0056b3; /* Màu xanh dương đậm khi hover */
+  transform: scale(1.1); /* Tăng kích thước nhẹ khi hover */
+}
+
+.add-comment i {
+  font-size: 16px; /* Kích thước icon */
+}
+
+/* Bình luận */
+.comments-section {
+  margin-top: 20px;
+  text-align: left;
+  max-height: 500px; /* Đặt kích thước tối đa cho phần bình luận */
+  overflow-y: auto; /* Thêm thanh cuộn nếu cần */
+  border-top: 1px solid #ddd; /* Đường viền trên để phân tách */
+  padding-top: 20px;
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px; /* Tăng khoảng cách giữa các bình luận */
+  border-bottom: 1px solid #eee; /* Đường viền dưới để phân tách */
+  padding-bottom: 10px;
+}
+
+.comment-avatar {
+  width: 70px; /* Tăng kích thước avatar */
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid #007bff; /* Viền màu xanh cho avatar */
+}
+
+
+/* Thêm bình luận */
+.add-comment {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between; /* Để các nút nằm cạnh nhau */
+}
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Để các nút cách đều nhau */
+  gap: 10px; /* Khoảng cách giữa các nút */
+  padding: 20px; /* Padding tổng thể cho nhóm nút */
+}
+.close-btn{
+  width: 45%;
+}
+/* Lớp chung cho các nút trong phần bình luận */
+.comment-actions {
+  display: flex;
+  justify-content: flex-end; /* Căn chỉnh các nút về phía bên phải */
+  gap: 10px; /* Khoảng cách giữa các nút */
+  margin-top: 10px; /* Khoảng cách phía trên */
+  width: 100%; /* Đảm bảo phần tử chiếm toàn bộ chiều rộng */
+}
+
+/* Nút OK */
+.btn-ok {
+  background-color: #4CAF50; /* Màu nền xanh */
+  color: white; /* Màu chữ trắng */
+  border: none;
+  padding: 8px 16px; /* Padding bên trong */
+  font-size: 14px; /* Kích thước font chữ */
+  cursor: pointer;
+  border-radius: 5px; /* Góc bo tròn */
+  transition: background-color 0.3s;
+}
+
+.btn-ok:hover {
+  background-color: #45a049; /* Màu nền khi hover */
+}
+
+/* Nút Edit */
+.btn-edit {
+  background-color: #007bff; /* Màu nền xanh dương */
+  color: white; /* Màu chữ trắng */
+  border: none;
+  padding: 8px 16px; /* Padding bên trong */
+  font-size: 14px; /* Kích thước font chữ */
+  cursor: pointer;
+  border-radius: 5px; /* Góc bo tròn */
+  transition: background-color 0.3s;
+}
+
+.btn-edit:hover {
+  background-color: #0056b3; /* Màu nền khi hover */
+}
+
+/* Nút Delete */
+.btn-delete {
+  background-color: #dc3545; /* Màu nền đỏ */
+  color: white; /* Màu chữ trắng */
+  border: none;
+  padding: 8px 16px; /* Padding bên trong */
+  font-size: 14px; /* Kích thước font chữ */
+  cursor: pointer;
+  border-radius: 5px; /* Góc bo tròn */
+  transition: background-color 0.3s;
+}
+
+.btn-delete:hover {
+  background-color: #c82333; /* Màu nền khi hover */
+}
+
+/* Định dạng cho textarea trong bình luận */
+.comment-content textarea {
+  width: 100%; /* Chiếm toàn bộ chiều rộng của bình luận */
+  border: 1px solid #ccc; /* Viền màu xám nhạt */
+  border-radius: 5px; /* Góc bo tròn */
+  padding: 8px; /* Padding bên trong */
+  box-sizing: border-box; /* Bao gồm padding và border trong tổng chiều rộng */
+}
+
+.post-actions {
+  display: flex;
+  justify-content: flex-start;
+  padding:10px;
+  gap:10px;
+}
+/* Style cho modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.5s ease;
+}
+
+.modal.show {
+  display: block;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 50%;
+  max-width: 600px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+.comment-content p {
+  margin: 0;
+  width: 300px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.comment-content button {
+  background-color: #007bff; /* Màu nền xanh dương */
+  color: white; /* Màu chữ trắng */
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px; /* Góc bo tròn */
+  margin-top: 5px;
+  transition: background-color 0.3s;
+}
+
+.comment-content button:hover {
+  background-color: #0056b3; /* Màu nền khi hover */
+}
+/* Quy tắc responsive cơ bản */
+@media (max-width: 1200px) {
+  /* Điều chỉnh các phần tử cho màn hình nhỏ hơn 1200px */
+  .forum-sidebar {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .forum-nav {
+    padding: 0;
+  }
+
+  .forum-nav li {
+    margin-bottom: 10px;
+  }
+
+  .modal-content {
+    max-width: 90%;
+    margin: auto;
+  }
+
+  .forum-content {
+    padding: 10px;
+  }
+
+  .forum-item-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .forum-item-content img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .post-detail {
+    width: 100%;
+  }
+
+  .post-detail-overlay {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .comments-section {
+    margin-top: 20px;
+  }
+
+  .comment {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .comment-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .comment-actions {
+    margin-top: 10px;
+  }
+
+  .add-comment textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .forum-pagination .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+  }
+
+  .forum-pagination .pagination li {
+    margin: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+
+
+  /* Điều chỉnh các phần tử cho màn hình nhỏ hơn 768px */
+
+  .auth-toggle button {
+    font-size: 14px;
+  }
+
+  .forum-sidebar {
+    display: none; /* Ẩn sidebar trên màn hình nhỏ */
+  }
+
+  .forum-content {
+    padding: 5px;
+  }
+
+  .forum-header select,
+  .forum-search input {
+    width: 100%;
+  }
+
+  .forum-list {
+    padding: 0;
+  }
+
+  .post-detail-overlay {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Điều chỉnh các phần tử cho màn hình nhỏ hơn 576px */
+  .auth-container {
+    padding: 10px;
+  }
+
+  .auth-toggle button {
+    font-size: 12px;
+  }
+
+  .form-container form {
+    padding: 10px;
+  }
+
+  input, button, textarea {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .forum-item-content {
+    padding: 5px;
+  }
+
+  .forum-item-content img {
+    max-width: 100%;
+  }
+
+  .post-detail {
+    padding: 10px;
+  }
+
+  .comments-section {
+    margin-top: 10px;
+  }
+
+  .comment {
+    margin-bottom: 15px;
+  }
+
+  .comment-content {
+    font-size: 14px;
+  }
+
+  .forum-pagination .pagination li {
+    margin: 3px;
+  }
+}
+/* Cơ bản cho thanh bên */
+.forum-sidebar {
+  width: 100%;
+  max-width: 300px; /* Kích thước tối đa cho thanh bên */
+  background-color: #f8f9fa;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.forum-sidebar button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.forum-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.forum-nav li {
+  margin-bottom: 10px;
+}
+
+.forum-nav a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.forum-nav a.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.forum-nav i {
+  margin-right: 8px;
+}
+
+.btn-signout {
+  margin-top: 20px;
+}
+
+/* Responsive design cho thiết bị di động */
+@media (max-width: 768px) {
+  .forum-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .forum-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .forum-sidebar button {
+    font-size: 14px;
+  }
+
+  .forum-nav a {
+    font-size: 14px;
+  }
+}

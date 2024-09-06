@@ -129,4 +129,18 @@ body {
 .btn i {
   margin-right: 8px;
 }
+.back-btn {
+  background-color: #007bff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Khoảng cách giữa nút Back và phần trên */
+}
+
+.back-btn:hover {
+  background-color: #0069d9;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn i {
+  margin-right: 8px;
+}
 
