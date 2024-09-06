@@ -3,7 +3,12 @@
   "compileOnSave": false,
   "compilerOptions": {
     "types": ["node"],
+    "typeRoots": ["node_modules/@types"],
     "baseUrl": "./",
+    "include": [
+      "src/**/*.ts",
+      "node_modules/@angular-devkit/core"  // Ensure this path is included if needed
+    ],
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -24,10 +29,6 @@
       "ES2022",
       "dom"
     ],
-    "paths": {
-      "react": ["node_modules/preact/compat"],
-      "react-dom": ["node_modules/preact/compat"]
-    },
     "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
