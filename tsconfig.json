@@ -5,10 +5,6 @@
     "types": ["node"],
     "typeRoots": ["node_modules/@types"],
     "baseUrl": "./",
-    "include": [
-      "src/**/*.ts",
-      "node_modules/@angular-devkit/core"  // Ensure this path is included if needed
-    ],
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -31,6 +27,14 @@
     ],
     "allowSyntheticDefaultImports": true
   },
+  "include": [
+    "src/**/*.ts",
+    "node_modules/@angular-devkit/core"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
