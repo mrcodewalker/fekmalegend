@@ -121,58 +121,6 @@
           </div>
         </div>
       </div>
-<!--<div *ngIf="authService.getToken()">-->
-<!--  <div class="forum-container">-->
-<!--    <div class="forum-sidebar">-->
-<!--      <button class="btn btn-primary btn-new-discussion">-->
-<!--        <i class="fas fa-plus"></i> New Discussion-->
-<!--      </button>-->
-<!--      <button class="btn btn-primary btn-profile" (click)="fetchProfileData()">-->
-<!--        <i class="fas fa-user"></i> Your Profile-->
-<!--      </button>-->
-<!--      <ul class="forum-nav">-->
-<!--        <li><a href="#" class="active"><i class="fas fa-th-list"></i> All Threads</a></li>-->
-<!--        <li><a href="#"><i class="fas fa-fire"></i> Popular this week</a></li>-->
-<!--        <li><a href="#"><i class="fas fa-star"></i> Popular all time</a></li>-->
-<!--        <li><a href="#"><i class="fas fa-check-circle"></i> Solved</a></li>-->
-<!--        <li><a href="#"><i class="fas fa-question-circle"></i> Unsolved</a></li>-->
-<!--        <li><a href="#"><i class="fas fa-clock"></i> No replies yet</a></li>-->
-<!--      </ul>-->
-<!--      <button class="btn btn-signout" (click)="signOut()">-->
-<!--        <i class="fa fa-sign-out-alt"></i> Sign Out-->
-<!--      </button>-->
-<!--    </div>-->
-
-<!--    <div class="forum-content">-->
-<!--      <div class="forum-header">-->
-<!--        <select class="forum-select">-->
-<!--          <option value="latest"><i class="fas fa-calendar-day"></i> Latest</option>-->
-<!--          <option value="oldest"><i class="fas fa-calendar-alt"></i> Oldest</option>-->
-<!--          <option value="popular"><i class="fas fa-thumbs-up"></i> Most Popular</option>-->
-<!--        </select>-->
-<!--        <div class="forum-search">-->
-<!--          <input type="text" placeholder="Search forum" />-->
-<!--          <i class="fa fa-search"></i>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="forum-list">-->
-<!--        <div class="forum-item" *ngFor="let item of forumItems">-->
-<!--          <div class="forum-item-content">-->
-<!--            <img class="forum-item-avatar" [src]="item.image_url" alt="User Avatar" />-->
-<!--            <div class="forum-item-details">-->
-<!--              <h6 class="forum-item-title">{{ item.title }}</h6>-->
-<!--              <p class="forum-item-content">{{ item.content }}</p>-->
-<!--              <p class="forum-item-author">author: {{ item.author_name }}</p>-->
-<!--              <p class="forum-item-date">{{ item.created_at }}</p>-->
-<!--              <div class="forum-item-meta">-->
-<!--                <span class="forum-item-replies"><i class="fas fa-comments"></i> {{ item.replies }} replies</span>-->
-<!--                <span class="forum-item-views"><i class="fas fa-eye"></i> {{ item.views }} views</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
 
       <div *ngIf="selectedPost" class="post-detail-overlay" (click)="closePostDetail()">
         <div class="post-detail" (click)="$event.stopPropagation()">
