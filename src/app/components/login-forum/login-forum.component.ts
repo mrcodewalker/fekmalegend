@@ -97,6 +97,7 @@ export class LoginForumComponent implements OnInit{
     //   await this.noReplies();
     // }
     // Cập nhật lớp active
+    this.currentPage = 0;
     this.activeClass = className;
   }
   async popularThisWeek(){
@@ -126,7 +127,6 @@ export class LoginForumComponent implements OnInit{
       created_at: this.formatDateFromArray(item.created_at), // Convert and format the date array,
     }));
     this.totalPages = response.total_pages;
-
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
   }
   constructor(
@@ -178,8 +178,24 @@ export class LoginForumComponent implements OnInit{
   currentScrollPosition: number = 0;
   changePage(page: number) {
     if (page >= 0 && page < this.totalPages) {
+      debugger;
       this.currentPage = page;
-      this.loadPosts();
+      if (this.activeClass==='allThreads'){
+        this.loadPosts();
+      } else {
+        if (this.activeClass==='popularThisWeek'){
+          this.popularThisWeek();
+        }
+        else {
+          if (this.activeClass==='popularAllTime'){
+            this.popularAllTimes();
+          } else {
+            if (this.activeClass==='noRepliesYet'){
+              this.noReplies();
+            }
+          }
+        }
+      }
     }
   }
   loadPosts() {
