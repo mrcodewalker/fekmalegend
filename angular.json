@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["moment"],
+            "allowedCommonJsDependencies": ["moment,xlsx"],
             "outputPath": "dist/fekmalegend",
             "index": "src/index.html",
             "main": "src/main.ts",

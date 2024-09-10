@@ -11,5 +11,6 @@
   ],
   "include": [
     "src/**/*.d.ts"
-  ]
+  ],
+  "tsConfig": "tsconfig.app.json"
 }
