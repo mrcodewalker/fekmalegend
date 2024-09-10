@@ -10,17 +10,17 @@ import {UpdateDataDto} from "../dtos/update.data.dto";
   providedIn: 'root'
 })
 export class PostService {
-  private apiCreatePost = `${environment.apiLocalUrl}/posts/create`;
-  private apiCollectPost = `${environment.apiLocalUrl}/posts/collect`;
-  private apiIncreaseView = `${environment.apiLocalUrl}/posts/increase`;
-  private apiUpdatePost = `${environment.apiLocalUrl}/posts/update`;
-  private apiDeletePost = `${environment.apiLocalUrl}/posts/delete`;
-  private apiCollectPostsDecrease = `${environment.apiLocalUrl}/posts/collect/reverse`;
-  private apiCollectPopularPost = `${environment.apiLocalUrl}/posts/collect/popular`;
-  private apiSearchPosts = `${environment.apiLocalUrl}/posts/collect/by/key`;
-  private apiCollectPopularWeek = `${environment.apiLocalUrl}/posts/collect/popular/week`;
-  private apiCollectPopularAllTimes = `${environment.apiLocalUrl}/posts/collect/popular/all/times`;
-  private apiCollectNoReplies = `${environment.apiLocalUrl}/posts/collect/no/replies`;
+  private apiCreatePost = `${environment.apiBaseUrl}/posts/create`;
+  private apiCollectPost = `${environment.apiBaseUrl}/posts/collect`;
+  private apiIncreaseView = `${environment.apiBaseUrl}/posts/increase`;
+  private apiUpdatePost = `${environment.apiBaseUrl}/posts/update`;
+  private apiDeletePost = `${environment.apiBaseUrl}/posts/delete`;
+  private apiCollectPostsDecrease = `${environment.apiBaseUrl}/posts/collect/reverse`;
+  private apiCollectPopularPost = `${environment.apiBaseUrl}/posts/collect/popular`;
+  private apiSearchPosts = `${environment.apiBaseUrl}/posts/collect/by/key`;
+  private apiCollectPopularWeek = `${environment.apiBaseUrl}/posts/collect/popular/week`;
+  private apiCollectPopularAllTimes = `${environment.apiBaseUrl}/posts/collect/popular/all/times`;
+  private apiCollectNoReplies = `${environment.apiBaseUrl}/posts/collect/no/replies`;
 
 
   constructor(private http: HttpClient) {

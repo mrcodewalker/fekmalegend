@@ -10,10 +10,10 @@ import {UpdateDataDto} from "../dtos/update.data.dto";
   providedIn: 'root'
 })
 export class CommentService {
-  private apiCreateNewComment = `${environment.apiLocalUrl}/comments/create`;
-  private apiCollectComments = `${environment.apiLocalUrl}/comments/collect`;
-  private apiUpdateComment = `${environment.apiLocalUrl}/comments/update`;
-  private apiDeleteComment = `${environment.apiLocalUrl}/comments/delete`;
+  private apiCreateNewComment = `${environment.apiBaseUrl}/comments/create`;
+  private apiCollectComments = `${environment.apiBaseUrl}/comments/collect`;
+  private apiUpdateComment = `${environment.apiBaseUrl}/comments/update`;
+  private apiDeleteComment = `${environment.apiBaseUrl}/comments/delete`;
   constructor(private http: HttpClient) {
   }
 
