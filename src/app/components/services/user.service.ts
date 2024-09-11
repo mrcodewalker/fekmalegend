@@ -9,14 +9,14 @@ import {SignupDto} from "../dtos/signup.dto";
   providedIn: 'root'
 })
 export class UserService {
-  private apiLogin = `${environment.apiBaseUrl}/users/login`;
-  private apiSignUp = `${environment.apiBaseUrl}/users/register`;
-  private apiCheckUserName = `${environment.apiBaseUrl}/users/find/`;
-  private apiOauth2Google = `${environment.apiBaseUrl}/oauth2/authorization/google`;
-  private apiLogOutGoogle = `${environment.apiBaseUrl}/logout`;
-  private apiLogOutGoogle2 = `${environment.apiBaseUrl}/login?logout`;
-  private apiViewProfile = `${environment.apiBaseUrl}/users/profile`;
-  private apiUpdateAvatar = `${environment.apiBaseUrl}/users/query`;
+  private apiLogin = `${environment.apiLocalUrl}/users/login`;
+  private apiSignUp = `${environment.apiLocalUrl}/users/register`;
+  private apiCheckUserName = `${environment.apiLocalUrl}/users/find/`;
+  private apiOauth2Google = `${environment.apiLocalUrl}/oauth2/authorization/google`;
+  private apiLogOutGoogle = `${environment.apiLocalUrl}/logout`;
+  private apiLogOutGoogle2 = `${environment.apiLocalUrl}/login?logout`;
+  private apiViewProfile = `${environment.apiLocalUrl}/users/profile`;
+  private apiUpdateAvatar = `${environment.apiLocalUrl}/users/query`;
 
 
   constructor(private http: HttpClient) {

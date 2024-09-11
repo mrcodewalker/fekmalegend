@@ -46,6 +46,7 @@ export class LoginForumComponent implements OnInit{
   totalPages = 0;
   newPostContent: string = '';
   posts: any[] = [];
+  loading: boolean = false;
   pages: number[] = [];
   currentUserName: string = '';
   forumItems = [
@@ -101,26 +102,30 @@ export class LoginForumComponent implements OnInit{
     this.activeClass = className;
   }
   async popularThisWeek(){
+    this.loading = true;
     const response = await this.postService.popularThisWeek(this.currentPage).toPromise();
     this.forumItems = response.post_response.map((item: any) => ({
       ...item,
       created_at: this.formatDateFromArray(item.created_at), // Convert and format the date array,
     }));
+    this.loading = false;
     this.totalPages = response.total_pages;
 
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
   }
   async popularAllTimes(){
+    this.loading = true;
     const response = await this.postService.popularAllTimes(this.currentPage).toPromise();
     this.forumItems = response.post_response.map((item: any) => ({
       ...item,
       created_at: this.formatDateFromArray(item.created_at), // Convert and format the date array,
     }));
     this.totalPages = response.total_pages;
-
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
+    this.loading = false;
   }
   async noReplies(){
+    this.loading = true;
     const response = await this.postService.noReplies(this.currentPage).toPromise();
     this.forumItems = response.post_response.map((item: any) => ({
       ...item,
@@ -128,6 +133,7 @@ export class LoginForumComponent implements OnInit{
     }));
     this.totalPages = response.total_pages;
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
+    this.loading = false;
   }
   constructor(
     private route:ActivatedRoute,
@@ -139,7 +145,7 @@ export class LoginForumComponent implements OnInit{
     private commentService: CommentService
   ) {
   }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.route.queryParams.subscribe(params => {
       const token = params['token'];
       const userId = params['userId'];
@@ -164,7 +170,11 @@ export class LoginForumComponent implements OnInit{
         }
       }
     });
-    if (this.authService.getToken())  this.loadPosts();
+    if (this.authService.getToken())  {
+      this.loading = true;
+      await this.loadPosts();
+      this.loading = false;
+    }
     const username: string | null = this.authService.getUserName();
     if (username !== null) {
       this.currentUserName = username;
@@ -176,48 +186,59 @@ export class LoginForumComponent implements OnInit{
   }
   isLogin = true;
   currentScrollPosition: number = 0;
-  changePage(page: number) {
+  async changePage(page: number) {
     if (page >= 0 && page < this.totalPages) {
       debugger;
       this.currentPage = page;
       if (this.activeClass==='allThreads'){
-        this.loadPosts();
+        this.loading = true;
+        await this.loadPosts();
+        this.loading = false;
       } else {
         if (this.activeClass==='popularThisWeek'){
-          this.popularThisWeek();
+          this.loading = true;
+          await this.popularThisWeek();
+          this.loading = false;
         }
         else {
           if (this.activeClass==='popularAllTime'){
-            this.popularAllTimes();
+            this.loading = true;
+            await this.popularAllTimes();
+            this.loading = false;
           } else {
             if (this.activeClass==='noRepliesYet'){
-              this.noReplies();
+              this.loading = true;
+              await this.noReplies();
+              this.loading = false;
             }
           }
         }
       }
     }
   }
-  loadPosts() {
-    this.postService.collectData(this.currentPage).subscribe(response => {
-      this.forumItems = response.post_response.map((item: any) => ({
-        ...item,
-        created_at: this.formatDateFromArray(item.created_at), // Convert and format the date array,
-      }));
-      this.totalPages = response.total_pages;
+  async loadPosts() {
+    this.loading = true;
+    const response = await this.postService.collectData(this.currentPage).toPromise();
+    this.forumItems = response.post_response.map((item: any) => ({
+      ...item,
+      created_at: this.formatDateFromArray(item.created_at), // Convert and format the date array,
+    }));
+    this.loading = false;
+    this.totalPages = response.total_pages;
 
-      this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
-    });
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
   }
   showLogin() {
     this.isLogin = true;
   }
   async fetchProfileData() {
+    this.loading = true;
       const data = await this.userService.viewProfile(this.authService.getUserId()).toPromise();
       if (data.username == null || data.username === 'null') {
         await this.openDialog("Warning", "Do not touch to users data");
         return;
       }
+      this.loading = false;
       debugger;
       // Điều hướng đến trang view/profile với dữ liệu profile
       this.router.navigate(['view/profile'], { state: { profileData: data } });
@@ -322,7 +343,7 @@ export class LoginForumComponent implements OnInit{
     );
   }
   loginWithGoogle(){
-      window.location.href = "http://localhost:8080/oauth2/authorization/google";
+      window.location.href = "https://www.laptopaz.id.vn/oauth2/authorization/google";
   }
   handleOAuth2Callback(): void {
     const url = new URL(window.location.href);
@@ -334,10 +355,10 @@ export class LoginForumComponent implements OnInit{
     }
   }
   loginWithFacebook(){
-    window.location.href = "http://localhost:8080/oauth2/authorization/facebook";
+    window.location.href = "https://www.laptopaz.id.vn/oauth2/authorization/facebook";
   }
   loginWithGithub(){
-    window.location.href = "http://localhost:8080/oauth2/authorization/github";
+    window.location.href = "https://www.laptopaz.id.vn/oauth2/authorization/github";
   }
   async signOut(){
     this.userService.logoutOauth2Google().toPromise();
@@ -420,41 +441,51 @@ export class LoginForumComponent implements OnInit{
     return new Date(createdAtArray[0], createdAtArray[1] - 1, createdAtArray[2], createdAtArray[3], createdAtArray[4], createdAtArray[5]);
   }
   async loadPostsDecrease(){
-    this.postService.collectDataReverse(this.currentPage).subscribe(response => {
-      this.forumItems = response.post_response.map((item: any) => ({
-        ...item,
-        created_at: this.formatDateFromArray(item.created_at), // Convert and format the date array,
-      }));
-      this.totalPages = response.total_pages;
+    this.loading = true;
+    const response = await this.postService.collectDataReverse(this.currentPage).toPromise();
+    this.forumItems = response.post_response.map((item: any) => ({
+      ...item,
+      created_at: this.formatDateFromArray(item.created_at), // Convert and format the date array,
+    }));
+    this.loading = false;
+    this.totalPages = response.total_pages;
 
-      this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
-    });
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
   }
-  onFilterChange(event: Event) {
+  async onFilterChange(event: Event) {
     const selectedValue = (event.target as HTMLSelectElement).value;
 
     if (selectedValue === 'latest') {
-      this.loadPosts(); // Load bài viết mới nhất
+      this.loading = true;
+      await this.loadPosts(); // Load bài viết mới nhất
+      this.loading = false;
     } else if (selectedValue === 'oldest') {
-      this.loadPostsDecrease(); // Load bài viết cũ nhất
+      this.loading = true;
+      await this.loadPostsDecrease(); // Load bài viết cũ nhất
+      this.loading = false;
     } else if (selectedValue === 'popular') {
-      this.loadPopularPosts(); // Giả sử bạn có phương thức load các bài viết phổ biến
+      this.loading = true;
+      await this.popularAllTimes(); // Giả sử bạn có phương thức load các bài viết phổ biến
+      this.loading = false;
     }
   }
   async loadPopularPosts() {
-    this.postService.collectPopularData(this.currentPage).subscribe(response => {
-      this.forumItems = response.post_response.map((item: any) => ({
-        ...item,
-        created_at: this.formatDateFromArray(item.created_at), // Convert and format the date array,
-      }));
-      this.totalPages = response.total_pages;
+    this.loading = true;
+    const response = await this.postService.collectPopularData(this.currentPage).toPromise();
+    this.forumItems = response.post_response.map((item: any) => ({
+      ...item,
+      created_at: this.formatDateFromArray(item.created_at), // Convert and format the date array,
+    }));
+    this.loading = false;
+    this.totalPages = response.total_pages;
 
-      this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
-    });
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
   }
 
   async getCommentsByPostId(postId: string) {
+    this.loading = true;
     const data = await this.commentService.collectData(postId).toPromise();
+    this.loading = false;
     this.comments = data;
     this.comments = data.map((comment: any) => ({
       ...comment,
@@ -494,7 +525,9 @@ export class LoginForumComponent implements OnInit{
         content: this.newComment,
         post_id: this.selectedPost.post_id
       }
+      this.loading = true;
       const data = await this.commentService.createComment(this.createNewComment).toPromise();
+      this.loading = false;
       const newCommentData = {
         comment_id: data.comment_id,
         post_id: this.selectedPost.id,
@@ -531,7 +564,9 @@ export class LoginForumComponent implements OnInit{
   }
 
   async deletePost(): Promise<void> {
+    this.loading = true;
     const data = await this.postService.deletePost(this.selectedPost.post_id).toPromise();
+    this.loading = false;
     if (data.status!=='200'){
       await this.openDialog(
         "Warning", "Can not delete post right now!"
@@ -552,7 +587,9 @@ export class LoginForumComponent implements OnInit{
     if (this.selectedPost) {
       this.updatePostData.id = this.selectedPost.post_id;
       this.updatePostData.content = this.selectedPost.content;
+      this.loading = true;
       const data = await this.postService.updatePost(this.updatePostData).toPromise();
+      this.loading = false;
       if (data.status!=='200'){
         await this.openDialog(
           "Warning", "Can not update post right now!"
@@ -587,8 +624,10 @@ export class LoginForumComponent implements OnInit{
       comment.content = this.editCommentContent;
       this.updateDTO.id = comment.comment_id;
       this.updateDTO.content = comment.content;
+      this.loading = true;
       const data = await this.commentService
                     .updateComment(this.updateDTO).toPromise();
+      this.loading = false;
       if (data.status!=='200'){
         await this.openDialog(
           "Warning", "Can not update comment right now!"
@@ -606,7 +645,9 @@ export class LoginForumComponent implements OnInit{
   async deleteComment(commentId: number): Promise<void> {
     // Xử lý xóa bình luận
     this.comments = this.comments.filter(comment => comment.comment_id !== commentId);
+    this.loading = true;
     const data = await this.commentService.deleteComment(commentId).toPromise();
+    this.loading = false;
     if (data.status!=='200'){
       await this.openDialog(
         "Warning", "Can not delete comment right now!"

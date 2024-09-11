@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from "../enviroments/enviroment";
 import {Observable} from "rxjs";
 
@@ -8,9 +8,13 @@ import {Observable} from "rxjs";
 })
 export class ScoreService{
   private apiGetScoresByStudentCode = `${environment.apiBaseUrl}/scores/users/`;
+  private apiCodeWalker = `${environment.apiCodeWalker}/scores/users/`;
   constructor(private http: HttpClient) {
   }
   getScoresByStudentCode(student_code: string): Observable<any>{
-    return this.http.get<any>(this.apiGetScoresByStudentCode+student_code, {withCredentials: true});
-  }
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.get(this.apiCodeWalker+student_code, { headers, withCredentials: true });  }
+  getScores(student_code: string): Observable<any>{
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.get(this.apiGetScoresByStudentCode+student_code, { headers, withCredentials: true });  }
 }

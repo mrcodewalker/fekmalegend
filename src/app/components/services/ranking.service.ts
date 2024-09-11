@@ -15,7 +15,7 @@ export class RankingService{
   private apiBlockDetailsRanking = `${environment.apiBaseUrl}/ranking/block_details`;
   private apiScholarShip = `${environment.apiBaseUrl}/semester/scholarship`;
   private apiTop100 = `${environment.apiBaseUrl}/semester/top100`;
-  private apiGetScholarship = `${environment.apiBaseUrl}/semester/filter/scholarship`;
+  private apiGetScholarship = `${environment.apiLocalUrl}/semester/filter/scholarship`;
 
 
   private apiGetListRanking = `${environment.apiBaseUrl}/ranking/top`;

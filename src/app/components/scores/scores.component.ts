@@ -120,205 +120,120 @@ export class ScoresComponent implements OnInit{
         return ''; // Hoặc icon mặc định
     }
   }
-  fetchData(){
+  async fetchData() {
     this.loading = true;
-    // if (!this.searched.indexOf(this.student)){
-    //   this.searched.push(this.student);
-    //   localStorage.setItem('searchHistory', this.searched.toString());
-    //   debugger;
-    // }
-    if (this.selectedGrade.toString()===""||this.selectedGrade.toString().length<=1){
+
+    if (this.selectedGrade.toString() === "" || this.selectedGrade.toString().length <= 1) {
       alert("You must choose selection");
-    }
-      this.subjectsFailed = 0;
-      this.scores = [];
-
-      this.id = 0;
-      console.log("Đã bấm nút search");
-      this.scoreService.getScoresByStudentCode(this.student_code).subscribe({
-        next: (response: any) => {
-          this.subjectList = [];
-
-          this.student = response.student_response;
-          // if (localStorage.getItem('searchHistory')?.valueOf())
-          // localStorage.setItem("searchHistory", localStorage.getItem('searchHistory')?.valueOf()+this.student)
-          let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-
-// Kiểm tra xem student_code đã tồn tại trong searchHistory hay không
-          let existingStudent = searchHistory.find((student: any) => student.student_code === this.student.student_code);
-
-// Nếu student_code chưa tồn tại, thêm phần tử mới vào
-          if (!existingStudent) {
-            searchHistory.unshift({
-              student_class: this.student.student_class,
-              student_code: this.student.student_code,
-              student_name: this.student.student_name
-            });
-
-            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-          }
-
-          response.scores_response.forEach((scoreItem: ScoreResponse) => {
-            const score: ScoreDto = {
-              score_over_rall: scoreItem.score_over_rall,
-              score_final: scoreItem.score_final,
-              score_second: scoreItem.score_second,
-              score_first: scoreItem.score_first,
-              score_text: scoreItem.score_text,
-              subject_name: scoreItem.subject_name
-            };
-
-            if (this.scores) this.scores.push(score);
-          });
-          this.updateFailedSubjects();
-
-          if (this.selectedGrade.toString().toLowerCase()==="xếp hạng trường") {
-            this.rankingService.getRanking(this.student_code).subscribe({
-              next: (response: any) => {
-
-                this.collectData = response;
-                this.ranking = this.collectData[0];
-                this.topRanking = this.collectData.slice(1);
-              },
-              complete: () => {
-
-                this.hitButton = false;
-              },
-              error: (error: any) => {
-
-                console.log("Error fetching data " + error.error.message);
-              }
-            })
-          } else {
-            if (this.selectedGrade.toString().toLowerCase()==="xếp hạng khóa"){
-              this.rankingService.getBlockRanking(this.student_code).subscribe({
-                next: (response: any) => {
-
-                  this.collectData = response;
-                  this.ranking = this.collectData[0];
-                  this.topRanking = this.collectData.slice(1);
-                },
-                complete: () => {
-
-                  this.hitButton = false;
-                },
-                error: (error: any) => {
-
-                  console.log("Error fetching data " + error.error.message);
-                }
-              })
-            } else
-            if (this.selectedGrade.toString().toLowerCase()==="xếp hạng chuyên nghành"){
-              this.rankingService.getMajorRanking(this.student_code).subscribe({
-                next: (response: any) => {
-
-                  this.collectData = response;
-                  this.ranking = this.collectData[0];
-                  this.topRanking = this.collectData.slice(1);
-                },
-                complete: () => {
-
-                  this.hitButton = false;
-                },
-                error: (error: any) => {
-
-                  console.log("Error fetching data " + error.error.message);
-                }
-              })
-            } else {
-              if (this.selectedGrade.toString().toLowerCase()==="xếp hạng lớp"){
-                this.rankingService.getClassRanking(this.student_code).subscribe({
-                  next: (response: any) => {
-
-                    this.collectData = response;
-                    this.ranking = this.collectData[0];
-                    this.topRanking = this.collectData.slice(1);
-                  },
-                  complete: () => {
-
-                    this.hitButton = false;
-                  },
-                  error: (error: any) => {
-
-                    console.log("Error fetching data " + error.error.message);
-                  }
-                })
-              } else {
-                if (this.selectedGrade.toString().toLowerCase()==="xếp hạng khối"){
-                  this.rankingService.getBlockDetailRanking(this.student_code).subscribe({
-                    next: (response: any) => {
-
-                      this.collectData = response;
-                      this.ranking = this.collectData[0];
-                      this.topRanking = this.collectData.slice(1);
-                    },
-                    complete: () => {
-
-                      this.hitButton = false;
-                    },
-                    error: (error: any) => {
-
-                      console.log("Error fetching data " + error.error.message);
-                    }
-                  })
-                } else {
-                  if (this.selectedGrade.toString().toLowerCase()==="xếp hạng theo kì gần nhất"){
-                    this.rankingService.getScholarShip(this.student_code).subscribe({
-                      next: (response: any) => {
-
-                        this.collectData = response.ranking_list;
-                        this.subjectList = response.subjects_list;
-                        if (this.collectData.length===4) {
-                          this.ranking = this.collectData[0];
-                          this.topRanking = this.collectData.slice(1);
-                        } else {
-                          this.ranking = {
-                            ranking: 0,
-                            gpa: 0,
-                            asia_gpa: 0,
-                            student_code: this.student_code,
-                            student_class: "",
-                            student_name: ""
-                          }
-                          this.topRanking = this.collectData;
-                        }
-                      },
-                      complete: () => {
-
-                        this.hitButton = false;
-                      },
-                      error: (error: any) => {
-
-                        console.log("Error fetching data " + error.error.message);
-                      }
-                    })
-                  }
-                }
-              }
-            }
-          }
-        },
-        complete: () => {
-
-          this.hitButton = false;
-        },
-        error: (error: any) => {
-
-          console.log("Error fetching data: " + error.error.message);
-        }
-      })
-      this.cdr.detectChanges()
-    setTimeout(() => {
       this.loading = false;
-      this.hitButton = false;
-      const exists = this.historyOptions.some(code => code.student_code === this.student_code);
-      if (!exists) {
-        if (this.student_code!==''&&this.student_code!==null&&this.student_code.length>6) {
-          this.historyOptions.push(this.student);
-          localStorage.setItem('historyOptions', JSON.stringify(this.historyOptions));
-        }
+      return;
+    }
+
+    this.subjectsFailed = 0;
+    this.scores = [];
+    this.id = 0;
+    console.log("Đã bấm nút search");
+
+    try {
+      // Fetch scores
+      const response = await this.scoreService.getScoresByStudentCode(this.student_code).toPromise();
+      this.subjectList = [];
+      this.student = response.student_response;
+
+      let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+
+      let existingStudent = searchHistory.find((student: any) => student.student_code === this.student.student_code);
+
+      if (!existingStudent) {
+        searchHistory.unshift({
+          student_class: this.student.student_class,
+          student_code: this.student.student_code,
+          student_name: this.student.student_name
+        });
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
       }
-    }, 2000);  }
+
+      response.scores_response.forEach((scoreItem: ScoreResponse) => {
+        const score: ScoreDto = {
+          score_over_rall: scoreItem.score_over_rall,
+          score_final: scoreItem.score_final,
+          score_second: scoreItem.score_second,
+          score_first: scoreItem.score_first,
+          score_text: scoreItem.score_text,
+          subject_name: scoreItem.subject_name
+        };
+        if (this.scores) this.scores.push(score);
+      });
+
+      this.updateFailedSubjects();
+
+      // Fetch ranking based on selectedGrade
+      let rankingResponse;
+      switch (this.selectedGrade.toString().toLowerCase()) {
+        case "xếp hạng trường":
+          rankingResponse = await this.rankingService.getRanking(this.student_code).toPromise();
+          break;
+        case "xếp hạng khóa":
+          rankingResponse = await this.rankingService.getBlockRanking(this.student_code).toPromise();
+          break;
+        case "xếp hạng chuyên nghành":
+          rankingResponse = await this.rankingService.getMajorRanking(this.student_code).toPromise();
+          break;
+        case "xếp hạng lớp":
+          rankingResponse = await this.rankingService.getClassRanking(this.student_code).toPromise();
+          break;
+        case "xếp hạng khối":
+          rankingResponse = await this.rankingService.getBlockDetailRanking(this.student_code).toPromise();
+          break;
+        case "xếp hạng theo kì gần nhất":
+          rankingResponse = await this.rankingService.getScholarShip(this.student_code).toPromise();
+          this.collectData = rankingResponse.ranking_list;
+          this.subjectList = rankingResponse.subjects_list;
+          if (this.collectData.length === 4) {
+            this.ranking = this.collectData[0];
+            this.topRanking = this.collectData.slice(1);
+          } else {
+            this.ranking = {
+              ranking: 0,
+              gpa: 0,
+              asia_gpa: 0,
+              student_code: this.student_code,
+              student_class: "",
+              student_name: ""
+            };
+            this.topRanking = this.collectData;
+          }
+          break;
+        default:
+          throw new Error("Invalid grade selection");
+      }
+
+      if (this.selectedGrade.toString().toLowerCase() !== "xếp hạng theo kì gần nhất") {
+        this.collectData = rankingResponse;
+        this.ranking = this.collectData[0];
+        this.topRanking = this.collectData.slice(1);
+      }
+
+      this.hitButton = false;
+
+    } catch (error) {
+      console.log("Error fetching data: " + (error as Error).message);
+      this.hitButton = false;
+    } finally {
+      this.loading = false;
+      this.cdr.detectChanges();
+      setTimeout(() => {
+        const exists = this.historyOptions.some(code => code.student_code === this.student_code);
+        if (!exists) {
+          if (this.student_code !== '' && this.student_code !== null && this.student_code.length > 6) {
+            this.historyOptions.push(this.student);
+            localStorage.setItem('historyOptions', JSON.stringify(this.historyOptions));
+          }
+        }
+      }, 2000);
+    }
+  }
+
   onSubmit() {
     this.fetchData();
   }
