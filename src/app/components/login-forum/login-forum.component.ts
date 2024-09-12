@@ -170,10 +170,25 @@ export class LoginForumComponent implements OnInit{
         }
       }
     });
-    if (this.authService.getToken())  {
+    if (this.authService.getToken()) {
       this.loading = true;
-      await this.loadPosts();
-      this.loading = false;
+
+      // Tạo một promise cho request loadPosts() và một promise cho timeout 5 giây
+      const loadPostsPromise = this.loadPosts();
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject('Timeout'), 5000)
+      );
+
+      try {
+        // Chạy cả hai promise với Promise.race, nếu timeout trước thì sẽ throw lỗi
+        await Promise.race([loadPostsPromise, timeoutPromise]);
+        this.loading = false;  // Chỉ set loading = false nếu loadPosts thành công
+      } catch (error) {
+        // Nếu bị timeout hoặc lỗi trong loadPosts, thực hiện signOut
+        this.signOut();  // Xóa token và buộc người dùng đăng nhập lại
+        console.log("Request bị timeout hoặc lỗi, đăng xuất người dùng.");
+        this.loading = false;  // Dừng trạng thái loading
+      }
     }
     const username: string | null = this.authService.getUserName();
     if (username !== null) {
@@ -332,6 +347,11 @@ export class LoginForumComponent implements OnInit{
         username: this.signUpDTO.username
       }
       const query = await this.userService.signUp(this.registerDTO).toPromise();
+      if (query.username===null){
+        await this.openDialog(
+          "Warning", "Please check your information again!"
+        );
+      }
       await this.openDialog(
         "Congratulations!", "Your data has been added in system!"
       );
