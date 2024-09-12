@@ -7,13 +7,13 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class ScoreService{
-  private apiGetScoresByStudentCode = `${environment.apiBaseUrl}/scores/users/`;
-  private apiCodeWalker = `${environment.apiCodeWalker}/scores/users/`;
+  private apiGetScoresByStudentCode = `${environment.apiBaseUrl}/ranking/scores/`;
+  private apiCodeWalker = `${environment.apiCodeWalker}/ranking/scores/`;
   constructor(private http: HttpClient) {
   }
-  getScoresByStudentCode(student_code: string): Observable<any>{
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get(this.apiCodeWalker+student_code, { headers, withCredentials: true });  }
+  getScoresByStudentCode(student_code: string): Observable<any> {
+    return this.http.get(`${this.apiCodeWalker}${student_code}`);
+  }
   getScores(student_code: string): Observable<any>{
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.get(this.apiGetScoresByStudentCode+student_code, { headers, withCredentials: true });  }
