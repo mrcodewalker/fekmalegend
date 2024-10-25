@@ -7478,14 +7478,7 @@ button.bg-dark:focus {
   .ml-lg-5,
   .mx-lg-5 {
     margin-left: 3rem !important; }
-  .p-lg-0 {
-    padding: 0 !important; }
   .pt-lg-0,
-  .py-lg-0 {
-    padding-top: 0 !important; }
-  .pr-lg-0,
-  .px-lg-0 {
-    padding-right: 0 !important; }
   .pb-lg-0,
   .py-lg-0 {
     padding-bottom: 0 !important; }
@@ -8162,7 +8155,8 @@ h1, h2, h3, h4, h5,
   background: #ff0000 !important; }
 
 .ftco-section {
-  padding: 1em 0; }
+  /*padding: 1em 0; */
+}
 
 .ftco-no-pt {
   padding-top: 0; }

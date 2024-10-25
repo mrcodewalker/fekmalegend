@@ -152,9 +152,11 @@ export class LoginForumComponent implements OnInit{
       const type = params['type'];
       const username = params['username'];
       const password = params['password'];
+      const role = params['role'];
       if (token) {
         this.authService.saveToken(token);
-        this.authService.saveUserId(userId)
+        this.authService.saveUserId(userId);
+        this.authService.saveRole(role);
         this.authService.saveUserName(username);
         const newUrl = window.location.pathname;
         window.history.replaceState({}, document.title, newUrl);
@@ -313,6 +315,7 @@ export class LoginForumComponent implements OnInit{
     if (data.status==='200'){
       this.authService.saveToken(data.token);
       this.authService.saveUserId(data.id);
+      this.authService.saveRole(data.role);
       this.authService.saveUserName(data.username);
       await this.openDialog("Login Successfully!", "Please enjoy your time!");
       window.location.reload();
@@ -384,6 +387,7 @@ export class LoginForumComponent implements OnInit{
     this.userService.logoutOauth2Google().toPromise();
     this.authService.clearToken();
     this.authService.clearUserId();
+    this.authService.clearRole();
     this.router.navigate(['/login/forum']);
     this.userService.logoutOauth2Google2().toPromise();
   }

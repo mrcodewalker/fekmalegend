@@ -1,0 +1,12 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Ủng Hộ Tác Giả</h2>
+    <p>Thông tin chuyển khoản:</p>
+    <p><strong>Số tài khoản ngân hàng:</strong> 069696169888</p>
+    <p><strong>Tên ngân hàng:</strong> MB Bank</p>
+    <div class="qr-code">
+      <img src="https://scontent.fhan15-2.fna.fbcdn.net/v/t1.15752-9/462550995_553397657068488_5085008395280813199_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHCFrwj84jtBn0EBcXwY3xnUa8yxFSImLFRrzLEVIiYsbpQnhKcnIUVTrYqH298sDjAcFcirRULa1a4AEZnJXDd&_nc_ohc=YImmpj3Pv_QQ7kNvgEUariG&_nc_ht=scontent.fhan15-2.fna&_nc_gid=AVYSY86g3W5_YDBTo0y1FCM&oh=03_Q7cD1QEC2ZGIsjhDoi2wMus0feOJAqD2yQADCwiSUxCm3b5ZhA&oe=672DC8D2" alt="QR Code" />
+    </div>
+    <button (click)="closeModal()">Đóng</button>
+  </div>
+</div>

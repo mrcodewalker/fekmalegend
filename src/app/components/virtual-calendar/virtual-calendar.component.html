@@ -122,10 +122,23 @@
       </tbody>
     </table>
   </div>
+  <div class="calendar-container">
+    <div class="calendar-toolbar">
+      <button class="fc-button fc-prev-button" (click)="previousMonth()">
+        <i class="fas fa-chevron-left"></i> <!-- Font Awesome icon -->
+      </button>
+      <div class="calendar-title">{{ currentMonthYear }}</div>
+      <button class="fc-button fc-next-button" (click)="nextMonth()">
+        <i class="fas fa-chevron-right"></i> <!-- Font Awesome icon -->
+      </button>
+    </div>
+
+    <div class="full-calendar-wrapper">
+      <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+    </div>
+  </div>
 </div>
-<div class="calendar-container">
-  <full-calendar [options]="calendarOptions"></full-calendar>
-</div>
+
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

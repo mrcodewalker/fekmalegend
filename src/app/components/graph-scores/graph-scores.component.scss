@@ -1,0 +1,253 @@
+/* CSS Styles */
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  margin: 0;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+}
+
+.select-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  width: 40%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.subject-select {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.info-card {
+  background: #e9f7ef;
+  border: 1px solid #c8e6c9;
+  border-radius: 4px;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.info-card h2 {
+  margin: 0 0 10px;
+}
+.info-card h3 {
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+/* Chart area */
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+.info-table {
+  max-width: 380px; /* Giảm chiều rộng tối đa của bảng */
+  margin: 20px auto; /* Căn giữa bảng */
+  border: 1px solid #ddd; /* Viền bảng */
+  border-radius: 8px; /* Bo góc */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+  padding: 15px; /* Khoảng cách bên trong */
+  background-color: #fff; /* Màu nền */
+}
+
+.info-table h2 {
+  text-align: center; /* Căn giữa tiêu đề */
+  margin-bottom: 10px; /* Giảm khoảng cách dưới tiêu đề */
+}
+.info-table h3 {
+  text-align: center; /* Căn giữa tiêu đề */
+  margin-bottom: 10px; /* Giảm khoảng cách dưới tiêu đề */
+}
+table {
+  width: 100%; /* Chiều rộng 100% của bảng */
+  border-collapse: collapse; /* Xóa khoảng cách giữa các ô */
+}
+
+th, td {
+  padding: 8px; /* Giảm khoảng cách bên trong các ô */
+  text-align: left; /* Căn trái nội dung */
+  border-bottom: 1px solid #ddd; /* Viền dưới mỗi hàng */
+}
+
+th {
+  background-color: #f2f2f2; /* Màu nền cho tiêu đề */
+  font-weight: bold; /* Chữ đậm */
+}
+
+tr:hover {
+  background-color: #f5f5f5; /* Màu nền khi hover */
+}
+.select-container {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Khoảng cách giữa các phần tử */
+  padding: 10px; /* Padding xung quanh */
+  background-color: #f9f9f9; /* Màu nền nhẹ */
+  border-radius: 8px; /* Bo tròn các góc */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+.search-box {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px; /* Chiều rộng cho input */
+  font-size: 16px;
+}
+
+.subject-select,
+.year-select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.fetch-button {
+  padding: 10px 20px;
+  background-color: #007bff; /* Màu nền cho nút */
+  color: white; /* Màu chữ */
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+
+.fetch-button:hover {
+  background-color: #0056b3; /* Màu nền khi hover */
+}
+
+/* Thêm icon cho nút nếu cần */
+.fetch-button i {
+  margin-right: 8px; /* Khoảng cách giữa icon và chữ */
+}
+.valid-check {
+  color: #28a745;
+  margin-left: 10px;
+  font-size: 1.5em;
+  transition: transform 0.3s ease;
+}
+
+.valid-check:hover {
+  transform: scale(1.2);
+  color: #218838;
+}
+
+.invalid-check {
+  color: #dc3545;
+  margin-left: 10px;
+  font-size: 1.3em;
+  transition: transform 0.3s ease;
+}
+
+.invalid-check:hover {
+  transform: scale(1.2);
+  color: #c82333;
+}
+.alert-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+}
+.alert-message i {
+  margin-right: 10px;
+}
+.invalid-check {
+  color: red;
+}
+.valid-check {
+  color: green;
+}
+.info-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.info-table th, .info-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+.info-table .highlight {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 95%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-areas:
+    "select select"
+    "table chart";
+  grid-template-columns: 380px 1fr;
+  gap: 20px;
+}
+
+/* Chỉ định vị trí cho các phần tử con */
+.select-container {
+  grid-area: select;
+  width: 100%;
+}
+
+.info-table {
+  grid-area: table;
+  margin: 0;  /* Bỏ margin auto */
+}
+
+.chart-container {
+  grid-area: chart;
+  height: 100%;
+  min-height: 400px;
+  margin: 0;  /* Bỏ margin auto */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .card {
+    grid-template-areas:
+      "select"
+      "table"
+      "chart";
+    grid-template-columns: 1fr;
+  }
+
+  .info-table {
+    max-width: none;
+  }
+}

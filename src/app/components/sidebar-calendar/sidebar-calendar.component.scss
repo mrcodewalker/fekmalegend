@@ -1,0 +1,92 @@
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50; /* Màu nền tối hơn để nổi bật hơn */
+  color: #ecf0f1; /* Màu chữ sáng hơn */
+  padding: 20px;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Thêm bóng cho sidebar */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px; /* Tăng khoảng cách giữa tiêu đề và menu */
+}
+
+.logo {
+  font-size: 2.5rem; /* Kích thước logo lớn hơn */
+  margin-right: 10px;
+  color: #f39c12; /* Màu sắc nổi bật cho logo */
+}
+
+.sidebar-menu .menu-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Khoảng cách giữa các mục menu */
+  text-decoration: none;
+  color: #ecf0f1; /* Màu chữ cho các mục menu */
+  padding: 10px 15px; /* Thêm padding cho các mục menu */
+  border-radius: 5px; /* Bo góc cho các mục menu */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền khi hover */
+}
+
+.menu-item:hover {
+  background-color: #34495e; /* Màu nền khi hover */
+  transform: scale(1.02); /* Hiệu ứng phóng to nhẹ khi hover */
+}
+
+.icon {
+  font-size: 1.8rem; /* Kích thước biểu tượng lớn hơn */
+  margin-right: 10px;
+}
+
+.sidebar-footer {
+  position: absolute;
+  bottom: 20px;
+  width: 90%;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  font-size: 2.5rem; /* Kích thước avatar lớn hơn */
+  margin-right: 10px;
+  color: #f39c12; /* Màu sắc nổi bật cho avatar */
+}
+
+.additional-info {
+  margin-top: 5px; /* Khoảng cách trên cho phần thông tin thêm */
+  font-size: 14px; /* Kích thước chữ cho thông tin thêm */
+  color: #ecf0f1; /* Màu chữ cho thông tin thêm */
+}
+
+.birth-date,
+.gender {
+  display: block; /* Hiển thị mỗi thông tin trên một dòng */
+}
+
+.birth-date i,
+.gender i {
+  margin-right: 5px; /* Khoảng cách bên phải cho biểu tượng */
+  font-size: 1.1rem; /* Kích thước biểu tượng */
+  color: #f39c12; /* Màu sắc cho biểu tượng */
+}
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px; /* Adjust width for mobile */
+  }
+
+  /* Sidebar menu items */
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .menu-item {
+    padding: 10px 15px; /* Add padding */
+  }
+}

@@ -1,0 +1,26 @@
+.dashboard-container {
+  display: flex; /* Sử dụng flexbox để sắp xếp sidebar và nội dung bên cạnh nhau */
+  height: 100vh; /* Đặt chiều cao đầy đủ của viewport */
+  overflow: hidden; /* Ẩn thanh cuộn cho toàn bộ dashboard */
+}
+
+.sidebar {
+  width: 200px; /* Chiều rộng của sidebar */
+  height: 100vh; /* Chiều cao đầy đủ của viewport */
+  background-color: #2c3e50; /* Màu nền của sidebar */
+  top: 0; /* Vị trí từ trên */
+  left: 0; /* Vị trí từ trái */
+  padding-top: 20px; /* Khoảng cách phía trên */
+  transition: width 0.3s ease; /* Hiệu ứng chuyển tiếp cho chiều rộng */
+  position: fixed; /* Đảm bảo sidebar luôn ở vị trí cố định */
+  overflow-y: auto; /* Cho phép cuộn dọc trong sidebar nếu nội dung vượt quá chiều cao */
+}
+
+.content {
+  flex: 1; /* Để phần nội dung chiếm hết không gian còn lại */
+  padding: 20px; /* Khoảng cách bên trong cho nội dung */
+  background-color: #ecf0f1; /* Màu nền cho nội dung */
+  overflow-y: auto; /* Cho phép cuộn dọc trong phần nội dung nếu cần thiết */
+  box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước của content */
+  height: 100vh; /* Thay đổi chiều cao của content để phù hợp */
+}

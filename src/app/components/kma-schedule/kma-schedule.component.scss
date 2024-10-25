@@ -1,0 +1,81 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;  // Prevent any overflow on the container
+}
+
+app-sidebar-calendar {
+  flex: 0 0 250px;  // Sidebar has a fixed width of 250px
+  height: 100vh;    // Ensure the sidebar takes the full height
+  background-color: #333;
+}
+
+app-schedule {
+  flex: 1;          // The calendar takes the remaining space
+  //height: 100vh;    // Ensure the calendar also takes the full height
+  background-color: #2e2e2e;
+  padding: 10px;
+  box-sizing: border-box;  // Include padding within the height
+}
+.app-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+/* Styles for the Hamburger Menu */
+.hamburger {
+  display: none; /* Hide by default */
+  flex-direction: column;
+  cursor: pointer;
+  background: none;
+  border: none;
+  position: absolute; /* Position it in the top left corner */
+  top: 10px; /* Adjust as needed */
+  left: 10px; /* Adjust as needed */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.hamburger .bar {
+  height: 3px;
+  width: 30px; /* Adjust as needed */
+  background: white; /* Change to your desired color */
+  margin: 4px 0; /* Space between bars */
+  transition: 0.3s; /* Smooth transition for animations */
+}
+
+/* Sidebar styles */
+app-sidebar-calendar {
+  transition: transform 0.3s ease; /* Smooth transition for hiding/showing */
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex; /* Show hamburger menu on mobile */
+  }
+
+  app-sidebar-calendar {
+    position: absolute;
+    left: 0; /* Position it offscreen initially */
+    top: 0;
+    height: 100%; /* Full height */
+    width: 250px; /* Width of sidebar */
+    transform: translateX(-100%); /* Hide it offscreen */
+  }
+
+  app-sidebar-calendar.open {
+    transform: translateX(0); /* Slide it in when open */
+  }
+}
+/* Close button styles */
+.close-btn {
+  background: none; /* Transparent background */
+  border: none; /* No border */
+  font-size: 24px; /* Adjust size */
+  color: white; /* Change to your desired color */
+  position: absolute; /* Position it inside the sidebar */
+  top: 10px; /* Adjust positioning */
+  right: 10px; /* Adjust positioning */
+  cursor: pointer; /* Change cursor to pointer */
+}

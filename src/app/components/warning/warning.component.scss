@@ -1,0 +1,290 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.search-container {
+  margin: 20px 0;
+  display: flex;
+  align-items: center; /* Canh giữa theo chiều dọc */
+}
+
+.year-select {
+  padding: 8px;
+  margin-left: 10px; /* Khoảng cách giữa label và select */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+.year-select:focus {
+  border: 1px solid #4CAF50; /* Màu viền khi focus */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px; /* Giảm kích thước chữ */
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: #4CAF50; /* Màu nền cho tiêu đề */
+  color: white;
+}
+
+th, td {
+  padding: 8px; /* Giảm khoảng cách trong ô */
+  border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.alert {
+  color: red;
+  font-weight: bold;
+}
+
+.alert i {
+  margin-right: 5px;
+}
+
+.congratulations {
+  color: green; /* Màu xanh lá cây cho thông báo congratulations */
+  font-weight: bold;
+}
+
+.congratulations i {
+  margin-right: 5px;
+}
+
+.valid {
+  color: green;
+  font-weight: bold;
+}
+
+.valid i {
+  margin-right: 5px;
+}
+
+.invalid {
+  color: red;
+  font-weight: bold;
+}
+
+.invalid i {
+  margin-right: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  table {
+    font-size: 12px; /* Giảm kích thước chữ trên màn hình nhỏ */
+  }
+
+  th, td {
+    padding: 6px; /* Giảm khoảng cách trong ô trên màn hình nhỏ */
+  }
+
+  .year-select {
+    width: 100%; /* Chiều rộng select trên màn hình nhỏ */
+  }
+}
+.search-input {
+  padding: 8px;
+  margin-left: 10px; /* Khoảng cách giữa label và input */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+.search-input:focus {
+  border: 1px solid #4CAF50; /* Màu viền khi focus */
+}
+.highlight {
+  color: red; /* Hoặc màu bạn muốn */
+  font-weight: bold; /* Làm cho chữ đậm nếu muốn */
+}
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.fa-spinner {
+  font-size: 40px; /* Điều chỉnh kích thước spinner */
+  color: #333; /* Màu của spinner */
+}
+.search-container {
+  margin: 20px 0;
+  display: flex;
+  align-items: center; /* Canh giữa theo chiều dọc */
+  gap: 15px; /* Khoảng cách giữa các phần tử */
+}
+
+label {
+  font-weight: bold;
+  font-size: 16px; /* Kích thước chữ lớn hơn cho nhãn */
+  color: #333; /* Màu chữ nhãn */
+}
+
+.search-input {
+  padding: 10px; /* Kích thước padding lớn hơn */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px; /* Kích thước chữ */
+  width: 250px; /* Chiều rộng cố định cho input */
+  transition: border 0.3s, box-shadow 0.3s; /* Hiệu ứng chuyển tiếp cho border và shadow */
+}
+
+.search-input:focus {
+  border: 1px solid #4CAF50; /* Màu viền khi focus */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Hiệu ứng shadow khi focus */
+}
+
+.year-select {
+  padding: 10px; /* Kích thước padding lớn hơn */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px; /* Kích thước chữ */
+  width: 150px; /* Chiều rộng cố định cho select */
+  background-color: white; /* Màu nền cho select */
+  appearance: none; /* Xóa giao diện mặc định của select */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,0 5,10" fill="%234CAF50"/></svg>'); /* Thêm icon dropdown */
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Vị trí icon */
+  background-size: 10px; /* Kích thước icon */
+  cursor: pointer; /* Con trỏ khi hover */
+}
+
+.year-select:focus {
+  border: 1px solid #4CAF50; /* Màu viền khi focus */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Hiệu ứng shadow khi focus */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .search-input {
+    width: 100%; /* Chiều rộng full cho input trên màn hình nhỏ */
+  }
+
+  .year-select {
+    width: 100%; /* Chiều rộng full cho select trên màn hình nhỏ */
+  }
+}
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.9rem; /* Reduced font size */
+  background-color: #f4f6f9;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative; /* Needed for sticky header */
+}
+
+.custom-table th, .custom-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #2c3e50;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  position: sticky; /* Make header sticky */
+  top: 0; /* Position at the top */
+  z-index: 10; /* Ensure it stays above other elements */
+}
+
+.custom-table tr {
+  transition: background-color 0.3s ease;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.custom-table tr:hover {
+  background-color: #e2e6ea;
+  transform: scale(1.01);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Optional: Add overflow to the table container for scrolling */
+.table-container {
+  max-height: 400px; /* Set your desired height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+.analysis-icon {
+  cursor: pointer; /* Change cursor to pointer on hover */
+  color: #007bff; /* Set color for the icon */
+  transition: color 0.3s ease; /* Add transition for hover effect */
+}
+
+.analysis-icon:hover {
+  color: #0056b3; /* Change color on hover */
+  transform: scale(1.1); /* Slightly increase size on hover */
+}
+.chart-text {
+  margin-left: 8px; /* Add some space between the icon and the text */
+  font-size: 0.9rem; /* Smaller font size */
+  color: #333; /* Color of the text */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: color 0.3s ease; /* Add transition for hover effect */
+}
+
+.chart-text:hover {
+  color: #007bff; /* Change color on hover */
+}
+.chart-button {
+  display: flex; /* Align items in a row */
+  align-items: center; /* Center items vertically */
+  background-color: #007bff; /* Set the button's background to blue */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  color: #ffffff; /* Text color */
+  cursor: pointer; /* Change cursor to pointer */
+  padding: 8px 12px; /* Add padding for size */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+  font-size: 0.9rem; /* Font size */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.chart-button:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.chart-button:active {
+  background-color: #004494; /* Even darker shade on active */
+  transform: translateY(0); /* Reset lift effect on click */
+}
+
+.chart-button .chart-text {
+  margin-left: 8px; /* Space between icon and text */
+  font-weight: 500; /* Slightly bolder text */
+  color: #ffffff; /* Change icon color to white */
+}
+
+.analysis-icon {
+  color: #ffffff; /* Change icon color to white */
+}

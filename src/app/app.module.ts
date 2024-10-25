@@ -30,6 +30,26 @@ import {AuthInterceptor} from "./components/services/auth.interceptor";
 import { LoginForumComponent } from './components/login-forum/login-forum.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { GraphScoresComponent } from './components/graph-scores/graph-scores.component';
+import {NgChartsModule} from "ng2-charts";
+import {MatSelectModule} from "@angular/material/select";
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
+import { DashboardOverviewComponent } from './components/dashboard-overview/dashboard-overview.component';
+import { StudentManagementComponent } from './components/student-management/student-management.component';
+import { GradeManagementComponent } from './components/grade-management/grade-management.component';
+import { FileImportComponent } from './components/file-import/file-import.component';
+import { SubjectsManagementsComponent } from './components/subjects-managements/subjects-managements.component';
+import { ScoresManagementComponent } from './components/scores-management/scores-management.component';
+import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import { WarningComponent } from './components/warning/warning.component';
+import { FileStorageComponent } from './components/file-storage/file-storage.component';
+import { SidebarCalendarComponent } from './components/sidebar-calendar/sidebar-calendar.component';
+import { KmaScheduleComponent } from './components/kma-schedule/kma-schedule.component';
+import { AuthorSupportComponent } from './components/author-support/author-support.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +68,21 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
     LoginForumComponent,
     ProfileComponent,
     PostDetailComponent,
+    GraphScoresComponent,
+    DashboardComponent,
+    SidebarComponent,
+    AdminHeaderComponent,
+    DashboardOverviewComponent,
+    StudentManagementComponent,
+    GradeManagementComponent,
+    FileImportComponent,
+    SubjectsManagementsComponent,
+    ScoresManagementComponent,
+    WarningComponent,
+    FileStorageComponent,
+    SidebarCalendarComponent,
+    KmaScheduleComponent,
+    AuthorSupportComponent,
     // CalendarComponent
   ],
   imports: [
@@ -60,6 +95,9 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
     MatNativeDateModule,
     MatDatepickerModule, MatListModule, CalendarCommonModule,
     FullCalendarModule,
+    NgChartsModule,
+    MatSelectModule,
+    PdfViewerModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -71,7 +109,7 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }), MatSidenavModule, NgxExtendedPdfViewerModule
   ],
   providers: [
     {

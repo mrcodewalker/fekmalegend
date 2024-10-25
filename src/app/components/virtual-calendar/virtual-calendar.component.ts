@@ -1,5 +1,5 @@
 import {
-  Component, OnInit,
+  Component, OnInit, ViewChild,
 } from '@angular/core';
 import {ScheduleService} from "../services/schedule.service";
 import {Router} from "@angular/router";
@@ -18,6 +18,7 @@ import moment from "moment/moment";
 import {EventDialogComponent} from "../event-dialog/event-dialog.component";
 import {LoginService} from "../services/login.service";
 import {DialogComponent} from "../dialog/dialog.component";
+import {FullCalendarComponent} from "@fullcalendar/angular";
 
 @Component({
   selector: 'app-virtual-calendar',
@@ -25,7 +26,7 @@ import {DialogComponent} from "../dialog/dialog.component";
   styleUrls: ['./virtual-calendar.component.scss']
 })
 export class VirtualCalendarComponent implements OnInit {
-
+  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
   loading : boolean = false;
   listCourseName: string[] = [];
   selectedCourse: string = '';
@@ -307,19 +308,22 @@ export class VirtualCalendarComponent implements OnInit {
     editable: true,
     selectable: true,
     events: [],
-    headerToolbar: {
-      right: 'prev,next',
-      left: 'title'
-    },
+    // headerToolbar: {
+    //   // right: 'today prev,next',
+    //   right: 'prev,next',
+    //   left: 'title'
+    // },
+    headerToolbar: false,
     plugins: [dayGridPlugin, interactionPlugin, momentPlugin],
     dateClick: this.handleDateClick.bind(this),
     eventClick: this.handleEventClick.bind(this),
-    eventTimeFormat: {
+    eventTimeFormat: { // like '14:30'
       hour: '2-digit',
       minute: '2-digit',
       meridiem: false
     },
     datesSet: (info) => {
+      // Định dạng tiêu đề
       const titleEl = document.querySelector('.fc-toolbar-title');
       if (titleEl) {
         const startDate = info.view.currentStart;
@@ -328,17 +332,32 @@ export class VirtualCalendarComponent implements OnInit {
         const formattedEndDate = format(endDate, 'dd/MM/yyyy');
         titleEl.textContent = `${formattedStartDate} - ${formattedEndDate}`;
       }
+
+      // Loại bỏ các ngày không thuộc tháng hiện tại
+      const view = info.view;
+      const currentStart = view.currentStart;
+      const currentEnd = view.currentEnd;
+
+      const allCells = document.querySelectorAll('.fc-daygrid-day');
+      allCells.forEach(cell => {
+        const cellDate = new Date(cell.getAttribute('data-date') as string);
+        // if (cellDate < currentStart || cellDate >= currentEnd) {
+        //   cell.style.display = 'none';
+        // } else {
+        //   cell.style.display = '';
+        // }
+      });
     },
     viewDidMount: (info) => {
+      // Chỉ cần hiển thị tháng hiện tại
       const { currentStart } = info.view;
       info.view.calendar.gotoDate(currentStart);
     },
-    titleFormat: { // Định dạng tiêu đề
+    titleFormat: { // like 'Tuesday, September 4, 2018'
       year: 'numeric',
       month: '2-digit',
       day: '2-digit'
     },
-
   };
   loadEvents() {
     // Xóa tiêu đề cũ trước khi cập nhật
@@ -444,4 +463,19 @@ export class VirtualCalendarComponent implements OnInit {
       }
     });
   }
+  currentMonthYear: string = '';
+  previousMonth() {
+    const calendarApi = this.calendarComponent.getApi();
+    calendarApi.prev();
+    this.updateCurrentMonthYear(calendarApi.getDate());
+  }
+  nextMonth() {
+    const calendarApi = this.calendarComponent.getApi();
+    calendarApi.next();
+    this.updateCurrentMonthYear(calendarApi.getDate());
+  }
+  updateCurrentMonthYear(date: Date) {
+    this.currentMonthYear = moment(date).format('MMMM YYYY');
+  }
+
 }

@@ -11,7 +11,9 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authToken = this.authService.getToken();
 
-    if (authToken) {
+    const uploadUrl = 'http://192.168.1.103:8086/upload'; // Đường dẫn đến uploadFileToDataLake
+
+    if (authToken && req.url !== uploadUrl) {
       const authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${authToken}`

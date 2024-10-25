@@ -1,0 +1,19 @@
+<div class="app-container">
+  <!-- Hamburger Menu Button -->
+<!--  <button class="hamburger" (click)="toggleSidebar()" aria-label="Toggle Sidebar">-->
+<!--    <span class="bar"></span>-->
+<!--    <span class="bar"></span>-->
+<!--    <span class="bar"></span>-->
+<!--  </button>-->
+
+  <app-sidebar-calendar
+    *ngIf="isSidebarOpen"
+    (sectionSelected)="onSectionSelected($event)"
+    [studentInfo]="studentInfo"></app-sidebar-calendar>
+
+  <app-schedule
+    [selectedSection]="selectedSection"
+    (studentInfoSent)="onStudentInfoReceived($event)"></app-schedule>
+
+  <app-author-support *ngIf="showAuthorSupportModal" (close)="onCloseModal()"></app-author-support>
+</div>

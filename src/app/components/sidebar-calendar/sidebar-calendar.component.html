@@ -1,0 +1,53 @@
+<div class="sidebar" [class.active]="isSidebarOpen">
+  <button class="show-sidebar-btn" *ngIf="!isSidebarOpen" (click)="toggleSidebar()" aria-label="Show Sidebar">
+    <i class="fas fa-bars"></i>
+  </button>
+  <div class="sidebar-header">
+    <i class="fas fa-school logo"></i>
+    <span class="title">KMA Schedule</span>
+<!--    <button class="toggle-btn" (click)="toggleSidebar()" aria-label="Toggle Sidebar">-->
+<!--&lt;!&ndash;      <i class="fas" [ngClass]="isSidebarOpen ? 'fa-times' : 'fa-bars'"></i>&ndash;&gt;-->
+<!--    </button>-->
+  </div>
+
+  <nav class="sidebar-menu">
+    <a class="menu-item" (click)="navigateTo('schedule')">
+      <i class="fas fa-calendar icon"></i>
+      <span class="text">Thời Khóa Biểu</span>
+    </a>
+    <a class="menu-item" (click)="navigateTo('exportICS')">
+      <i class="fas fa-file-export icon"></i>
+      <span class="text">Xuất File ICS</span>
+    </a>
+<!--    <a class="menu-item" (click)="navigateTo('authorSupport')">-->
+<!--      <i class="fas fa-user icon"></i>-->
+<!--      <span class="text">Ủng Hộ Tác Giả</span>-->
+<!--    </a>-->
+    <a class="menu-item" (click)="navigateTo('info')">
+      <i class="fas fa-info-circle icon"></i>
+      <span class="text">Thông Tin</span>
+    </a>
+    <a class="menu-item" (click)="navigateTo('signOut')">
+      <i class="fas fa-sign-out icon"></i>
+      <span class="text">Đăng Xuất</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <i class="fas fa-user-circle avatar"></i>
+      <div class="user-details">
+        <span class="username">{{studentInfo.display_name}} - </span>
+        <span class="user-id">{{studentInfo.student_code}}</span>
+        <div class="additional-info">
+          <span class="birth-date">
+            <i class="fas fa-birthday-cake"></i> Ngày sinh: {{studentInfo.birthday}}
+          </span>
+          <span class="gender">
+            <i class="fas fa-venus-mars"></i> Giới tính: {{studentInfo.gender}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

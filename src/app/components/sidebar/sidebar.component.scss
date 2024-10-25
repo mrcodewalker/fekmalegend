@@ -1,0 +1,77 @@
+.sidebar {
+  width: 255px; /* Chiều rộng của sidebar */
+  height: 100vh; /* Chiều cao đầy đủ của viewport */
+  background-color: #2c3e50; /* Màu nền của sidebar */
+  top: 0; /* Vị trí từ trên */
+  left: 0; /* Vị trí từ trái */
+  padding-top: 20px; /* Khoảng cách phía trên */
+  transition: width 0.3s ease; /* Hiệu ứng chuyển tiếp cho chiều rộng */
+  overflow-y: auto; /* Cho phép cuộn dọc nếu nội dung vượt quá chiều cao */
+}
+
+.sidebar ul {
+  list-style-type: none; /* Bỏ kiểu danh sách */
+  padding: 0; /* Bỏ padding */
+  margin: 0; /* Bỏ margin */
+}
+
+.sidebar ul li {
+  padding: 15px 20px; /* Padding cho từng mục */
+  text-align: left; /* Canh trái */
+  font-size: 18px; /* Kích thước chữ */
+  color: #ecf0f1; /* Màu chữ */
+  cursor: pointer; /* Con trỏ chuột thay đổi khi hover */
+  display: flex; /* Flex để căn chỉnh icon và chữ */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  transition: background-color 0.3s, transform 0.2s; /* Hiệu ứng chuyển tiếp cho hover */
+}
+
+/* Hiệu ứng hover cho các mục trong danh sách */
+.sidebar ul li:hover {
+  background-color: #34495e; /* Màu nền khi hover */
+  transform: translateX(5px); /* Dịch chuyển nhẹ sang bên phải */
+}
+
+/* Trạng thái active cho mục hiện tại */
+.sidebar ul li.active {
+  background-color: #1abc9c; /* Màu nền cho mục active */
+  color: #ffffff; /* Màu chữ trắng */
+}
+
+/* Icon Font Awesome */
+.sidebar ul li i {
+  margin-right: 10px; /* Khoảng cách giữa icon và chữ */
+}
+
+/* Media Query cho màn hình di động */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px; /* Chiều rộng cho màn hình nhỏ */
+  }
+
+  .sidebar ul li {
+    padding: 10px 15px; /* Padding nhỏ hơn cho di động */
+    font-size: 16px; /* Kích thước chữ nhỏ hơn */
+  }
+}
+
+/* Hiệu ứng bóng cho sidebar */
+.sidebar {
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); /* Bóng cho sidebar */
+}
+
+/* Hiệu ứng động cho các mục trong danh sách */
+.sidebar ul li::before {
+  content: "";
+  position: absolute; /* Vị trí tuyệt đối để tạo đường kẻ */
+  left: 0; /* Vị trí từ trái */
+  height: 100%; /* Chiều cao đầy đủ */
+  width: 5px; /* Độ rộng của đường kẻ */
+  background-color: transparent; /* Màu mặc định */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển tiếp cho màu */
+}
+
+/* Thay đổi màu của đường kẻ khi hover */
+.sidebar ul li:hover::before {
+  background-color: #1abc9c; /* Màu khi hover */
+}

@@ -774,3 +774,468 @@ html, body {
   align-items: center; /* Căn chỉnh nội dung theo chiều dọc */
   justify-content: center; /* Căn giữa nội dung */
 }
+
+.calendar-container {
+  margin: 10px;                /* Reduce margin to create more space */
+  padding: 10px;               /* Reduce padding to prevent overflow */
+  background-color: #1f1f1f;   /* Background color */
+  border-radius: 10px;         /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  color: white;                /* Text color */
+  font-family: 'Arial', sans-serif; /* Font family */
+}
+
+/* FullCalendar Customization */
+.fc {
+  background-color: #2e2e2e;   /* Darker background for the calendar grid */
+  font-size: 0.9em;            /* Slightly smaller font size for better fit */
+}
+
+.fc-toolbar {
+  background-color: #333333;   /* Dark toolbar background */
+  color: #ffffff;              /* Text color */
+  padding: 8px 0;              /* Reduced padding */
+}
+
+.fc-toolbar-title {
+  color: #ffffff;              /* Title color */
+  font-size: 16px;             /* Slightly smaller font size */
+}
+
+.fc-button {
+  background-color: #444444;   /* Dark buttons */
+  border: none;
+  color: #ffffff;
+  font-size: 0.9em;            /* Smaller button text */
+}
+
+.fc-button:hover {
+  background-color: #555555;   /* Lighter on hover */
+}
+
+.fc-button-primary {
+  background-color: #007bff;   /* Primary button color */
+  color: #ffffff;
+  border: none;
+}
+
+.fc-button-primary:hover {
+  background-color: #0056b3;   /* Darker on hover */
+}
+
+.fc-button-group .fc-button.fc-today-button {
+  background-color: #ff5c5c;   /* "Today" button specific styling */
+}
+
+.fc-button-group .fc-button.fc-today-button:hover {
+  background-color: #ff7878;   /* Lighter on hover */
+}
+
+/* Event Styles */
+.fc-event {
+  background-color: #007bff !important; /* Blue background for events */
+  border: none !important;
+  color: #ffffff !important; /* White text */
+  padding: 3px !important;   /* Reduced padding */
+  border-radius: 4px !important; /* Smaller border radius */
+  font-size: 11px !important; /* Smaller font size */
+}
+
+.fc-day-today {
+  background-color: #333333 !important; /* Highlight current day */
+  border-color: #ff5c5c;
+}
+
+.fc-day-sat,
+.fc-day-sun {
+  background-color: #2a2a2a !important; /* Weekend days styling */
+}
+
+.fc-highlight {
+  background-color: rgba(255, 92, 92, 0.5); /* Highlight color */
+}
+
+/* Grid and Day Styles */
+.fc-theme-standard .fc-scrollgrid {
+  background-color: #1f1f1f; /* Background for day grid */
+}
+
+.fc-daygrid-day-number {
+  color: #ffffff; /* White day number */
+  font-size: 12px; /* Slightly smaller day number */
+}
+
+.fc-timegrid-slot-lane {
+  background-color: #1f1f1f; /* Time grid for day view (if applicable) */
+}
+
+/* Tooltip for Events */
+.fc-event:hover::before {
+  content: attr(title); /* Event title on hover */
+  display: block;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 4px; /* Reduced padding */
+  border-radius: 4px; /* Smaller border radius */
+  font-size: 9px; /* Smaller font size */
+  z-index: 100;
+}
+
+/* Event Time Styling */
+.fc-timegrid-event .fc-event-time {
+  color: white !important; /* Time text color in day view */
+}
+
+/* Loading Spinner */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 1000;
+}
+
+/* Day Grid Event Customization */
+::ng-deep .fc-daygrid-event {
+  background-color: #007bff;   /* Button-like blue background */
+  color: white;                /* White text */
+  border-radius: 4px;         /* Smaller rounded corners */
+  padding: 3px 5px;           /* Reduced padding */
+  border: none;                /* Remove default border */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  text-align: center;          /* Center the text */
+  display: block;              /* Block level to fit within the cell */
+  width: 100%;                 /* Ensure the event spans the full width of its cell */
+  overflow: hidden;            /* Prevent content overflow */
+  white-space: nowrap;         /* Prevent text wrapping */
+  text-overflow: ellipsis;     /* Add ellipsis for overflowed text */
+}
+
+::ng-deep .fc-daygrid-event:hover {
+  background-color: #0d6efd;   /* Darker blue on hover */
+  color: white;
+  cursor: pointer;             /* Show pointer on hover */
+  transform: scale(1.02);      /* Slight enlarge effect on hover */
+  transition: transform 0.2s ease, background-color 0.2s ease; /* Smooth transitions */
+}
+
+::ng-deep .fc-daygrid-event-harness {
+  padding: 2px 0;              /* Padding between events */
+}
+
+::ng-deep .fc-daygrid-day-frame {
+  position: relative;          /* Ensure events are positioned relative to the cell */
+  overflow: hidden;            /* Prevent events from overflowing out of the cells */
+  height: auto;
+}
+
+::ng-deep .fc-daygrid-day {
+  overflow: hidden;                   /* Ngăn chặn sự tràn sự kiện ra ngoài ô */
+}
+::ng-deep .fc-daygrid-day-number {
+  display: flex;                      /* Sử dụng flexbox */
+  align-items: center;                /* Căn giữa theo chiều dọc */
+  justify-content: center;            /* Căn giữa theo chiều ngang */
+  height: 100%;                       /* Đảm bảo chiều cao đầy đủ của ô */
+  width: 100%;                        /* Đảm bảo chiều rộng đầy đủ của ô */
+  overflow: hidden;                   /* Ngăn chặn sự tràn */
+  text-align: center;                 /* Căn giữa chữ theo chiều ngang */
+}
+::ng-deep .fc-daygrid-day.fc-day-today .fc-daygrid-day-number::before {
+  content: '';                        /* Tạo một pseudo-element */
+  position: absolute;                 /* Đặt vị trí tuyệt đối */
+  top: 50%;                           /* Đặt ở giữa theo chiều dọc */
+  left: 50%;                          /* Đặt ở giữa theo chiều ngang */
+  width: 30px;                       /* Chiều rộng của vòng tròn */
+  height: 30px;                      /* Chiều cao của vòng tròn */
+  background-color: transparent;      /* Màu nền trong suốt cho vòng tròn */
+  border: 3px solid #007bff;         /* Đường viền của vòng tròn */
+  border-radius: 50%;                 /* Tạo hình tròn */
+  box-sizing: border-box;             /* Đảm bảo đường viền nằm bên trong */
+  transform: translate(-50%, -50%);   /* Căn giữa vòng tròn */
+  pointer-events: none;               /* Để không ảnh hưởng đến các sự kiện chuột */
+}
+
+/* Vòng tròn cho ngày khác khi hover */
+::ng-deep .fc-daygrid-day:hover .fc-daygrid-day-number::before {
+  content: '';                        /* Tạo một pseudo-element */
+  position: absolute;                 /* Đặt vị trí tuyệt đối */
+  top: 50%;                           /* Đặt ở giữa theo chiều dọc */
+  left: 50%;                          /* Đặt ở giữa theo chiều ngang */
+  width: 30px;                       /* Chiều rộng của vòng tròn */
+  height: 30px;                      /* Chiều cao của vòng tròn */
+  background-color: transparent;      /* Màu nền trong suốt cho vòng tròn */
+  border: 3px solid #ffcc00;         /* Đường viền của vòng tròn khi hover */
+  border-radius: 50%;                 /* Tạo hình tròn */
+  box-sizing: border-box;             /* Đảm bảo đường viền nằm bên trong */
+  transform: translate(-50%, -50%);   /* Căn giữa vòng tròn */
+  pointer-events: none;               /* Để không ảnh hưởng đến các sự kiện chuột */
+}
+
+/* Thêm icon Font Awesome cho ngày hôm nay */
+::ng-deep .fc-daygrid-day.fc-day-today .fc-daygrid-day-number::after {
+  font-family: 'Font Awesome 5 Free'; /* Font Awesome */
+  font-weight: 900;                  /* Chọn kiểu icon (regular/bold) */
+  position: absolute;                /* Đặt vị trí tuyệt đối */
+  top: 50%;                          /* Đặt ở giữa theo chiều dọc */
+  left: 50%;                         /* Đặt ở giữa theo chiều ngang */
+  transform: translate(-50%, -50%); /* Căn giữa icon */
+  color: #007bff;                   /* Màu sắc của icon */
+  font-size: 20px;                  /* Kích thước icon */
+  opacity: 0.7;                     /* Độ mờ của icon */
+}
+
+::ng-deep .fc-daygrid-day-top {
+  padding-top: 8px;           /* Adjust space above the event */
+}
+
+::ng-deep .fc-daygrid-day-events {
+  max-height: 100%; /* Ensure events do not extend beyond the cell height */
+  width: 98%;       /* Slightly reduced width for better fitting */
+  //overflow-y: hidden;  /* Hide vertical overflow */
+}
+.fc-daygrid-day {
+  display: flex;                       /* Sử dụng flexbox cho ô lịch */
+  justify-content: center;             /* Căn giữa theo chiều ngang */
+  align-items: center;                 /* Căn giữa theo chiều dọc */
+  height: 100%;                        /* Chiều cao đủ để căn giữa */
+}
+
+.fc-daygrid-day-number {
+  margin: 0;                          /* Xóa margin */
+  padding: 0;                         /* Xóa padding */
+  font-size: 14px;                   /* Kích thước chữ */
+  color: #ffffff;                    /* Màu chữ trắng */
+  text-align: center;                 /* Căn giữa chữ */
+}
+.calendar-container {
+  margin: 10px;                /* Reduce margin to create more space */
+  padding: 10px;               /* Reduce padding to prevent overflow */
+  background-color: #1f1f1f;   /* Background color */
+  border-radius: 10px;         /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  color: white;                /* Text color */
+  font-family: 'Arial', sans-serif; /* Font family */
+  max-height: 97%;            /* Set a maximum height for the calendar */
+  overflow-y: auto;            /* Allow vertical scrolling if content exceeds max height */
+}
+
+/* FullCalendar Customization */
+.fc {
+  background-color: #2e2e2e;   /* Darker background for the calendar grid */
+  font-size: 0.9em;            /* Slightly smaller font size for better fit */
+  height: 100%;                 /* Make full calendar take the full height of the container */
+}
+
+.fc-toolbar {
+  background-color: #333333;   /* Dark toolbar background */
+  color: #ffffff;              /* Text color */
+  padding: 8px 0;              /* Reduced padding */
+}
+
+.fc-toolbar-title {
+  color: #ffffff;              /* Title color */
+  font-size: 16px;             /* Slightly smaller font size */
+}
+
+/* Set specific heights for different views */
+.fc-daygrid-view {
+  max-height: 60vh;            /* Limit height for day grid view */
+  overflow-y: auto;            /* Enable scrolling if content exceeds max height */
+}
+
+.fc-timegrid-view {
+  max-height: 60vh;            /* Limit height for time grid view */
+  //overflow-y: auto;            /* Enable scrolling if content exceeds max height */
+}
+
+.calendar-toolbar {
+  position: sticky;          /* Cố định vị trí khi cuộn */
+  top: 0;                   /* Đặt vị trí ở đầu */
+  background-color: #333;   /* Màu nền cho toolbar */
+  z-index: 10;              /* Đảm bảo nó nằm trên cùng */
+  padding: 10px;            /* Padding cho toolbar */
+  display: flex;            /* Hiển thị flex để căn giữa */
+  align-items: center;      /* Căn giữa theo chiều dọc */
+  justify-content: space-between; /* Căn đều các phần tử */
+}
+
+.calendar-title {
+  font-size: 1.5em;         /* Kích thước chữ tiêu đề */
+  color: #fff;              /* Màu chữ */
+  text-align: center;       /* Căn giữa chữ */
+}
+
+.full-calendar-wrapper {
+  text-align: center;
+  //transform: scale(0.85); /* Scale down the calendar slightly */
+  //transform-origin: center; /* Keep it centered while scaling */
+}
+.calendar-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Giữa nút và tiêu đề */
+  padding: 10px 20px; /* Padding cho phần toolbar */
+  background-color: #2c3e50; /* Màu nền */
+  border-radius: 8px; /* Góc tròn */
+}
+
+.calendar-title {
+  font-size: 1.5rem; /* Kích thước chữ tiêu đề */
+  color: #ecf0f1; /* Màu chữ */
+  margin: 0 20px; /* Khoảng cách giữa tiêu đề và các nút */
+}
+
+.fc-button {
+  background-color: #3498db; /* Màu nền nút */
+  color: #fff; /* Màu chữ nút */
+  border: none; /* Không có viền */
+  border-radius: 5px; /* Góc tròn cho nút */
+  padding: 10px 15px; /* Padding cho nút */
+  cursor: pointer; /* Con trỏ khi di chuột */
+  transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng chuyển đổi */
+  display: flex; /* Căn giữa biểu tượng và chữ */
+  align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.fc-button:hover {
+  background-color: #2980b9; /* Màu nền khi hover */
+  transform: scale(1.05); /* Phóng to một chút khi hover */
+}
+
+.fc-button i {
+  margin-right: 5px; /* Khoảng cách giữa biểu tượng và chữ */
+}
+@media (max-width: 768px) {
+  .calendar-container {
+    margin: 5px; /* Reduce margin on smaller screens */
+    padding: 5px; /* Reduce padding on smaller screens */
+  }
+
+  .fc-toolbar {
+    font-size: 0.8em; /* Adjust font size for toolbar */
+  }
+
+  .fc-daygrid-day-number {
+    font-size: 10px; /* Smaller font size for day numbers */
+  }
+
+  .fc-button {
+    font-size: 0.8em; /* Smaller button text */
+  }
+
+  .fc-button-primary {
+    font-size: 0.8em; /* Smaller primary button text */
+  }
+
+  /* Adjust event styles */
+  .fc-event {
+    font-size: 10px !important; /* Smaller event font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-container {
+    margin: 0; /* Remove margin on very small screens */
+    padding: 0; /* Remove padding on very small screens */
+  }
+
+  .fc-toolbar {
+    font-size: 0.7em; /* Further adjust toolbar font size */
+  }
+
+  .fc-daygrid-day-number {
+    font-size: 9px; /* Even smaller day numbers */
+  }
+
+  .fc-button {
+    font-size: 0.7em; /* Even smaller button text */
+  }
+
+  .fc-button-primary {
+    font-size: 0.7em; /* Even smaller primary button text */
+  }
+
+  /* Adjust event styles */
+  .fc-event {
+    font-size: 9px !important; /* Even smaller event font size */
+  }
+}
+.button-container {
+  display: flex; /* Sử dụng Flexbox để căn giữa các nút */
+  gap: 10px; /* Khoảng cách giữa các nút */
+  justify-content: center; /* Căn giữa các nút theo chiều ngang */
+  width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+}
+
+.export-btn, .sign-out-btn {
+  background-color: #007bff; /* Màu nền nút */
+  color: white; /* Màu chữ */
+  border: none; /* Xóa đường viền mặc định */
+  border-radius: 5px; /* Góc bo tròn cho nút */
+  padding: 10px 20px; /* Khoảng cách bên trong nút */
+  cursor: pointer; /* Con trỏ chuột khi di chuột qua nút */
+  font-size: 16px; /* Kích thước chữ */
+}
+
+.export-btn {
+  //background-color: #28a745; /* Màu nền của nút xuất ICS */
+}
+
+.sign-out-btn {
+  background-color: #dc3545; /* Màu nền của nút đăng xuất */
+}
+
+.export-btn:hover, .sign-out-btn:hover {
+  opacity: 0.9; /* Hiệu ứng khi di chuột qua nút */
+}
+//
+.calendar-container button:hover{
+
+}
+.vertical-list-container {
+  position: fixed; /* Sử dụng fixed để phần tử dính cố định */
+  top: 10px; /* Điều chỉnh vị trí cố định so với phần trên màn hình */
+  right: 0; /* Cố định phía bên phải màn hình */
+  width: 250px; /* Đặt chiều rộng cho danh sách */
+  z-index: 1000; /* Hiển thị trên các lớp khác */
+  background-color: white; /* Giữ nền trắng để tránh chồng chéo nội dung */
+  padding: 10px;
+  border: 1px solid #ddd; /* Viền để phân biệt với các nội dung khác */
+}
+
+.vertical-scroll-container {
+  max-height: calc(100vh - 50px); /* Đặt chiều cao tối đa bằng với chiều cao của cửa sổ trình duyệt trừ đi phần đệm */
+  overflow-y: auto; /* Thêm cuộn dọc nếu danh sách vượt quá chiều cao */
+}
+
+.vertical-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  color: darkred;
+}

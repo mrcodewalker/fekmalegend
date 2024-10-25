@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Graph Scores</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="select-container">
+    <input class="search-box" type="text" placeholder="Tìm môn học..." [(ngModel)]="searchText" (input)="filterSubjects()">
+
+    <select class="subject-select" [(ngModel)]="selectedSubject" (change)="onSubjectChange($event)">
+      <option *ngFor="let subject of filteredSubjects" [value]="subject.subject_name">
+        {{ subject.subject_name }}
+      </option>
+      <option *ngIf="filteredSubjects.length === 0" disabled>
+        {{ this.selectedSubject }}
+      </option>
+    </select>
+
+    <select class="year-select" [(ngModel)]="selectedYear">
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+
+    <button class="fetch-button" (click)="fetchData()">
+      <i class="fas fa-sync-alt"></i> Fetch Data
+    </button>
+  </div>
+
+
+  <!-- Card for student info -->
+  <div class="info-table">
+
+    <h2>
+      Môn học: {{ selectedSubject }}
+<!--      &lt;!&ndash; Nếu valid = true thì hiển thị dấu tích &ndash;&gt;-->
+<!--      <i *ngIf="valid" class="fas fa-check-circle valid-check"></i>-->
+<!--      &lt;!&ndash; Nếu valid = false thì hiển thị dấu X &ndash;&gt;-->
+<!--      <i *ngIf="!valid" class="fas fa-times-circle invalid-check"></i>-->
+    </h2>
+    <h3>Năm học: {{this.selectedYear}}</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>Các mốc điểm</th>
+        <th>Số sinh viên</th>
+        <th>Tỉ lệ %</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Tổng số sinh viên</td>
+        <td>{{ totalStudents }}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Sinh viên giỏi</td>
+        <td>{{ eightToTen }}</td>
+        <td>{{ (eightToTen / totalStudents) * 100 | number: '1.2-2' }}%</td>
+      </tr>
+      <tr>
+        <td>Sinh viên khá</td>
+        <td>{{ sevenToEight }}</td>
+        <td>{{ (sevenToEight / totalStudents) * 100 | number: '1.2-2' }}%</td>
+      </tr>
+      <tr>
+        <td>Sinh viên trung bình</td>
+        <td>{{ fiveToSeven }}</td>
+        <td>{{ (fiveToSeven / totalStudents) * 100 | number: '1.2-2' }}%</td>
+      </tr>
+      <tr>
+        <td>Sinh viên yếu/kém</td>
+        <td>{{ lessThanFive }}</td>
+        <td>{{ (lessThanFive / totalStudents) * 100 | number: '1.2-2' }}%</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="!valid && alertMessage.length > 0" class="alert-message">
+    <div *ngFor="let message of alertMessage">
+      <i class="fas fa-exclamation-triangle"></i>
+      {{ message }}
+    </div>
+  </div>
+
+
+  <!-- Chart area -->
+  <div class="chart-container">
+    <canvas #myChart baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            (chartClick)="onChartClick($event)">
+    </canvas>
+  </div>
+</div>
+
+</body>
+</html>

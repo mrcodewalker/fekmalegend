@@ -1,16 +1,27 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {resetParseTemplateAsSourceFileForTest} from "@angular/compiler-cli/src/ngtsc/typecheck/diagnostics";
 import {SearchService} from "../services/search.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss', './css/style.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
   checkHitButton: boolean = false;
   isMenuOpen: boolean = false;
-  constructor(private searchService: SearchService) { }
+  isAdmin: boolean = false;
+  urlRedirect: string = '';
+  isTeacher: boolean = false;
+  constructor(private searchService: SearchService,
+              private authService: AuthService) { }
+  ngOnInit() {
+    this.authService.role$.subscribe(role => {
+      this.isAdmin = (role?.toLowerCase() === 'admin');
+      this.isTeacher = (role?.toLowerCase() === 'teacher');
+    });
+  }
 
   searchButtonClick() {
     this.searchService.notifySearchButtonClick();

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {RouterService} from "../services/router.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import interactionPlugin from '@fullcalendar/interaction';
@@ -16,14 +16,22 @@ import { CalendarApi, EventInput } from '@fullcalendar/core';
 import { format } from 'date-fns';
 import {DataDto} from "../dtos/data.dto";
 import {LoginService} from "../services/login.service";
+import {FullCalendarComponent} from "@fullcalendar/angular";
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss']
 })
-export class ScheduleComponent implements OnInit{
+export class ScheduleComponent implements OnInit, OnChanges{
+  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
+  @Output() studentInfoSent = new EventEmitter<any>();
+  @Input() selectedSection!: string;
+  currentMonthYear: string = '';
+  showModal = false;
   loading: boolean = false;
+  showAuthorSupportModal = false;
+  isMobile = false;
   schedule: CalendarDto = {
       code: '',
       message: '',
@@ -42,11 +50,12 @@ export class ScheduleComponent implements OnInit{
     editable: true,
     selectable: true,
     events: [],
-    headerToolbar: {
-      // right: 'today prev,next',
-      right: 'prev,next',
-      left: 'title'
-    },
+    // headerToolbar: {
+    //   // right: 'today prev,next',
+    //   right: 'prev,next',
+    //   left: 'title'
+    // },
+    headerToolbar: false,
     plugins: [dayGridPlugin, interactionPlugin, momentPlugin],
     dateClick: this.handleDateClick.bind(this),
     eventClick: this.handleEventClick.bind(this),
@@ -92,6 +101,11 @@ export class ScheduleComponent implements OnInit{
       day: '2-digit'
     },
   };
+  ngOnChanges() {
+    if (this.selectedSection) {
+      this.handleSectionChange(this.selectedSection);
+    }
+  }
     ngOnInit(): void {
       // this.router.queryParams.subscribe(params => {
       //   if (params['schedule']) {
@@ -109,17 +123,67 @@ export class ScheduleComponent implements OnInit{
         });
       }
       // console.log(this.schedule);
+      this.studentInfoSent.emit(this.schedule.data.student_info);
       this.loadEvents();
+      this.updateCurrentMonthYear(new Date());
     }
+  updateCurrentMonthYear(date: Date) {
+    this.currentMonthYear = moment(date).format('MMMM YYYY');
+  }
+  handleSectionChange(section: string) {
+    switch (section) {
+      case 'timeTable':
+        // this.loadTimeTable();
+        break;
+      case 'sync':
+        // this.syncData();
+        break;
+      case 'exportICS':
+        this.exportICS();
+        break;
+      case 'signOut':
+        this.signOut();
+        break;
+      case 'authorSupport':
+        this.showModal = true;
+        break;
+      // Các trường hợp khác...
+      default:
+        break;
+    }
+  }
+  closeModal() {
+    this.showModal = false; // Ẩn modal
+  }
+  previousMonth() {
+    const calendarApi = this.calendarComponent.getApi();
+    calendarApi.prev();
+    this.updateCurrentMonthYear(calendarApi.getDate());
+  }
+
+  nextMonth() {
+    const calendarApi = this.calendarComponent.getApi();
+    calendarApi.next();
+    this.updateCurrentMonthYear(calendarApi.getDate());
+  }
+
     constructor(private route: Router,
                 private router: ActivatedRoute,
                 private sharedService: SharedService,
                 public dialog: MatDialog,
                 private loginService: LoginService) {
+      this.checkIfMobile();
     }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkIfMobile(); // Kiểm tra lại kích thước khi thay đổi
+  }
 
-  signOut(){
+  private checkIfMobile() {
+    this.isMobile = window.innerWidth < 768; // Thay đổi giá trị 768 nếu cần
+  }
+    signOut(){
       localStorage.setItem("wibu","false");
       localStorage.removeItem("schedule");
       this.route.navigate(['login']);
@@ -144,7 +208,6 @@ export class ScheduleComponent implements OnInit{
       this.loading = false;
     }, 200);
   }
-
   loadEvents() {
 
     // @ts-ignore

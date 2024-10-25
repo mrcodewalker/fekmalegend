@@ -1,0 +1,64 @@
+<div *ngIf="loading" class="loading-overlay">
+  <i class="fas fa-spinner fa-spin"></i> <!-- Sử dụng biểu tượng spinner -->
+</div>
+<div class="search-container">
+  <label for="subjectSearch">Tìm Kiếm Môn Học:</label>
+  <input
+    type="text"
+    id="subjectSearch"
+    [(ngModel)]="subjectSearch"
+    (input)="filterSubjects()"
+    placeholder="Nhập tên môn học"
+    class="search-input"
+  />
+  <label for="yearSelect"> Chọn Năm:</label>
+  <select id="yearSelect" [(ngModel)]="selectedYear" (change)="filterByYear()" class="year-select">
+    <option *ngFor="let year of yearsOption" [value]="year">{{ year }}</option>
+  </select>
+</div>
+
+<table class="custom-table table-container">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Tên Môn Học</th>
+    <th>Điểm 8-10</th>
+    <th>Điểm Dưới 5</th>
+    <th>Phần Trăm 8-10</th>
+    <th>Phần Trăm Dưới 5</th>
+    <th>Thông Báo</th>
+    <th>Hợp Lệ</th>
+    <th>Phân tích</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let subject of filteredSubjects; let i = index">
+    <td>{{ i + 1 }}</td> <!-- Thêm cột ID -->
+    <td>{{ subject.subject_name }}</td>
+    <td>{{ subject.eight_to_ten }}</td>
+    <td>{{ subject.less_than_five }}</td>
+    <td [ngClass]="{ 'highlight': !subject.valid && subject.eight_to_ten_percent >= 30 }">
+      {{ subject.eight_to_ten_percent | number: '1.1-2' }}%
+    </td>
+    <td [ngClass]="{ 'highlight': !subject.valid && subject.less_than_five_percent >= 20 }">
+      {{ subject.less_than_five_percent | number: '1.1-2' }}%
+    </td>
+    <td *ngIf="!subject.valid" class="alert">
+      <i class="fas fa-exclamation-triangle"></i> {{ subject.alert_message }}
+    </td>
+    <td *ngIf="subject.valid" class="congratulations">
+      <i class="fas fa-meteor"></i> Đề thi đã phù hợp với năng lực của sinh viên
+    </td>
+    <td [ngClass]="{ 'valid': subject.valid, 'invalid': !subject.valid }">
+      <i [class]="subject.valid ? 'fas fa-check-circle' : 'fas fa-times-circle'"></i>
+      {{ subject.valid ? 'Valid' : 'Invalid' }}
+    </td>
+    <td>
+      <button class="chart-button" (click)="redirectToGraph(subject)">
+        <i class="fas fa-chart-line analysis-icon"></i>
+        <span class="chart-text">Biểu đồ</span>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
