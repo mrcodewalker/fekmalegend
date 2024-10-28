@@ -75,3 +75,78 @@
 .sidebar ul li:hover::before {
   background-color: #1abc9c; /* Màu khi hover */
 }
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  position: relative;
+  transition: width 0.3s ease, padding 0.3s ease;
+  overflow: hidden;
+}
+
+.sidebar.collapsed {
+  width: 50px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar li {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed li {
+  opacity: 0; /* Ẩn tất cả các mục khi sidebar thu gọn */
+}
+
+.sidebar.collapsed li i {
+  opacity: 1; /* Chỉ hiển thị icon mũi tên khi thu gọn */
+  margin: 0 auto; /* Căn giữa icon */
+}
+
+.sidebar i {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+/* Chỉ hiển thị icon mũi tên khi sidebar thu gọn */
+.sidebar.collapsed i:not(.toggle-icon) {
+  display: none;
+}
+
+/* Toggle button style */
+.toggle-btn {
+  position: absolute;
+  top: 50%;
+  right: -15px;
+  transform: translateY(-50%);
+  background-color: #34495e;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ecf0f1;
+  font-size: 20px; /* Tăng kích thước icon mũi tên */
+  transition: right 0.3s ease, font-size 0.3s ease;
+}
+
+.sidebar.collapsed .toggle-btn {
+  //right: -19px; /* Điều chỉnh vị trí khi thu gọn */
+  font-size: 24px; /* Tăng kích thước icon khi thu gọn */
+}
+
+.sidebar.collapsed .toggle-btn i {
+  transform: rotate(180deg); /* Đảo hướng icon khi thu gọn */
+}

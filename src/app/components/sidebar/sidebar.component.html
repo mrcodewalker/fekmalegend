@@ -1,5 +1,5 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<div class="sidebar">
+<div class="sidebar" [class.collapsed]="isCollapsed">
   <ul>
     <li routerLink="admin/home" routerLinkActive="active" [class.active]="selectedName === 'Home'" (click)="selectItem('Home')">
       <i class="fas fa-chart-bar"></i> Chart
@@ -26,6 +26,9 @@
 <!--      <i class="fas fa-user"></i> Users Management-->
 <!--    </li>-->
   </ul>
+  <div class="toggle-btn" (click)="onToggleSidebar()">
+    <i class="fas fa-arrow-left toggle-icon"></i>
+  </div>
 </div>
 <!--<div class="toggle-btn" (click)="onToggleSidebar()">-->
 <!--  <i [class]="isCollapsed ? 'fas fa-arrow-right' : 'fas fa-arrow-left'"></i>-->

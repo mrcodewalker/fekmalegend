@@ -9,7 +9,11 @@ import {Router} from "@angular/router";
 })
 export class SidebarComponent implements OnInit {
   selectedName: string = '';
+  isCollapsed: boolean = false;
 
+  toggleSidebar() {
+    this.isCollapsed = !this.isCollapsed;
+  }
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
@@ -30,12 +34,10 @@ export class SidebarComponent implements OnInit {
     // this.selectedName = name; // Cập nhật tab được chọn
     // localStorage.setItem('dashboardPage', name); // Lưu trữ tab vào localStorage
   }
-  isCollapsed = false;
 
   @Output() toggle = new EventEmitter<void>(); // Sự kiện để gửi thông báo
 
   onToggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
-    this.toggle.emit(); // Phát ra sự kiện
   }
 }
