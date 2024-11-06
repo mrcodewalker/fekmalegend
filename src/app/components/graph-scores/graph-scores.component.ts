@@ -71,6 +71,7 @@ export class GraphScoresComponent implements OnInit {
         year_course: this.selectedYear,
         subject_name: this.selectedSubject
       }
+      // const response = await this.graphScoreService.getGraphScores(this.graphRequest).toPromise();
       const response = await this.graphScoreService.getGraphScores(this.graphRequest).toPromise();
       this.barChartLabels = response.score;
       this.barChartData = [
@@ -113,6 +114,7 @@ export class GraphScoresComponent implements OnInit {
   }
   async collectSubjects() {
     try {
+      // const subjects = await this.graphScoreService.getAllSubjects().toPromise();
       const subjects = await this.graphScoreService.getAllSubjects().toPromise();
       this.listSubjects = subjects;
     } catch (error) {

@@ -12,6 +12,10 @@ export class GraphScoresService{
   private apiGetAllSubjects = `${environment.apiBaseUrl}/graph/collect/subjects`;
   private apiGetGraphScores = `${environment.apiBaseUrl}/graph/filter`;
   private apiWarningSubjects = `${environment.apiBaseUrl}/graph/warning/subjects`;
+  //
+  private apiGetGraphScoresOnce = `${environment.apiBaseUrl}/graph/filter/once`;
+  private apiGetAllSubjectsOnce = `${environment.apiBaseUrl}/graph/collect/subjects/once`;
+  private apiWarningSubjectsOnce = `${environment.apiBaseUrl}/graph/warning/subjects/once`;
   constructor(private http: HttpClient) {
   }
   getAllSubjects(): Observable<any>{
@@ -20,7 +24,16 @@ export class GraphScoresService{
   getGraphScores(graphRequest: GraphRequestDto): Observable<any>{
     return this.http.post(this.apiGetGraphScores, graphRequest);
   }
+  getGraphScoresOnce(graphRequest: GraphRequestDto): Observable<any>{
+    return this.http.post(this.apiGetGraphScoresOnce, graphRequest);
+  }
   getWarningSubjects(yearCourse: any): Observable<any>{
     return this.http.get(`${this.apiWarningSubjects}/${yearCourse}`);
+  }
+  getAllSubjectsOnce(): Observable<any>{
+    return this.http.get(this.apiGetAllSubjectsOnce);
+  }
+  getWarningSubjectsOnce(yearCourse: any): Observable<any>{
+    return this.http.get(`${this.apiWarningSubjectsOnce}/${yearCourse}`);
   }
 }

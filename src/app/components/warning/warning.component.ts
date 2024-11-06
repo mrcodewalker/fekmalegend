@@ -30,6 +30,7 @@ export class WarningComponent implements OnInit{
   async filterByYear() {
     try {
       this.loading = true;
+      // const data = await this.graphScoreService.getWarningSubjects(this.selectedYear).toPromise();
       const data = await this.graphScoreService.getWarningSubjects(this.selectedYear).toPromise();
       // Map data nhận được từ API vào cấu trúc subjects
       this.subjects = data.map((subject: any) => ({

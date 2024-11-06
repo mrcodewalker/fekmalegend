@@ -61,22 +61,22 @@
         <td></td>
       </tr>
       <tr>
-        <td>Sinh viên giỏi</td>
+        <td>Sinh viên giỏi [8;10]</td>
         <td>{{ eightToTen }}</td>
         <td>{{ (eightToTen / totalStudents) * 100 | number: '1.2-2' }}%</td>
       </tr>
       <tr>
-        <td>Sinh viên khá</td>
+        <td>Sinh viên khá [7;8)</td>
         <td>{{ sevenToEight }}</td>
         <td>{{ (sevenToEight / totalStudents) * 100 | number: '1.2-2' }}%</td>
       </tr>
       <tr>
-        <td>Sinh viên trung bình</td>
+        <td>Sinh viên trung bình [5;7)</td>
         <td>{{ fiveToSeven }}</td>
         <td>{{ (fiveToSeven / totalStudents) * 100 | number: '1.2-2' }}%</td>
       </tr>
       <tr>
-        <td>Sinh viên yếu/kém</td>
+        <td>Sinh viên yếu/kém [0;5)</td>
         <td>{{ lessThanFive }}</td>
         <td>{{ (lessThanFive / totalStudents) * 100 | number: '1.2-2' }}%</td>
       </tr>
