@@ -1,551 +1,571 @@
 .file-import-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 
-.drop-area {
-  border: 2px dashed #007bff;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.drop-area:hover {
-  background-color: #e9f1ff;
-}
-
-.file-label {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.file-label:hover {
-  background-color: #0056b3;
-}
-
-.preview-area {
-  margin-top: 20px;
-}
-
-.preview-area h3 {
-  text-align: center;
-}
-
-.pdf-preview {
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-}
-.file-import-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
+    i {
+      color: #3498db;
+    }
+  }
 }
 
 .drop-area {
-  border: 2px dashed #007bff;
-  border-radius: 8px;
-  padding: 20px;
+  background: linear-gradient(145deg, #f8fafc 0%, #eef2f7 100%);
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 3rem;
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-bottom: 20px;
-}
-
-.drop-area:hover {
-  background-color: #e9f1ff;
-}
-
-.file-label {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.file-label:hover {
-  background-color: #0056b3;
-}
-
-.preview-area {
-  margin-top: 20px;
-}
-
-.preview-area h3 {
-  text-align: center;
-}
-
-.pdf-preview {
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.button-group {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-top: 20px;
-}
+  gap: 1.5rem;
 
-.select-type-label {
-  margin-right: 10px;
-}
+  &:hover, &.drag-over {
+    border-color: #3498db;
+    background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 
-.select-type {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  width: 100%;
-  max-width: 200px;
-  outline: none;
-  transition: border-color 0.3s;
-}
+    p, .file-label {
+      color: #2980b9;
+    }
 
-.select-type:focus {
-  border-color: #007bff;
-}
+    &::before {
+      opacity: 1;
+    }
+  }
 
-.complete-button {
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(52, 152, 219, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
-.complete-button:hover {
-  background-color: #218838;
-}
-.file-import-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+  &.drag-over {
+    animation: pulse 1.5s infinite;
+  }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
+  p {
+    font-size: 1.25rem;
+    color: #64748b;
+    margin: 0;
+    z-index: 1;
+    transition: color 0.3s ease;
 
-.drop-area {
-  border: 2px dashed #007bff;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s, border-color 0.3s;
-  margin-bottom: 20px;
-}
+    i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      color: #3498db;
+    }
+  }
 
-.drop-area.drag-over {
-  background-color: rgba(0, 123, 255, 0.1); /* Light blue background on drag over */
-  border-color: #0056b3; /* Darker blue border */
-}
+  .file-label {
+    background: #3498db;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 
-.file-label {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.file-label:hover {
-  background-color: #0056b3;
+    &:hover {
+      background: #2980b9;
+      transform: translateY(-1px);
+    }
+  }
 }
 
 .file-name {
-  text-align: center;
-  margin-top: 10px;
-  font-weight: bold;
-}
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
 
-.preview-area {
-  margin-top: 20px;
-}
+  p {
+    margin: 0;
+    color: #475569;
 
-.preview-area h3 {
-  text-align: center;
-}
-
-.pdf-preview {
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
+    strong {
+      color: #2c3e50;
+    }
+  }
 }
 
 .button-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+  align-items: end;
+
+  .select-type-label, .semester-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #475569;
+    font-weight: 500;
+  }
+
+  .select-type, .semester-field {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+
+    &:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+      outline: none;
+    }
+  }
+}
+
+.button-group-fake {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-}
+  gap: 1rem;
+  margin-top: 1rem;
 
-.select-type-label {
-  margin-right: 10px;
-}
+  .action-button {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 
-.select-type {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  width: 100%;
-  max-width: 200px;
-  outline: none;
-  transition: border-color 0.3s;
-}
+    &.complete-button {
+      background: #3498db;
+      color: white;
 
-.select-type:focus {
-  border-color: #007bff;
-}
+      &:hover {
+        background: #2980b9;
+      }
+    }
 
-.complete-button {
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 10px;
-}
+    &.update-button {
+      background: #2ecc71;
+      color: white;
 
-.complete-button:hover {
-  background-color: #218838;
-}
-.pdf-preview {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.pdf-preview canvas {
-  border: 1px solid #ddd;
-  margin: 10px 0;
-}
-.preview-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Căn giữa theo chiều ngang */
-  justify-content: center; /* Căn giữa theo chiều dọc */
-  height: 100vh; /* Chiều cao chiếm toàn bộ màn hình */
-  padding: 20px; /* Padding bên ngoài */
-  background-color: #f9f9f9; /* Màu nền cho khu vực preview */
-  border: 1px solid #ddd; /* Đường viền */
-  border-radius: 8px; /* Bo góc */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho khu vực */
-}
-
-#preview {
-  width: 100%; /* Chiều rộng của preview */
-  max-width: 800px; /* Chiều rộng tối đa */
-  height: 90%; /* Chiều cao của preview */
-  overflow: auto; /* Cuộn nếu nội dung lớn hơn */
-  background-color: white; /* Nền trắng cho preview */
-  border-radius: 8px; /* Bo góc */
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng cho preview */
-}
-
-h3 {
-  margin-bottom: 20px; /* Khoảng cách giữa tiêu đề và preview */
-  font-size: 24px; /* Kích thước chữ tiêu đề */
-}
-.semester-input {
-  display: flex; /* Sử dụng flexbox */
-  flex-direction: column; /* Đặt chiều của flexbox là cột */
-  align-items: center; /* Căn giữa theo chiều ngang */
-  margin-top: 10px; /* Khoảng cách phía trên */
-}
-
-.semester-label {
-  font-weight: bold; /* Đậm chữ */
-  color: #333; /* Màu chữ */
-  margin-bottom: 5px; /* Khoảng cách giữa label và input */
-  text-align: center; /* Căn giữa nội dung */
-}
-
-.semester-field {
-  padding: 10px; /* Khoảng cách bên trong */
-  border: 1px solid #ccc; /* Viền màu xám */
-  border-radius: 5px; /* Bo tròn góc */
-  font-size: 16px; /* Kích thước chữ */
-  width: 150px; /* Chiều rộng của input */
-  transition: border-color 0.3s; /* Hiệu ứng chuyển đổi cho viền */
-}
-
-.semester-field:focus {
-  border-color: #007BFF; /* Đổi màu viền khi focus */
-  outline: none; /* Bỏ outline mặc định */
-}
-.progress-container {
-  width: 100%; /* Độ rộng thanh tiến trình */
-  background-color: #e0e0e0; /* Màu nền thanh tiến trình */
-  border-radius: 5px; /* Bo góc thanh tiến trình */
-  margin-top: 10px; /* Khoảng cách từ phần tử trên */
-  height: 20px; /* Chiều cao thanh tiến trình */
-  position: relative;
-}
-
-.progress-bar {
-  height: 100%; /* Độ cao của thanh tiến trình */
-  background-color: #4caf50; /* Màu xanh cho thanh tiến trình */
-  border-radius: 5px; /* Bo góc thanh tiến trình */
-  transition: width 0.4s ease; /* Hiệu ứng chuyển đổi khi thay đổi độ rộng */
-}
-
-.progress-percentage {
-  text-align: center; /* Căn giữa văn bản */
-  margin-top: 5px; /* Khoảng cách từ thanh tiến trình */
-  font-weight: bold; /* Đậm chữ */
-}
-.progress-container {
-  margin-top: 20px;
-}
-
-.progress-item {
-  margin-bottom: 10px;
-}
-
-.progress-label {
-  font-weight: bold;
-}
-
-.progress-bar-container {
-  background: #e0e0e0;
-  border-radius: 5px;
-  height: 20px;
-  overflow: hidden;
-  position: relative;
-}
-
-.progress-bar {
-  background: #007BFF;
-  height: 100%;
-  transition: width 0.3s;
-}
-
-.checkmark {
-  color: green;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-.file-import-container {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  text-align: center;
-  color: #333;
-}
-
-.drop-area {
-  border: 2px dashed #007bff;
-  border-radius: 5px;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.drop-area:hover {
-  background-color: #e7f3ff;
-}
-
-.file-label {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.file-label:hover {
-  background-color: #0056b3;
-}
-
-.button-group {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.select-type {
-  margin-left: 10px;
-}
-
-.semester-input {
-  display: flex;
-  flex-direction: column;
-}
-
-.semester-field {
-  margin-top: 5px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.complete-button,
-.update-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  display: flex;
-  align-items: center;
-}
-
-.complete-button {
-  background-color: #28a745;
-}
-
-.update-button {
-  background-color: #17a2b8;
-  margin-left: 10px; /* Thêm khoảng cách giữa hai nút */
-}
-
-.complete-button:hover,
-.update-button:hover {
-  transform: translateY(-2px);
+      &:hover {
+        background: #27ae60;
+      }
+    }
+  }
 }
 
 .progress-container {
-  margin-top: 20px;
-}
+  margin: 2rem 0;
 
-.progress-item {
-  margin: 10px 0;
-}
+  .progress-item {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
-.progress-label {
-  font-weight: bold;
-}
+    .progress-label {
+      margin-bottom: 1rem;
+      color: #475569;
+      font-weight: 500;
+    }
 
-.progress-bar-container {
-  background-color: #e0e0e0;
-  border-radius: 5px;
-  overflow: hidden;
-  height: 20px;
-}
+    .progress-bar-container {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
 
-.progress-bar {
-  margin-top: 10px;
-  background-color: #007bff;
-  height: 100%;
-  transition: width 0.5s ease;
-}
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
+        transition: width 0.3s ease;
+        border-radius: 4px;
+      }
+    }
 
-.checkmark {
-  color: #28a745;
-  font-weight: bold;
+    .checkmark {
+      margin-top: 0.75rem;
+      color: #2ecc71;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+    }
+  }
 }
 
 .progress-percentage {
   text-align: center;
-  margin-top: 20px;
-  font-size: 1.2em;
-  color: #007bff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 1rem 0;
 }
 
 .preview-area {
-  margin-top: 20px;
+  margin-top: 2rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      color: #3498db;
+    }
+  }
+
+  #preview {
+    min-height: 400px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+
+    pdf-viewer {
+      background: #f8fafc;
+    }
+  }
 }
 
-.preview-area h3 {
-  text-align: center;
-  color: #333;
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    border-color: #3498db;
+  }
+  50% {
+    transform: scale(1.02);
+    border-color: #2ecc71;
+  }
+  100% {
+    transform: scale(1);
+    border-color: #3498db;
+  }
+}
+
+@media (max-width: 768px) {
+  .button-group {
+    grid-template-columns: 1fr;
+  }
+
+  .drop-area {
+    padding: 2rem;
+    min-height: 150px;
+  }
 }
 .button-group-fake {
-  display: flex; /* Sử dụng Flexbox để sắp xếp các nút */
-  flex-direction: row; /* Đặt hướng theo cột */
-  padding: 10px;
-  align-items: center; /* Căn giữa các nút */
-  margin-top: 10px; /* Khoảng cách trên cùng của nhóm nút */
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  .action-button {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &.complete-button {
+      background: #3498db;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background: #2980b9;
+      }
+    }
+
+    &.update-button {
+      background: #2ecc71;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background: #27ae60;
+      }
+    }
+
+    &.preview-button {
+      background: #9b59b6;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background: #8e44ad;
+      }
+    }
+  }
 }
 
-.action-button {
-  background-color: #fff; /* Màu nền mặc định */
-  color: white; /* Màu chữ mặc định */
-  border: none; /* Không có viền */
-  border-radius: 5px; /* Bo góc */
-  padding: 10px 20px; /* Đệm cho nút */
-  font-size: 16px; /* Kích thước chữ */
-  cursor: pointer; /* Con trỏ khi di chuột */
-  transition: all 0.3s ease; /* Hiệu ứng chuyển màu nền và kích thước */
-  margin:  0 5px; /* Khoảng cách giữa các nút */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho nút */
+// Modal styles
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &.show {
+    display: flex;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideIn 0.3s ease;
+  }
+
+  .modal-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h3 {
+      margin: 0;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      i {
+        color: #e74c3c;
+      }
+    }
+
+    .close-button {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #f1f5f9;
+        color: #e74c3c;
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    background: #f8fafc;
+  }
+
+  .modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: center;
+
+    .zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .zoom-button {
+        background: #f1f5f9;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #e2e8f0;
+        }
+      }
+
+      .zoom-level {
+        font-weight: 500;
+        color: #475569;
+        min-width: 60px;
+        text-align: center;
+      }
+    }
+  }
 }
 
-.complete-button {
-  background-color: #28a745; /* Màu nền xanh lá cây cho nút Complete */
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+/* Cấu trúc tổng thể của modal */
+.confirmation-modal {
+  display: none; /* Ẩn modal mặc định */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Hiệu ứng nền mờ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
-.complete-button:hover {
-  background-color: #218838; /* Màu nền khi di chuột qua */
-  transform: translateY(-3px); /* Di chuyển lên một chút khi hover */
+.confirmation-modal.show {
+  display: flex; /* Hiển thị modal khi được bật */
 }
 
-.update-button {
-  background-color: #007bff; /* Màu nền xanh dương cho nút Update */
+/* Nội dung của modal */
+.confirmation-modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+  animation: fadeIn 0.3s ease; /* Hiệu ứng xuất hiện nhẹ */
 }
 
-.update-button:hover {
-  background-color: #0056b3; /* Màu nền khi di chuột qua */
-  transform: translateY(-3px); /* Di chuyển lên một chút khi hover */
+/* Hiệu ứng khi modal xuất hiện */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+/* Tiêu đề của modal */
+.confirmation-modal-content h3 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Đoạn mô tả */
+.confirmation-modal-content p {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Các nút trong modal */
+.confirmation-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.confirm-button,
+.cancel-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Nút OK */
+.confirm-button {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.confirm-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+/* Nút Cancel */
+.cancel-button {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.cancel-button:hover {
+  background-color: #d73925;
+  transform: scale(1.05);
+}
+.confirmation-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+

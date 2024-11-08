@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef, OnInit, NgZone} from '@angular/core';
+import {Component, ViewChild, ElementRef, OnInit, NgZone, HostListener} from '@angular/core';
 import {ScoreService} from "../services/score.service";
 import {Dialog} from "@angular/cdk/dialog";
 import {DialogComponent} from "../dialog/dialog.component";
@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {environment} from "../enviroments/enviroment";
 import {setTime} from "@syncfusion/ej2-angular-schedule";
 import {FileUploadService} from "../services/file.upload.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-file-import',
@@ -27,7 +28,8 @@ export class FileImportComponent implements OnInit{
     private scoreService: ScoreService,
     private dialog: MatDialog,
     private zone: NgZone,
-    private fileService: FileUploadService
+    private fileService: FileUploadService,
+    private authService: AuthService
   ) {
   }
   ngOnInit() {
@@ -54,14 +56,54 @@ export class FileImportComponent implements OnInit{
     const dropArea = event.currentTarget as HTMLElement;
     dropArea.classList.remove('drag-over');
   }
+  isPdfFile(file: File): boolean {
+    return file.type === 'application/pdf';
+  }
+  isPreviewModalOpen: boolean = false;
+  zoom: number = 1.0;
+  openPreviewModal() {
+    if (this.pdfSrc) {
+      this.isPreviewModalOpen = true;
+      // Prevent body scrolling when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  closePreviewModal() {
+    this.isPreviewModalOpen = false;
+    // Restore body scrolling
+    document.body.style.overflow = 'auto';
+  }
 
+  zoomIn() {
+    if (this.zoom < 2) {
+      this.zoom += 0.1;
+    }
+  }
+
+  zoomOut() {
+    if (this.zoom > 0.5) {
+      this.zoom -= 0.1;
+    }
+  }
+
+  // Add event listener for escape key
+  @HostListener('document:keydown.escape')
+  onEscapePress() {
+    this.closePreviewModal();
+  }
   onDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
       this.readyToSend = files[0];
-      this.handleFiles(files);
+      const file = files[0];
+      if (this.isPdfFile(file)) {
+        this.readyToSend = file;
+        this.handleFiles(files);
+      } else {
+        this.openDialog('Warning', 'Please upload a valid PDF file.');
+      }
     }
     const dropArea = event.currentTarget as HTMLElement;
     dropArea.classList.remove('drag-over');
@@ -86,7 +128,8 @@ export class FileImportComponent implements OnInit{
         };
         reader.readAsDataURL(file); // Read file as DataURL
       } else {
-        alert('Please upload a valid PDF file.');
+        this.openDialog('Warning', 'Please upload a valid PDF file.');
+        this.pdfSrc = null;
       }
     }
   }
@@ -127,49 +170,6 @@ export class FileImportComponent implements OnInit{
   currentStatus: string = 'Waiting...'; // Trạng thái hiện tại
   progress: number = 0; // Giá trị thanh tiến trình
   statusIndex: number = 0; // Index của formRequest hiện tại
-
-  async onUpdate() {
-    await this.openDialog("Are you sure?","Please check your action before update data");
-    this.progress = 0;
-    this.statusIndex = 0;
-    this.currentStatus = this.formRequest[this.statusIndex]; // Bắt đầu với trạng thái "Updating..."
-
-    const progressInterval = setInterval(() => {
-      if (this.progress < 99) {
-        this.updateProgressData(this.progress); // Cập nhật giá trị tiến trình
-        this.progress++; // Tăng tiến trình
-
-        if (this.progress % 11 === 0 && this.statusIndex < this.formRequest.length - 1) {
-          this.currentStatus = this.formRequest[++this.statusIndex]; // Hiển thị "Updating..."
-          setTimeout(() => {
-            if (this.statusIndex < this.formRequest.length - 1) {
-              this.currentStatus = this.formRequest[++this.statusIndex]; // Hiển thị "Updated successfully"
-            }
-          }, 5000);
-        }
-      } else {
-        this.progress = 100;
-        this.currentStatus = 'Data has been updated successfully! (Completed)';
-        this.requests[this.currentRequestIndex].completed = true;
-        clearInterval(progressInterval);
-        this.openDialog("Congratulations!","GPA has been updated successfully!");
-      }
-    }, 200); // Cập nhật mỗi 500ms
-
-    // Chờ đến khi cập nhật hoàn tất
-    const data = await this.scoreService.updateData().toPromise();
-
-    // Kiểm tra trạng thái của dữ liệu sau khi cập nhật
-    if (data.status === 200) {
-      this.progress = 100;
-      this.currentStatus = 'Data has been updated successfully! (Completed)';
-      this.requests[this.currentRequestIndex].completed = true;
-      await this.openDialog("Congratulations!","GPA has been updated successfully!");
-    }
-
-    // Dừng interval (điều này không cần thiết ở đây vì đã dừng trong setInterval)
-    // clearInterval(progressInterval); // Bạn có thể loại bỏ dòng này
-  }
 
 
 
@@ -231,19 +231,13 @@ export class FileImportComponent implements OnInit{
   }
 
   async onComplete() {
-    this.currentRequestIndex = 0;
     console.log('Selected Type:', this.selectedType);
-    const semesterPattern = /^ki[1-2]-\d{4}-\d{4}$/;
-    if (!semesterPattern.test(this.semester)) {
-      await this.openDialog("Warning", "Please check your semester data (example: ki2-2023-2024)");
-      return; // Ngừng thực hiện nếu không hợp lệ
-    }
+    this.currentRequestIndex = 0;
     const totalRequests = this.requests.length; // Tổng số request
-    await this.saveFileUploaded();
+    // await this.saveFileUploaded();
     if (this.readyToSend) {
       this.fileService.uploadFileToDataLake(this.readyToSend).toPromise();
     }
-    await this.openDialog("Congratulations!", "Update data has been successfully!");
       // Cập nhật tiến trình
   }
   async readFile(){
@@ -263,100 +257,13 @@ export class FileImportComponent implements OnInit{
         clearInterval(progressInterval); // Dừng interval khi đạt 99
       }
     }, 1000); // Cập nhật mỗi 100ms
-    const updateScore = await this.scoreService.importPDF(this.readyToSend, this.selectedType, this.semester).toPromise();
+    const updateScore = await this.scoreService.importPDF(this.readyToSend, this.selectedType, this.semester,
+      this.authService.getUserId()||'1').toPromise();
     clearInterval(progressInterval);
     if (updateScore.status==='200'){
       this.updateProgressData(99);
       this.updateSuccessfully('File has been read successfully!');
       this.currentStatus = 'File has been read successfully!';
-    } else {
-      this.openDialog("Warning", "Some wrong was happened!");
-      return;
-    }
-  }
-  async updateRanking(){
-    this.updateMessageProgress('Update ranking is loading...');
-    const updateBlockRanking = await this.scoreService.updateRanking().toPromise();
-    if (updateBlockRanking.status==='200'){
-      this.updateProgress();
-      this.updateSuccessfully('Update ranking successfully!');
-    } else {
-      this.openDialog("Warning", "Some wrong was happened!");
-      return;
-    }
-  }
-  async updateBlockRanking(){
-    this.updateMessageProgress('Update block ranking is loading...');
-    const updateBlockRanking = await this.scoreService.updateBlockRanking().toPromise();
-    if (updateBlockRanking.status==='200'){
-      this.updateProgress();
-      this.updateSuccessfully('Update block ranking successfully!');
-    } else {
-      this.openDialog("Warning", "Some wrong was happened!");
-      return;
-    }
-  }
-  async updateClassRanking(){
-    this.updateMessageProgress('Update class ranking is loading...');
-    const updateBlockRanking = await this.scoreService.updateClassRanking().toPromise();
-    if (updateBlockRanking.status==='200'){
-      this.updateProgress();
-      this.updateSuccessfully('Update class ranking successfully!');
-    } else {
-      this.openDialog("Warning", "Some wrong was happened!");
-      return;
-    }
-  }
-  async updateMajorRanking(){
-    this.updateMessageProgress('Update major ranking is loading...');
-    const updateBlockRanking = await this.scoreService.updateMajorRanking().toPromise();
-    if (updateBlockRanking.status==='200'){
-      this.updateProgress();
-      this.updateSuccessfully('Update major ranking successfully!');
-    } else {
-      this.openDialog("Warning", "Some wrong was happened!");
-      return;
-    }
-  }
-  async updateBlockDetailRanking(){
-    this.updateMessageProgress('Update block detail ranking is loading...');
-    const updateBlockRanking = await this.scoreService.updateMajorRanking().toPromise();
-    if (updateBlockRanking.status==='200'){
-      this.updateProgress();
-      this.updateSuccessfully('Update block detail ranking successfully!');
-    } else {
-      this.openDialog("Warning", "Some wrong was happened!");
-      return;
-    }
-  }
-  async updateSemesterTable(){
-    this.updateMessageProgress('Update semester table data is loading...');
-    const updateBlockRanking = await this.scoreService.updateSemesterTable().toPromise();
-    if (updateBlockRanking.status==='200'){
-      this.updateProgress();
-      this.updateSuccessfully('Update semester table data successfully!');
-    } else {
-      this.openDialog("Warning", "Some wrong was happened!");
-      return;
-    }
-  }
-  async updateSemesterRanking(){
-    this.updateMessageProgress('Update semester ranking is loading...');
-    const updateBlockRanking = await this.scoreService.updateSemesterTable().toPromise();
-    if (updateBlockRanking.status==='200'){
-      this.updateProgress();
-      this.updateSuccessfully('Update semester ranking successfully!');
-    } else {
-      this.openDialog("Warning", "Some wrong was happened!");
-      return;
-    }
-  }
-  async updateScholarShip(){
-    this.updateMessageProgress('Update scholarship is loading...');
-    const updateBlockRanking = await this.scoreService.updateScholarship().toPromise();
-    if (updateBlockRanking.status==='200'){
-      this.updateProgress();
-      this.updateSuccessfully('Update scholarship successfully!');
     } else {
       this.openDialog("Warning", "Some wrong was happened!");
       return;
@@ -393,5 +300,82 @@ export class FileImportComponent implements OnInit{
         resolve(true);
       }, 1000); // Giả lập thời gian xử lý 1 giây cho mỗi request
     });
+  }
+  isConfirmationModalOpen = false;
+
+  onUpdate() {
+    this.isConfirmationModalOpen = true;
+  }
+
+  confirmUpdate() {
+    this.isConfirmationModalOpen = false;
+
+    // Gọi hàm cập nhật
+    this.performUpdate();
+  }
+
+  closeConfirmationModal() {
+    this.isConfirmationModalOpen = false;
+  }
+
+  performUpdate() {
+    // Thực hiện quá trình cập nhật như mã đã có ở đây
+    this.progress = 0;
+    this.statusIndex = 0;
+    this.currentStatus = this.formRequest[this.statusIndex];
+
+    const progressInterval = setInterval(() => {
+      if (this.progress < 99) {
+        this.updateProgressData(this.progress);
+        this.progress++;
+
+        if (this.progress % 11 === 0 && this.statusIndex < this.formRequest.length - 1) {
+          this.currentStatus = this.formRequest[++this.statusIndex];
+          setTimeout(() => {
+            if (this.statusIndex < this.formRequest.length - 1) {
+              this.currentStatus = this.formRequest[++this.statusIndex];
+            }
+          }, 5000);
+        }
+      } else {
+        this.progress = 100;
+        this.currentStatus = 'Data has been updated successfully! (Completed)';
+        this.requests[this.currentRequestIndex].completed = true;
+        clearInterval(progressInterval);
+        this.openDialog("Congratulations!", "GPA has been updated successfully!");
+      }
+    }, 200);
+
+    // Thực hiện yêu cầu cập nhật dữ liệu
+    this.scoreService.updateData().toPromise().then(data => {
+      if (data.status === 200) {
+        this.progress = 100;
+        this.currentStatus = 'Data has been updated successfully! (Completed)';
+        this.requests[this.currentRequestIndex].completed = true;
+        this.openDialog("Congratulations!", "GPA has been updated successfully!");
+      }
+    });
+  }
+  isReadFileModalOpen = false;
+
+  async openReadFileModal() {
+    const semesterPattern = /^ki[1-2]-\d{4}-\d{4}$/;
+    if (!semesterPattern.test(this.semester)) {
+      await this.openDialog("Warning", "Please check your semester data (example: ki2-2023-2024)");
+      this.isReadFileModalOpen = false;
+      return; // Ngừng thực hiện nếu không hợp lệ
+    }
+    this.isReadFileModalOpen = true;
+  }
+
+  closeReadFileModal() {
+    this.isReadFileModalOpen = false;
+  }
+
+  async confirmReadFile() {
+    this.closeReadFileModal();
+    await this.onComplete();
+    await this.readFile(); // Gọi hàm đọc file chính
+    await this.openDialog("Congratulations!", "The file has been read successfully!");
   }
 }

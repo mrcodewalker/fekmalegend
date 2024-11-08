@@ -52,10 +52,11 @@ export class ScoreService{
   getScores(student_code: string): Observable<any>{
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.get(this.apiGetScoresByStudentCode+student_code, { headers, withCredentials: true });  }
-  importPDF(file: File, type: string, semester: string): Observable<any> {
+  importPDF(file: File, type: string, semester: string, user_id: string): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('semester', semester);
+    formData.append('user_id', user_id);
     let newApi = this.apiImportPDFFile;
     if (type.toLowerCase()==='không có trang giới thiệu'){
       newApi = this.apiImportPDFFile+"/complement";

@@ -17,11 +17,43 @@
       <label for="semester" class="semester-label"><i class="fas fa-calendar-alt"></i> Semester: (ki2-2023-2024)</label>
       <input type="text" id="semester" [(ngModel)]="semester" placeholder="ki2-2023-2024" class="semester-field" />
     </div>
-    <div class="button-group-fake">
-      <button (click)="onComplete()" class="action-button complete-button"><i class="fas fa-check"></i> Complete</button>
-      <button (click)="onUpdate()" class="action-button update-button"><i class="fas fa-sync-alt"></i> Update</button>
+  </div>
+  <div class="button-group-fake">
+    <button (click)="openReadFileModal()" class="action-button complete-button">
+      <i class="fas fa-check"></i> Complete
+    </button>
+    <button (click)="onUpdate()" class="action-button update-button">
+      <i class="fas fa-sync-alt"></i> Update GPA
+    </button>
+    <button (click)="openPreviewModal()" [disabled]="!pdfSrc" class="action-button preview-button">
+      <i class="fas fa-eye"></i> Preview
+    </button>
+  </div>
+  <div class="confirmation-modal" [class.show]="isConfirmationModalOpen" (click)="closeConfirmationModal()">
+    <div class="confirmation-modal-content" (click)="$event.stopPropagation()">
+      <h3>Xác nhận cập nhật</h3>
+      <p>Bạn có chắc muốn update GPA không?</p>
+      <div class="confirmation-buttons">
+        <button (click)="confirmUpdate()" class="action-button confirm-button">OK</button>
+        <button (click)="closeConfirmationModal()" class="action-button cancel-button">Cancel</button>
+      </div>
     </div>
   </div>
+  <<div class="confirmation-modal" [class.show]="isReadFileModalOpen" (click)="closeReadFileModal()">
+  <div class="confirmation-modal-content" (click)="$event.stopPropagation()">
+    <h3>Xác nhận đọc file</h3>
+    <p>Bạn có chắc muốn đọc file không?</p>
+    <p class="warning">Kiểm tra thật kỹ file đầu trang</p>
+    <div class="confirmation-buttons">
+      <button (click)="confirmReadFile()" class="action-button confirm-button">OK</button>
+      <button (click)="closeReadFileModal()" class="action-button cancel-button">Cancel</button>
+    </div>
+  </div>
+</div>
+  <!--    <div class="button-group-fake">-->
+<!--      <button (click)="onComplete()" class="action-button complete-button"><i class="fas fa-check"></i> Complete</button>-->
+<!--      <button (click)="onUpdate()" class="action-button update-button"><i class="fas fa-sync-alt"></i> Update</button>-->
+<!--    </div>-->
   <div class="progress-container" *ngIf="requests.length > 0">
     <div *ngIf="currentRequestIndex < requests.length">
       <div class="progress-item">
@@ -39,10 +71,35 @@
 
 
   <div class="progress-percentage">{{ this.progress }}%</div>
-  <div class="preview-area">
-    <h3><i class="fas fa-eye"></i> Preview</h3>
-    <div id="preview">
-      <pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" [render-text]="true" [original-size]="false" style="width: 100%; height: 100%;"></pdf-viewer>
+  <div class="modal" [class.show]="isPreviewModalOpen" (click)="closePreviewModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3><i class="fas fa-file-pdf"></i> {{ selectedFileName }}</h3>
+        <button class="close-button" (click)="closePreviewModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pdf-viewer
+          *ngIf="pdfSrc"
+          [src]="pdfSrc"
+          [render-text]="true"
+          [original-size]="false"
+          [zoom]="zoom"
+          style="width: 100%; height: calc(90vh - 100px);"
+        ></pdf-viewer>
+      </div>
+      <div class="modal-footer">
+        <div class="zoom-controls">
+          <button (click)="zoomOut()" class="zoom-button">
+            <i class="fas fa-search-minus"></i>
+          </button>
+          <span class="zoom-level">{{ (zoom * 100).toFixed(0) }}%</span>
+          <button (click)="zoomIn()" class="zoom-button">
+            <i class="fas fa-search-plus"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
