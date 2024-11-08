@@ -377,5 +377,6 @@ export class FileImportComponent implements OnInit{
     await this.onComplete();
     await this.readFile(); // Gọi hàm đọc file chính
     await this.openDialog("Congratulations!", "The file has been read successfully!");
+    this.progress=100;
   }
 }
