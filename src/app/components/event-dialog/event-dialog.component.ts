@@ -13,7 +13,6 @@ export class EventDialogComponent {
     public dialogRef: MatDialogRef<EventDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-      debugger;
       this.location = data.description.substring(data.description.indexOf(":")+1, data.description.indexOf(",")).trim();
       this.teacher = data.description.substring(data.description.lastIndexOf(":")+1).trim();
       if (this.teacher.length<2){

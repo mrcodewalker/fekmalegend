@@ -135,4 +135,23 @@ export class LoginComponent implements OnInit{
         }
       });
     }
+  isModalOpen: boolean = false;
+  action: string = '';
+  clickLogin(): void{
+    this.action='login';
+    this.openModalData();
+  }
+  openModalData(): void {
+    this.isModalOpen = true;
+  }
+
+  async onConfirm(): Promise<void> {
+    if (this.action==='login') this.fetchData();
+    // if (this.action==='read') this.confirmReadFile();
+    this.isModalOpen = false;
+  }
+
+  onCancel(): void {
+    this.isModalOpen = false;
+  }
 }

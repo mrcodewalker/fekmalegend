@@ -27,6 +27,13 @@ export class KmaScheduleComponent {
     if (section==='authorSupport'){
       this.showAuthorSupportModal=true;
     }
+    if (this.selectedSection==='signOut'){
+      this.selectedSection='sync';
+      setTimeout(() => {
+        this.selectedSection = section; // Lần thứ hai thay đổi
+      }, 0);
+      return;
+    }
     this.selectedSection = section; // Cập nhật selectedSection khi có sự kiện
   }
   onStudentInfoReceived(studentInfo: any) {

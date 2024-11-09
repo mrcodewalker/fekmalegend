@@ -87,4 +87,23 @@ export class LoginVirtualComponent implements OnInit{
         }
       });
     }
+  isModalOpen: boolean = false;
+  action: string = '';
+  clickLogin(): void{
+    this.action='login';
+    this.openModalData();
+  }
+  openModalData(): void {
+    this.isModalOpen = true;
+  }
+
+  async onConfirm(): Promise<void> {
+    if (this.action==='signout') this.fetchData();
+    // if (this.action==='read') this.confirmReadFile();
+    this.isModalOpen = false;
+  }
+
+  onCancel(): void {
+    this.isModalOpen = false;
+  }
 }

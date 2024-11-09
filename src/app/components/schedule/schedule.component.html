@@ -7,7 +7,7 @@
     <button class="export-btn" (click)="exportICS()">
       <i class="fas fa-tools"></i> Export ICS File
     </button>
-    <button class="sign-out-btn" (click)="signOut()">
+    <button class="sign-out-btn" (click)="clickSignOut()">
       <i class="fas fa-sign-out-alt"></i> Sign Out
     </button>
   </div>
@@ -25,6 +25,16 @@
     <full-calendar #calendar [options]="calendarOptions"></full-calendar>
   </div>
 </div>
+<app-confirmation-modal *ngIf="action==='signout'"
+                        [isModalOpen]="isModalOpen"
+                        [title]="'Bạn có chắc muốn đăng xuất'"
+                        [message]="'Tất cả dữ liệu tạm thời sẽ bị xóa'"
+                        [warningMessage]="'KMA Legend không lưu dữ liệu của bạn'"
+                        [confirmButtonText]="'OK'"
+                        [cancelButtonText]="'Cancel'"
+                        (confirm)="onConfirm()"
+                        (cancel)="onCancel()">
+</app-confirmation-modal>
 <!--<div class="header-container">-->
 <!--  <div class="info-box">-->
 <!--    <p><strong>Name:</strong> {{this.schedule.data.student_info.display_name}}</p>-->

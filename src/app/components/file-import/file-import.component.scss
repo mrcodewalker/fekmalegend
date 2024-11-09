@@ -94,7 +94,8 @@
     gap: 0.5rem;
 
     &:hover {
-      background: #2980b9;
+      //background: #2980b9;
+      color: white;
       transform: translateY(-1px);
     }
   }
@@ -171,6 +172,7 @@
       color: white;
 
       &:hover {
+        color: white;
         background: #2980b9;
       }
     }

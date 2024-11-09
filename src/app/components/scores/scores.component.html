@@ -59,9 +59,15 @@
             </div>
           </div>
         </div>
-        <button class="outline-button" (click)="fetchData()">
-          <span>Fetch</span>
-        </button>
+        <div class="button-container">
+          <button class="outline-button" (click)="fetchData()">
+            <span> Fetch</span>
+          </button>
+          <button class="outline-button export-btn" (click)="clickExportData()">
+            <i class="fa fa-file-excel"></i>
+            <span>Export</span>
+          </button>
+        </div>
       </div>
 
       <!-- Search History Section -->
@@ -184,7 +190,16 @@
   </div>
 
 </div>
-
+<app-confirmation-modal *ngIf="action==='export'"
+                        [isModalOpen]="isModalOpen"
+                        [title]="'Bạn có chắc muốn export?'"
+                        [message]="'Vui lòng kiểm tra lại thông tin'"
+                        [warningMessage]="'Hãy kiểm tra lại bộ lọc thật kỹ'"
+                        [confirmButtonText]="'OK'"
+                        [cancelButtonText]="'Cancel'"
+                        (confirm)="onConfirm()"
+                        (cancel)="onCancel()">
+</app-confirmation-modal>
 
 
 <script src="js/jquery-3.3.1.min.js"></script>

@@ -1,0 +1,12 @@
+<!-- confirmation-modal.component.html -->
+<div class="confirmation-modal" [class.show]="isModalOpen" (click)="closeModal()">
+  <div class="confirmation-modal-content" (click)="$event.stopPropagation()">
+    <h3>{{ title }}</h3>
+    <p>{{ message }}</p>
+    <p *ngIf="warningMessage" class="warning-message">{{ warningMessage }}</p>
+    <div class="confirmation-buttons">
+      <button (click)="confirmAction()" class="action-button confirm-button">{{ confirmButtonText }}</button>
+      <button (click)="closeModal()" class="action-button cancel-button">{{ cancelButtonText }}</button>
+    </div>
+  </div>
+</div>

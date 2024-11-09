@@ -29,27 +29,35 @@
       <i class="fas fa-eye"></i> Preview
     </button>
   </div>
-  <div class="confirmation-modal" [class.show]="isConfirmationModalOpen" (click)="closeConfirmationModal()">
-    <div class="confirmation-modal-content" (click)="$event.stopPropagation()">
-      <h3>Xác nhận cập nhật</h3>
-      <p>Bạn có chắc muốn update GPA không?</p>
-      <div class="confirmation-buttons">
-        <button (click)="confirmUpdate()" class="action-button confirm-button">OK</button>
-        <button (click)="closeConfirmationModal()" class="action-button cancel-button">Cancel</button>
-      </div>
-    </div>
-  </div>
-  <<div class="confirmation-modal" [class.show]="isReadFileModalOpen" (click)="closeReadFileModal()">
-  <div class="confirmation-modal-content" (click)="$event.stopPropagation()">
-    <h3>Xác nhận đọc file</h3>
-    <p>Bạn có chắc muốn đọc file không?</p>
-    <p class="warning">Kiểm tra thật kỹ file đầu trang</p>
-    <div class="confirmation-buttons">
-      <button (click)="confirmReadFile()" class="action-button confirm-button">OK</button>
-      <button (click)="closeReadFileModal()" class="action-button cancel-button">Cancel</button>
-    </div>
-  </div>
-</div>
+<!--  <div class="confirmation-modal" [class.show]="isConfirmationModalOpen" (click)="closeConfirmationModal()">-->
+<!--    <div class="confirmation-modal-content" (click)="$event.stopPropagation()">-->
+<!--      <h3>Xác nhận cập nhật</h3>-->
+<!--      <p>Bạn có chắc muốn update GPA không?</p>-->
+<!--      <div class="confirmation-buttons">-->
+<!--        <button (click)="confirmUpdate()" class="action-button confirm-button">OK</button>-->
+<!--        <button (click)="closeConfirmationModal()" class="action-button cancel-button">Cancel</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+  <app-confirmation-modal *ngIf="action==='update'"
+    [isModalOpen]="isModalOpen"
+    [title]="'Xác nhận cập nhật'"
+    [message]="'Bạn có chắc muốn update GPA không?'"
+    [confirmButtonText]="'OK'"
+    [cancelButtonText]="'Cancel'"
+    (confirm)="onConfirm()"
+    (cancel)="onCancel()">
+  </app-confirmation-modal>
+  <app-confirmation-modal *ngIf="action==='read'"
+    [isModalOpen]="isModalOpen"
+    [title]="'Bạn có chắc muốn đọc file không?'"
+    [message]="'Bạn có chắc muốn đọc file điểm này không'"
+                          [warningMessage]="'Backup dữ liệu trước khi insert'"
+    [confirmButtonText]="'OK'"
+    [cancelButtonText]="'Cancel'"
+    (confirm)="onConfirm()"
+    (cancel)="onCancel()">
+  </app-confirmation-modal>
   <!--    <div class="button-group-fake">-->
 <!--      <button (click)="onComplete()" class="action-button complete-button"><i class="fas fa-check"></i> Complete</button>-->
 <!--      <button (click)="onUpdate()" class="action-button update-button"><i class="fas fa-sync-alt"></i> Update</button>-->

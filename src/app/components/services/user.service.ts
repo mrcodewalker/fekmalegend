@@ -17,6 +17,8 @@ export class UserService {
   private apiLogOutGoogle2 = `${environment.apiLocalUrl}/login?logout`;
   private apiViewProfile = `${environment.apiLocalUrl}/users/profile`;
   private apiUpdateAvatar = `${environment.apiLocalUrl}/users/query`;
+  private apiCheckExistEmail = `${environment.apiLocalUrl}/users/check/data`;
+
 
 
   constructor(private http: HttpClient) {
@@ -42,6 +44,11 @@ export class UserService {
   }
   signUp(signupDTO: SignupDto): Observable<any> {
     return this.http.post(this.apiSignUp, signupDTO, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+  checkExistData(signupDTO: SignupDto): Observable<any> {
+    return this.http.post(this.apiCheckExistEmail, signupDTO, {
       headers: { 'Content-Type': 'application/json' }
     });
   }

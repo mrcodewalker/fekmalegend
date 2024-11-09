@@ -205,7 +205,6 @@ export class LoginForumComponent implements OnInit{
   currentScrollPosition: number = 0;
   async changePage(page: number) {
     if (page >= 0 && page < this.totalPages) {
-      debugger;
       this.currentPage = page;
       if (this.activeClass==='allThreads'){
         this.loading = true;
@@ -256,7 +255,6 @@ export class LoginForumComponent implements OnInit{
         return;
       }
       this.loading = false;
-      debugger;
       // Điều hướng đến trang view/profile với dữ liệu profile
       this.router.navigate(['view/profile'], { state: { profileData: data } });
   }
@@ -310,7 +308,6 @@ export class LoginForumComponent implements OnInit{
     }
   }
   async loginRequest(){
-    debugger
     const data = await this.userService.login(this.loginDTO).toPromise();
     if (data.status==='200'){
       this.authService.saveToken(data.token);
@@ -326,6 +323,11 @@ export class LoginForumComponent implements OnInit{
     }
   }
   async signUpRequest() {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!emailRegex.test(this.signUpDTO.email)) {
+      await this.openDialog("Warning", "Please provide a valid Gmail address (e.g., example@gmail.com)");
+      return;
+    }
     if (!(this.signUpDTO.password===this.signUpDTO.confirmPassword)){
       await this.openDialog("Warning", "Please check your information again!");
       return;
@@ -342,13 +344,16 @@ export class LoginForumComponent implements OnInit{
       );
       return;
     }
-    const data = await this.userService.checkUserName(this.signUpDTO.username).toPromise();
-    if (data.username===null||data.username==='null'){
       this.registerDTO = {
         password: this.signUpDTO.password,
         email: this.signUpDTO.email,
         username: this.signUpDTO.username
       }
+    const checkValid = await this.userService.checkExistData(this.registerDTO).toPromise();
+    if (checkValid.status==='666'){
+      await this.openDialog('Warning', 'Please try again, check your username or email!');
+      return;
+    }
       const query = await this.userService.signUp(this.registerDTO).toPromise();
       if (query.username===null){
         await this.openDialog(
@@ -360,10 +365,6 @@ export class LoginForumComponent implements OnInit{
       );
       this.isLogin = !this.isLogin;
       return;
-    }
-    await this.openDialog(
-      "Warning", "Username has been contained in system!"
-    );
   }
   loginWithGoogle(){
       window.location.href = "https://www.laptopaz.id.vn/oauth2/authorization/google";
@@ -383,11 +384,32 @@ export class LoginForumComponent implements OnInit{
   loginWithGithub(){
     window.location.href = "https://www.laptopaz.id.vn/oauth2/authorization/github";
   }
+  isModalOpen: boolean = false;
+
+  openModalData(): void {
+    this.isModalOpen = true;
+  }
+
+  async onConfirm(): Promise<void> {
+    if (this.action==='signout') await this.confirmSignOut();
+    // if (this.action==='read') this.confirmReadFile();
+    this.isModalOpen = false;
+  }
+
+  onCancel(): void {
+    this.isModalOpen = false;
+  }
+  action: string = '';
   async signOut(){
+    this.openModalData();
+    this.action = 'signout';
+  }
+  async confirmSignOut(){
     this.userService.logoutOauth2Google().toPromise();
     this.authService.clearToken();
     this.authService.clearUserId();
     this.authService.clearRole();
+    this.authService.clearWarning();
     this.router.navigate(['/login/forum']);
     this.userService.logoutOauth2Google2().toPromise();
   }
@@ -454,7 +476,6 @@ export class LoginForumComponent implements OnInit{
     this.isEditing = false;
     this.currentPostId = post.post_id;
     const data = await this.getCommentsByPostId(post.post_id);  // Lấy bình luận cho bài viết
-    debugger;
   }
 
   closePostDetail() {
@@ -521,7 +542,6 @@ export class LoginForumComponent implements OnInit{
 
     // Xóa thuộc tính tạm thời nếu không còn cần thiết
     this.comments = this.comments.map(({ created_at_millis, ...rest }) => rest);
-    debugger;
   }
   dateArrayToMillis(dateArray: number[]): number {
     if (dateArray.length !== 6) {

@@ -112,6 +112,11 @@ export class VirtualCalendarComponent implements OnInit {
     });
     this.loadEvents();
   }
+  action: string = '';
+  clickSignOut(): void{
+    this.action = 'signout';
+    this.openModalData();
+  }
     signOut(){
     localStorage.setItem('jack','false');
     localStorage.removeItem('calendar');
@@ -476,6 +481,21 @@ export class VirtualCalendarComponent implements OnInit {
   }
   updateCurrentMonthYear(date: Date) {
     this.currentMonthYear = moment(date).format('MMMM YYYY');
+  }
+  isModalOpen: boolean = false;
+
+  openModalData(): void {
+    this.isModalOpen = true;
+  }
+
+  async onConfirm(): Promise<void> {
+    if (this.action==='signout') this.signOut();
+    // if (this.action==='read') this.confirmReadFile();
+    this.isModalOpen = false;
+  }
+
+  onCancel(): void {
+    this.isModalOpen = false;
   }
 
 }

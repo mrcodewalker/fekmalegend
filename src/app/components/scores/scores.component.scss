@@ -1947,3 +1947,29 @@ button.btn-outline-info {
     height: 50px;
   }
 }
+.export-btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #28a745; /* Màu nền xanh lá cây */
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.export-btn:hover {
+  background-color: #218838;  /* Đổi màu khi hover */
+}
+
+.export-btn i {
+  margin-right: 8px;  /* Khoảng cách giữa icon và chữ */
+}
+.button-container {
+  display: flex;            /* Sử dụng Flexbox để các nút nằm trên cùng một hàng */
+  justify-content: start;   /* Căn chỉnh các nút về phía bên trái */
+  gap: 10px;                /* Khoảng cách giữa các nút */
+  align-items: center;      /* Căn chỉnh dọc các nút ở giữa */
+}

@@ -76,7 +76,16 @@
         <i class="fa fa-sign-out-alt"></i> Sign Out
       </button>
     </div>
-
+    <app-confirmation-modal *ngIf="action==='signout'"
+                            [isModalOpen]="isModalOpen"
+                            [title]="'Bạn có chắc muốn đăng xuất?'"
+                            [message]="'Tất cả những dữ liệu tạm thời sẽ bị xóa'"
+                            [warningMessage]="'Hãy đưa ra lựa chọn'"
+                            [confirmButtonText]="'OK'"
+                            [cancelButtonText]="'Cancel'"
+                            (confirm)="onConfirm()"
+                            (cancel)="onCancel()">
+    </app-confirmation-modal>
     <div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
       <div class="modal-content" (click)="$event.stopPropagation()">
         <span class="close" (click)="closeModal()">&times;</span>

@@ -17,7 +17,6 @@ export class SidebarComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    debugger;
     // const data = localStorage.getItem('dashboardPage');
     // this.selectedName = data ? data : 'Home'; // Nếu không có dữ liệu, mặc định là 'Home'
   }

@@ -8,6 +8,9 @@ import {RankingService} from "../services/ranking.service";
 import {SearchService} from "../services/search.service";
 import {style} from "@angular/animations";
 import {SubjectDto} from "../dtos/subject.dto";
+import * as XLSX from "xlsx";
+import {DialogComponent} from "../dialog/dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-scores',
@@ -16,7 +19,7 @@ import {SubjectDto} from "../dtos/subject.dto";
   './css/bootstrap.min.css']
 })
 export class ScoresComponent implements OnInit{
-  scores?: ScoreDto[];
+  scores: ScoreDto[] = [];
   student_code: string = "";
   loading: boolean = false;
   id: number = 0;
@@ -62,6 +65,7 @@ export class ScoresComponent implements OnInit{
   constructor(private scoreService: ScoreService,
               private rankingService: RankingService,
               private searchService: SearchService,
+              private dialog: MatDialog,
               private cdr: ChangeDetectorRef) {
   }
 
@@ -121,6 +125,10 @@ export class ScoresComponent implements OnInit{
     }
   }
   async fetchData() {
+    if (this.student_code.length<7){
+      await this.openDialog('Warning', "Please enter your student code!");
+      return;
+    }
     this.loading = true;
 
     if (this.selectedGrade.toString() === "" || this.selectedGrade.toString().length <= 1) {
@@ -155,12 +163,12 @@ export class ScoresComponent implements OnInit{
 
       response.scores_response.forEach((scoreItem: ScoreResponse) => {
         const score: ScoreDto = {
-          score_over_rall: scoreItem.score_over_rall,
-          score_final: scoreItem.score_final,
-          score_second: scoreItem.score_second,
+          subject_name: scoreItem.subject_name,
           score_first: scoreItem.score_first,
-          score_text: scoreItem.score_text,
-          subject_name: scoreItem.subject_name
+          score_second: scoreItem.score_second,
+          score_final: scoreItem.score_final,
+          score_over_rall: scoreItem.score_over_rall,
+          score_text: scoreItem.score_text
         };
         if (this.scores) this.scores.push(score);
       });
@@ -288,4 +296,55 @@ export class ScoresComponent implements OnInit{
       this.isDropdownOpen = false;
     }
   }
+  openDialog(title: string, message: string): Promise<void> {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { title, message },
+      width: '400px'
+    });
+
+    return dialogRef.afterClosed().toPromise();
+  }
+  clickExportData(): void{
+    this.action='export';
+    this.openModalData();
+  }
+  async exportData():Promise<void> {
+    if (this.scores?.length === 0) {
+      await this.openDialog('Warning', 'Nothing in your score list!');
+      return;
+    }
+    const scoresWithAdditionalProperties = this.scores.map((score) => ({
+      ...score,  // Sao chép các thuộc tính cũ từ đối tượng score
+      student_name: this.ranking.student_name,
+      student_code: this.student_code,
+      student_class: this.ranking.student_class,
+      gpa: this.ranking.gpa,
+      ranking: this.ranking.ranking,
+      asia_gpa: this.ranking.asia_gpa,
+      createdAt: new Date().toISOString(),
+      updatedBy: 'Mr.CodeWalker',
+    }));
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(scoresWithAdditionalProperties);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Scores');
+
+    // Tạo tệp và tải xuống
+    XLSX.writeFile(wb, 'MyScores_KMA_LEGEND.xlsx');
+  }
+  isModalOpen: boolean = false;
+
+  openModalData(): void {
+    this.isModalOpen = true;
+  }
+
+  async onConfirm(): Promise<void> {
+    if (this.action==='export') await this.exportData();
+    // if (this.action==='read') this.confirmReadFile();
+    this.isModalOpen = false;
+  }
+
+  onCancel(): void {
+    this.isModalOpen = false;
+  }
+  action: string = '';
 }

@@ -15,7 +15,7 @@ export class SidebarCalendarComponent implements OnInit{
     this.isSidebarOpen = !this.isSidebarOpen; // Toggle sidebar open state
   }
   navigateTo(section: string) {
-    this.sectionSelected.emit(section); // Phát sự kiện với tên phần đã chọn
+    this.sectionSelected.emit(section);
   }
   onStudentInfoReceived(studentInfo: any) {
     this.studentInfo = studentInfo;

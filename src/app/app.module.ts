@@ -50,6 +50,7 @@ import { FileStorageComponent } from './components/file-storage/file-storage.com
 import { SidebarCalendarComponent } from './components/sidebar-calendar/sidebar-calendar.component';
 import { KmaScheduleComponent } from './components/kma-schedule/kma-schedule.component';
 import { AuthorSupportComponent } from './components/author-support/author-support.component';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { AuthorSupportComponent } from './components/author-support/author-suppo
     SidebarCalendarComponent,
     KmaScheduleComponent,
     AuthorSupportComponent,
+    ConfirmationModalComponent,
     // CalendarComponent
   ],
   imports: [

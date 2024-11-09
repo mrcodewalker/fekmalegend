@@ -58,6 +58,13 @@ export class AuthService {
     sessionStorage.removeItem('role');
     this.roleSubject.next(null); // Reset role trong BehaviorSubject
   }
+  clearWarning(): void{
+    sessionStorage.removeItem('2023-2024');
+    sessionStorage.removeItem('2022-2023');
+    sessionStorage.removeItem('2021-2022');
+    sessionStorage.removeItem('2020-2021');
+    sessionStorage.removeItem('2019-2020');
+  }
   clearUserId(): void{
     sessionStorage.removeItem('userId');
   }

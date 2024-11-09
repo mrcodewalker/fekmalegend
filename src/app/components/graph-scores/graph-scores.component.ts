@@ -129,6 +129,5 @@ export class GraphScoresComponent implements OnInit {
       const clickedIndex = activePoints[0].index;
       const selectedLabel = this.barChartLabels[clickedIndex];
     }
-    debugger;
   }
 }

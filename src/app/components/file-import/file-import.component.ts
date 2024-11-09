@@ -62,6 +62,7 @@ export class FileImportComponent implements OnInit{
   isPreviewModalOpen: boolean = false;
   zoom: number = 1.0;
   openPreviewModal() {
+    this.action = 'preview';
     if (this.pdfSrc) {
       this.isPreviewModalOpen = true;
       // Prevent body scrolling when modal is open
@@ -304,6 +305,8 @@ export class FileImportComponent implements OnInit{
   isConfirmationModalOpen = false;
 
   onUpdate() {
+    this.action = 'update';
+    this.isModalOpen = true;
     this.isConfirmationModalOpen = true;
   }
 
@@ -357,14 +360,16 @@ export class FileImportComponent implements OnInit{
     });
   }
   isReadFileModalOpen = false;
-
+  action: string = '';
   async openReadFileModal() {
+    this.action = 'read';
     const semesterPattern = /^ki[1-2]-\d{4}-\d{4}$/;
     if (!semesterPattern.test(this.semester)) {
       await this.openDialog("Warning", "Please check your semester data (example: ki2-2023-2024)");
       this.isReadFileModalOpen = false;
       return; // Ngừng thực hiện nếu không hợp lệ
     }
+    this.isModalOpen = true;
     this.isReadFileModalOpen = true;
   }
 
@@ -378,5 +383,20 @@ export class FileImportComponent implements OnInit{
     await this.readFile(); // Gọi hàm đọc file chính
     await this.openDialog("Congratulations!", "The file has been read successfully!");
     this.progress=100;
+  }
+  isModalOpen: boolean = false;
+
+  openModal(): void {
+    this.isModalOpen = true;
+  }
+
+  onConfirm(): void {
+    if (this.action==='update') this.confirmUpdate();
+    if (this.action==='read') this.confirmReadFile();
+    this.isModalOpen = false;
+  }
+
+  onCancel(): void {
+    this.isModalOpen = false;
   }
 }

@@ -33,14 +33,23 @@
               <i class="input-icon-password fas fa-lock"></i>
               <input type="password" [(ngModel)]="user.password" name="password" class="form-style" placeholder="Password" autocomplete="off">
             </div>
-            <button class="btn" style="margin-top: 5%" (click)="fetchData()">Submit</button>
+            <button class="btn" style="margin-top: 5%" (click)="clickLogin()">Submit</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<app-confirmation-modal *ngIf="action==='login'"
+                        [isModalOpen]="isModalOpen"
+                        [title]="'Thông tin của bạn sẽ được bảo mật'"
+                        [message]="'Hãy yên tâm khi tin dùng và sử dụng'"
+                        [warningMessage]="'KMA LEGEND KHÔNG LƯU BẤT CỨ THÔNG TIN GÌ'"
+                        [confirmButtonText]="'Login'"
+                        [cancelButtonText]="'Cancel'"
+                        (confirm)="onConfirm()"
+                        (cancel)="onCancel()">
+</app-confirmation-modal>
 <script>
   document.getElementById('toSignUp').addEventListener('click', function() {
     document.getElementById('reg-log').checked = true;

@@ -28,7 +28,6 @@ export class ProfileComponent implements OnInit{
     this.profileData = state.profileData;
 
     console.log(this.profileData); // Kiểm tra dữ liệu trong console
-    debugger;
 
     if (!this.profileData) {
       this.router.navigate(['/login/forum']);
@@ -43,7 +42,6 @@ export class ProfileComponent implements OnInit{
     }
     this.profileData = data;
     this.updateAvatar();
-    debugger;
     // Điều hướng đến trang view/profile với dữ liệu profile
   }
   updateAvatar() {
@@ -52,7 +50,6 @@ export class ProfileComponent implements OnInit{
   }
   async updateAvatarReal(){
     const data = await this.userService.updateAvatar(this.authService.getUserId(), this.profileData.avatar).toPromise();
-    debugger;
     if (data.status==='200'){
         await this.openDialog("Congratulations!", "Data has been updated successfully!");
         this.fetchProfileData();

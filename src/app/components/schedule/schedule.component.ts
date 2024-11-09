@@ -142,7 +142,7 @@ export class ScheduleComponent implements OnInit, OnChanges{
         this.exportICS();
         break;
       case 'signOut':
-        this.signOut();
+        this.clickSignOut();
         break;
       case 'authorSupport':
         this.showModal = true;
@@ -182,6 +182,11 @@ export class ScheduleComponent implements OnInit, OnChanges{
 
   private checkIfMobile() {
     this.isMobile = window.innerWidth < 768; // Thay đổi giá trị 768 nếu cần
+  }
+  action: string = '';
+  clickSignOut(): void{
+    this.action = 'signout';
+    this.openModalData();
   }
     signOut(){
       localStorage.setItem("wibu","false");
@@ -281,5 +286,22 @@ export class ScheduleComponent implements OnInit, OnChanges{
     }).afterClosed().subscribe(() => {
       window.scrollTo(0, this.currentScrollPosition);
     });
+  }
+  isModalOpen: boolean = false;
+
+  openModalData(): void {
+    this.isModalOpen = true;
+  }
+
+  async onConfirm(): Promise<void> {
+    if (this.action==='signout') this.signOut();
+    // if (this.action==='read') this.confirmReadFile();
+    this.isModalOpen = false;
+    this.action = '';
+  }
+
+  onCancel(): void {
+    this.isModalOpen = false;
+    this.action = '';
   }
 }

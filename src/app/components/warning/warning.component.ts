@@ -30,6 +30,12 @@ export class WarningComponent implements OnInit{
   async filterByYear() {
     try {
       this.loading = true;
+      const storedData = sessionStorage.getItem(this.selectedYear);
+      if (storedData) {
+        this.filteredSubjects = JSON.parse(storedData);
+        this.loading = false;
+        return;
+      }
       // const data = await this.graphScoreService.getWarningSubjects(this.selectedYear).toPromise();
       const data = await this.graphScoreService.getWarningSubjects(this.selectedYear).toPromise();
       // Map data nhận được từ API vào cấu trúc subjects
@@ -43,8 +49,8 @@ export class WarningComponent implements OnInit{
         valid: subject.valid || false,  // Gán giá trị mặc định nếu valid không tồn tại
       }));
       this.filteredSubjects = this.subjects;
+      sessionStorage.setItem(this.selectedYear, JSON.stringify(this.filteredSubjects));
       this.loading = false;
-      debugger;
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu:', error);
     }

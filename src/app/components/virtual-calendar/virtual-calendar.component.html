@@ -66,11 +66,21 @@
     <button (click)="exportICSFile()" class="export-btn">
       <i class="fas fa-file-export"></i> Export ICS File
     </button>
-    <button class="btn btn-danger" (click)="signOut()">
+    <button class="btn btn-danger" (click)="clickSignOut()">
       <i class="fas fa-sign-out-alt"></i> Sign Out
     </button>
   </div>
 </div>
+<app-confirmation-modal *ngIf="action==='signout'"
+                        [isModalOpen]="isModalOpen"
+                        [title]="'Bạn có chắc muốn đăng xuất'"
+                        [message]="'Tất cả dữ liệu tạm thời sẽ bị xóa'"
+                        [warningMessage]="'Dữ liệu sẽ bị xóa'"
+                        [confirmButtonText]="'OK'"
+                        [cancelButtonText]="'Cancel'"
+                        (confirm)="onConfirm()"
+                        (cancel)="onCancel()">
+</app-confirmation-modal>
 <div class="container mt-4">
   <div class="table-container">
     <table class="table table-striped table-bordered">
