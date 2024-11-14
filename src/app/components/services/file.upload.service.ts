@@ -12,7 +12,9 @@ import {AuthService} from "./auth.service";
 export class FileUploadService{
   private apiUploadFile = `${environment.apiBaseUrl}/file/upload`;
   private apiCollectAllFiles = `${environment.apiBaseUrl}/file/download`;
-  private apiUploadFileToDataLake = 'http://42.112.211.165:8086/upload';
+  private apiUploadFileToDataLake = 'http://192.168.1.103:8086/upload';
+  // private apiUploadFileToDataLake = 'http://42.112.211.165:8888/upload';
+
   constructor(private http: HttpClient,
               private authService: AuthService) {
   }
