@@ -1,0 +1,136 @@
+<!--&lt;!&ndash; virtual-schedule.component.html &ndash;&gt;-->
+<!--<div class="schedule-container">-->
+<!--  &lt;!&ndash; Header Section &ndash;&gt;-->
+<!--  <header class="header">-->
+<!--    <h1>Virtual Schedule Planner</h1>-->
+<!--    <div class="view-toggles">-->
+<!--      <button mat-icon-button [class.active]="currentView === 'calendar'"-->
+<!--              (click)="currentView = 'calendar'">-->
+<!--        <mat-chip-trailing-icon>calendar_today</mat-chip-trailing-icon>-->
+<!--      </button>-->
+<!--      <button mat-icon-button [class.active]="currentView === 'list'"-->
+<!--              (click)="currentView = 'list'">-->
+<!--        <mat-chip-trailing-icon>view_list</mat-chip-trailing-icon>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </header>-->
+
+<!--  &lt;!&ndash; Filters Section &ndash;&gt;-->
+<!--  <mat-card-title class="filters-section">-->
+<!--    <mat-card-header>-->
+<!--      <mat-card-title>-->
+<!--        <mat-chip-trailing-icon>filter_list</mat-chip-trailing-icon>-->
+<!--        Filters-->
+<!--      </mat-card-title>-->
+<!--    </mat-card-header>-->
+<!--    <mat-card-content>-->
+<!--      <form class="filters-form">-->
+<!--        <mat-form-field appearance="outline">-->
+<!--          <mat-label>Department</mat-label>-->
+<!--          <mat-select formControlName="department">-->
+<!--            <mat-option *ngFor="let dept of departments" [value]="dept">-->
+<!--              {{dept}}-->
+<!--            </mat-option>-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field appearance="outline">-->
+<!--          <mat-label>Semester</mat-label>-->
+<!--          <mat-select formControlName="semester">-->
+<!--            <mat-option *ngFor="let sem of semesters" [value]="sem">-->
+<!--              {{sem}}-->
+<!--            </mat-option>-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field appearance="outline">-->
+<!--          <mat-label>Course Type</mat-label>-->
+<!--          <mat-select formControlName="courseType">-->
+<!--            <mat-option *ngFor="let type of courseTypes" [value]="type">-->
+<!--              {{type}}-->
+<!--            </mat-option>-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field appearance="outline" class="search-field">-->
+<!--          <mat-label>Search Courses</mat-label>-->
+<!--          <input matInput formControlName="searchTerm" placeholder="Enter keywords...">-->
+<!--          <mat-chip-trailing-icon matSuffix>search</mat-chip-trailing-icon>-->
+<!--        </mat-form-field>-->
+<!--      </form>-->
+<!--    </mat-card-content>-->
+<!--  </mat-card-title>-->
+
+<!--  &lt;!&ndash; Main Content &ndash;&gt;-->
+<!--  <div class="main-content" [ngClass]="currentView">-->
+<!--    &lt;!&ndash; Course Selection Section &ndash;&gt;-->
+<!--    <mat-card class="course-selection">-->
+<!--      <mat-card-header>-->
+<!--        <mat-card-title>Available Courses</mat-card-title>-->
+<!--      </mat-card-header>-->
+<!--      <mat-card-content>-->
+<!--        <mat-selection-list #courseList>-->
+<!--          <mat-list-option *ngFor="let course of filteredCourses"-->
+<!--                           [selected]="isSelected(course)"-->
+<!--                           (click)="onCourseSelect(course)"-->
+<!--                           [class.conflicting]="hasConflict(course)">-->
+<!--            <div class="course-item">-->
+<!--              <h3>{{course.courseName}}</h3>-->
+<!--              <p class="teacher">{{course.teacher}}</p>-->
+<!--              <p class="schedule">{{course.schedule}}</p>-->
+<!--              <p class="location">{{course.location}}</p>-->
+<!--            </div>-->
+<!--          </mat-list-option>-->
+<!--        </mat-selection-list>-->
+<!--      </mat-card-content>-->
+<!--    </mat-card>-->
+
+<!--    &lt;!&ndash; Schedule View &ndash;&gt;-->
+<!--    <div class="schedule-view">-->
+<!--      <mat-card *ngIf="currentView === 'calendar'">-->
+<!--        <mat-card-header>-->
+<!--          <mat-card-title>Schedule Calendar</mat-card-title>-->
+<!--        </mat-card-header>-->
+<!--        <mat-card-content>-->
+<!--          <full-calendar #calendar [options]="calendarOptions"></full-calendar>-->
+<!--        </mat-card-content>-->
+<!--      </mat-card>-->
+
+<!--      <mat-card *ngIf="currentView === 'list'" class="selected-courses">-->
+<!--        <mat-card-header>-->
+<!--          <mat-card-title>Selected Courses</mat-card-title>-->
+<!--        </mat-card-header>-->
+<!--        <mat-card-content>-->
+<!--          <mat-list>-->
+<!--            <mat-list-item *ngFor="let course of selectedCourses">-->
+<!--              <div class="selected-course-item">-->
+<!--                <h3>{{course.courseName}}</h3>-->
+<!--                <p>{{course.schedule}}</p>-->
+<!--                <button mat-icon-button color="warn"-->
+<!--                        (click)="onCourseSelect(course)">-->
+<!--                  <mat-icon>remove_circle</mat-icon>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </mat-list-item>-->
+<!--          </mat-list>-->
+<!--        </mat-card-content>-->
+<!--      </mat-card>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Action Buttons &ndash;&gt;-->
+<!--  <div class="action-buttons">-->
+<!--    <button mat-raised-button color="primary"-->
+<!--            [disabled]="!selectedCourses.length"-->
+<!--            (click)="exportSchedule()">-->
+<!--      <mat-icon>calendar_today</mat-icon>-->
+<!--      Export Schedule-->
+<!--    </button>-->
+<!--    <button mat-raised-button color="warn"-->
+<!--            [disabled]="!selectedCourses.length"-->
+<!--            (click)="clearSelection()">-->
+<!--      <mat-icon>clear_all</mat-icon>-->
+<!--      Clear Selection-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</div>-->

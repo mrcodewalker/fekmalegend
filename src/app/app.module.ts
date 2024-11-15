@@ -51,6 +51,9 @@ import { SidebarCalendarComponent } from './components/sidebar-calendar/sidebar-
 import { KmaScheduleComponent } from './components/kma-schedule/kma-schedule.component';
 import { AuthorSupportComponent } from './components/author-support/author-support.component';
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
+import { VirtualScheduleComponent } from './components/virtual-schedule/virtual-schedule.component';
+import {MatChipsModule} from "@angular/material/chips";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -85,6 +88,7 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
     KmaScheduleComponent,
     AuthorSupportComponent,
     ConfirmationModalComponent,
+    VirtualScheduleComponent,
     // CalendarComponent
   ],
   imports: [
@@ -111,7 +115,7 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    }), MatSidenavModule, NgxExtendedPdfViewerModule
+    }), MatSidenavModule, NgxExtendedPdfViewerModule, MatChipsModule, MatCardModule
   ],
   providers: [
     {

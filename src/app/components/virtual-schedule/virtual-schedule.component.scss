@@ -1,0 +1,144 @@
+/* virtual-schedule.component.scss */
+.schedule-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .view-toggles {
+      button {
+        margin-left: 8px;
+        &.active {
+          background-color: rgba(0, 0, 0, 0.04);
+        }
+      }
+    }
+  }
+
+  .filters-section {
+    margin-bottom: 24px;
+
+    .filters-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      padding: 16px;
+
+      .search-field {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+
+  .main-content {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 24px;
+
+    &.calendar {
+      grid-template-columns: 300px 1fr;
+    }
+
+    &.list {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .course-selection {
+      height: 600px;
+      overflow-y: auto;
+
+      .course-item {
+        padding: 8px 0;
+
+        h3 {
+          margin: 0;
+          font-size: 16px;
+          font-weight: 500;
+        }
+
+        p {
+          margin: 4px 0;
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.6);
+
+          &.teacher {
+            font-weight: 500;
+          }
+        }
+      }
+
+      .conflicting {
+        background-color: rgba(244, 67, 54, 0.1);
+      }
+    }
+
+    .schedule-view {
+      .selected-courses {
+        .selected-course-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 8px 0;
+
+          h3 {
+            margin: 0;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+
+    button {
+      min-width: 120px;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+// Calendar customization
+::ng-deep {
+  .fc {
+    .fc-toolbar {
+      margin-bottom: 16px;
+    }
+
+    .fc-button {
+      background-color: #1976d2;
+      border: none;
+
+      &:hover {
+        background-color: #1565c0;
+      }
+    }
+
+    .fc-event {
+      cursor: pointer;
+      border: none;
+      padding: 2px 4px;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}
