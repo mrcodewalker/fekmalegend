@@ -5,4 +5,5 @@ export interface ScoreResponse {
   score_second: number;
   score_final: number;
   score_over_rall: number;
+  subject_credit: number;
 }

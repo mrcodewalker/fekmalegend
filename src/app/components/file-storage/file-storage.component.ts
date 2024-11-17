@@ -48,7 +48,8 @@ export class FileStorageComponent implements OnInit {
 
   downloadFile(fileName: string) {
     const link = document.createElement('a');
-    link.href = `http://192.168.1.103:8086/download1?hdfs_path_file=/data/KMA/${fileName}`;
+    // link.href = `http://192.168.1.103:8086/download1?hdfs_path_file=/data/KMA/${fileName}`;
+    link.href = `http://192.168.1.103:8086/download1?file_name=${fileName}&web_name=WEB_KHAO_THI`;
     // link.href = `http://42.112.211.165:8086/download1?file_name=${fileName}&web_name=WEB_KHAO_THI`;
     link.download = fileName;
     link.click();

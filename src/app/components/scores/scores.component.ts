@@ -23,6 +23,16 @@ export class ScoresComponent implements OnInit{
   student_code: string = "";
   loading: boolean = false;
   id: number = 0;
+  message: string = `Xuất sắc: [9;10] => 4.0 => A+<br>
+        Giỏi: [8.5;8.9] => 3.8 => A<br>
+        Khá: [7.8;8.4] => 3.5 => B+<br>
+        Khá: [7.0;7.7] => 3.0 => B<br>
+        Trung bình: [6.3;6.9] => 2.4 => C+<br>
+        Trung bình: [5.5,6.2] => 2.0 => C<br>
+        Trung bình yếu: [4.8;5.4] => 1.5 => D+<br>
+        Trung bình yếu: [4.0,4.7] => 1.0 => D<br>
+        Kém [0;3.9] => 0.0 => F`;
+
   selectedGrade: string = "Xếp hạng trường";
   classRanking: boolean = false;
   schoolRanking: boolean = true;
@@ -168,7 +178,8 @@ export class ScoresComponent implements OnInit{
           score_second: scoreItem.score_second,
           score_final: scoreItem.score_final,
           score_over_rall: scoreItem.score_over_rall,
-          score_text: scoreItem.score_text
+          score_text: scoreItem.score_text,
+          subject_credit: scoreItem.subject_credit
         };
         if (this.scores) this.scores.push(score);
       });
@@ -308,6 +319,11 @@ export class ScoresComponent implements OnInit{
     this.action='export';
     this.openModalData();
   }
+  showTable: boolean = false;
+  clickPreview(): void{
+    this.action='preview';
+    this.showTable=!this.showTable;
+  }
   async exportData():Promise<void> {
     if (this.scores?.length === 0) {
       await this.openDialog('Warning', 'Nothing in your score list!');
@@ -339,12 +355,14 @@ export class ScoresComponent implements OnInit{
 
   async onConfirm(): Promise<void> {
     if (this.action==='export') await this.exportData();
-    // if (this.action==='read') this.confirmReadFile();
     this.isModalOpen = false;
   }
 
   onCancel(): void {
     this.isModalOpen = false;
+  }
+  handleClose(): void{
+    this.showTable=false;
   }
   action: string = '';
 }

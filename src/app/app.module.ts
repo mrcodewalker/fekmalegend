@@ -54,6 +54,7 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
 import { VirtualScheduleComponent } from './components/virtual-schedule/virtual-schedule.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatCardModule} from "@angular/material/card";
+import { GradeTableComponent } from './components/grade-table/grade-table.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import {MatCardModule} from "@angular/material/card";
     AuthorSupportComponent,
     ConfirmationModalComponent,
     VirtualScheduleComponent,
+    GradeTableComponent,
     // CalendarComponent
   ],
   imports: [

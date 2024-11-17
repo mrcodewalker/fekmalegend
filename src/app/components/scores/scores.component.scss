@@ -1950,10 +1950,10 @@ button.btn-outline-info {
 .export-btn {
   display: inline-flex;
   align-items: center;
-  background-color: #28a745; /* Màu nền xanh lá cây */
-  border: none;
-  color: white;
+  background-color: transparent; /* Nền trong suốt */
+  color: #28a745;
   font-size: 16px;
+  border: 2px solid #28a745; /* Viền xanh dương */
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
@@ -1972,4 +1972,46 @@ button.btn-outline-info {
   justify-content: start;   /* Căn chỉnh các nút về phía bên trái */
   gap: 10px;                /* Khoảng cách giữa các nút */
   align-items: center;      /* Căn chỉnh dọc các nút ở giữa */
+}
+/* Kiểu dáng cơ bản */
+.outline-button.preview-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff; /* Màu xanh dương cho chữ và viền */
+  background-color: transparent; /* Nền trong suốt */
+  border: 2px solid #007bff; /* Viền xanh dương */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Biểu tượng trong nút */
+.outline-button.preview-button i {
+  margin-right: 8px; /* Khoảng cách giữa biểu tượng và chữ */
+  font-size: 18px; /* Kích thước biểu tượng */
+}
+
+/* Hiệu ứng khi hover */
+.outline-button.preview-button:hover {
+  color: #fff; /* Chữ chuyển thành màu trắng */
+  background-color: #007bff; /* Nền xanh dương */
+  border-color: #0056b3; /* Viền xanh đậm */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+}
+
+/* Hiệu ứng khi bấm (active) */
+.outline-button.preview-button:active {
+  background-color: #0056b3; /* Nền xanh đậm hơn */
+  transform: scale(0.95); /* Thu nhỏ nhẹ */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ hơn */
+}
+
+/* Hiệu ứng khi focus */
+.outline-button.preview-button:focus {
+  outline: 2px solid #80bdff; /* Viền ngoài sáng xanh */
+  outline-offset: 2px;
 }

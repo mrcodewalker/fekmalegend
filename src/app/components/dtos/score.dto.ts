@@ -5,6 +5,7 @@ export class ScoreDto{
   score_second: number;
   score_final: number;
   score_over_rall: number;
+  subject_credit: number;
 
   constructor(data: any) {
    this.subject_name = data.subject_name;
@@ -13,5 +14,6 @@ export class ScoreDto{
    this.score_second = data.score_second;
    this.score_final = data.score_final;
    this.score_over_rall = data.score_over_rall;
+   this.subject_credit = data.subject_credit;
   }
 }

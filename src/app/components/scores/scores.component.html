@@ -67,6 +67,12 @@
             <i class="fa fa-file-excel"></i>
             <span>Export</span>
           </button>
+          <button class="outline-button preview-button" (click)="clickPreview()">
+            <i class="fa fa-eye"></i>
+            <span>Preview</span>
+          </button>
+          <app-grade-table [isVisible]="showTable"
+                           (closeTable)="handleClose()"></app-grade-table>
         </div>
       </div>
 
@@ -156,7 +162,7 @@
           <th scope="col">Điểm thi</th>
           <th scope="col">Điểm tổng kết</th>
           <th scope="col">Điểm chữ</th>
-          <th scope="col"></th>
+          <th scope="col">Tín chỉ</th>
         </tr>
         </thead>
         <tbody>
@@ -180,6 +186,7 @@
           </td>
           <td *ngIf="this.subjectList.length!=0&&!checkContainInList(score.subject_name)">{{ score.score_text }}</td>
           <td *ngIf="this.subjectList.length===0">{{ score.score_text }}</td>
+          <td>{{score.subject_credit}}</td>
         </tr>
 
         </tbody>
