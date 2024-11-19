@@ -21,7 +21,9 @@ export class AuthInterceptor implements HttpInterceptor {
       });
       return next.handle(authReq);
     }
-
+    if (req.url===uploadUrl){
+      return next.handle(req);
+    }
     return next.handle(req);
   }
 }

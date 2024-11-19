@@ -34,6 +34,9 @@ export class FileUploadService{
     formData.append('file', file);
     formData.append('web_name', 'WEB_KHAO_THI');
 
-    return this.http.post<any>(this.apiUploadFileToDataLake, formData);
+    return this.http.post<any>(this.apiUploadFileToDataLake, formData, {
+      headers: {
+      },
+    });
   }
 }
