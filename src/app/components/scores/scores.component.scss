@@ -981,7 +981,7 @@ button {
 
 span {
   display: inline-block;
-  transform: skew(21deg);
+  //transform: skew(21deg);
 }
 
 button::before {
@@ -1542,7 +1542,7 @@ html, body {
   border-radius: 4px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
   transition: all 0.3s ease; /* Smooth transition for hover effects */
-  //transform: skew(-21deg);
+  transform: skew(-21deg);
 }
 .search-container {
   display: flex;
