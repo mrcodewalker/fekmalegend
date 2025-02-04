@@ -55,6 +55,9 @@ import { VirtualScheduleComponent } from './components/virtual-schedule/virtual-
 import {MatChipsModule} from "@angular/material/chips";
 import {MatCardModule} from "@angular/material/card";
 import { GradeTableComponent } from './components/grade-table/grade-table.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { ClassroomSchedulerComponent } from './components/classroom-scheduler/classroom-scheduler.component';
+import { ClassroomBuildingSchedulerComponent } from './components/classroom-building-scheduler/classroom-building-scheduler.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +94,9 @@ import { GradeTableComponent } from './components/grade-table/grade-table.compon
     ConfirmationModalComponent,
     VirtualScheduleComponent,
     GradeTableComponent,
+    CalendarComponent,
+    ClassroomSchedulerComponent,
+    ClassroomBuildingSchedulerComponent,
     // CalendarComponent
   ],
   imports: [

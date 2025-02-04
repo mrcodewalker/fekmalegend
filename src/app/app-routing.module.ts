@@ -25,7 +25,11 @@ import {TeacherGuard} from "./components/guards/TeacherGuard";
 import {FileStorageComponent} from "./components/file-storage/file-storage.component";
 import {SidebarCalendarComponent} from "./components/sidebar-calendar/sidebar-calendar.component";
 import {KmaScheduleComponent} from "./components/kma-schedule/kma-schedule.component";
-import {AuthorSupportComponent} from "./components/author-support/author-support.component"; // Thêm module này nếu sử dụng Angular Material
+import {AuthorSupportComponent} from "./components/author-support/author-support.component";
+import {CalendarComponent} from "./components/calendar/calendar.component";
+import {
+  ClassroomBuildingSchedulerComponent
+} from "./components/classroom-building-scheduler/classroom-building-scheduler.component"; // Thêm module này nếu sử dụng Angular Material
 
 const routes: Routes = [
   // { path: '', component: AppComponent },
@@ -40,7 +44,8 @@ const routes: Routes = [
   { path: 'login/forum', component:  LoginForumComponent},
   { path: 'view/profile', component:  ProfileComponent},
   { path: 'sidebar/calendar', component:  SidebarCalendarComponent},
-  { path: 'kma/schedule', component:  ScheduleComponent},
+  { path: 'kma/schedule', component:  CalendarComponent},
+  { path: 'room', component:  ClassroomBuildingSchedulerComponent},
   { path: 'qrcode', component:  AuthorSupportComponent},
   { path: 'view/graph', component:  GraphScoresComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],

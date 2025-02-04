@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit{
             this.sharedService.updateSchedule(this.schedule);
             localStorage.setItem("wibu", 'true');
             // this.route.navigate(['schedule'], { queryParams: { schedule: JSON.stringify(this.schedule) } });
-            this.route.navigate(['schedule']);
+            this.route.navigate(['/kma/schedule']);
           } else {
             if (this.schedule.code==="401"){
               alert("Please check your password again!");

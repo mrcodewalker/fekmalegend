@@ -1,0 +1,113 @@
+<div class="container">
+  <h1 class="title">Classroom Building Scheduler</h1>
+  <div class="filters">
+    <div class="filter-item">
+      <label for="date-picker">
+        <i class="fas fa-calendar-alt"></i> Select Date
+      </label>
+      <input
+        id="date-picker"
+        type="date"
+        [(ngModel)]="selectedDate"
+        (ngModelChange)="filterLessons()"
+      />
+    </div>
+    <div class="filter-item">
+      <label for="period-selector">
+        <i class="fas fa-clock"></i> Select Period
+      </label>
+      <select
+        id="period-selector"
+        [(ngModel)]="selectedPeriod"
+        (ngModelChange)="filterLessons()"
+      >
+        <option value="">All Periods</option>
+        <option value="1,2,3">Period 1-3 (07:00-09:30)</option>
+        <option value="4,5,6">Period 4-6 (09:35-12:00)</option>
+        <option value="7,8,9">Period 7-9 (12:30-14:55)</option>
+        <option value="10,11,12">Period 10-12 (15:05-17:30)</option>
+        <option value="13,14,15,16">Period 13-16 (18:00-20:30)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+          <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#f0f0f0" stroke-width="1"/>
+        </pattern>
+        <filter id="shadow">
+          <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+        </filter>
+      </defs>
+
+      <rect width="100%" height="100%" fill="url(#grid)" />
+
+      <ng-container *ngFor="let floor of floors; let floorIndex = index">
+        <g [attr.transform]="'translate(50, ' + (50 + floorIndex * 110) + ')'">
+          <text x="-40" y="55" class="floor-label">F{{ floor }}</text>
+          <ng-container *ngFor="let roomNum of [1,2,3,4]; let roomIndex = index">
+            <g [attr.transform]="'translate(' + (roomIndex * 220) + ', 0)'">
+              <rect
+                width="200"
+                height="100"
+                rx="15"
+                ry="15"
+                [ngClass]="getRoomStatus(floor + (roomNum < 10 ? '0' : '') + roomNum + '_TA1')"
+                [attr.data-room-code]="floor + (roomNum < 10 ? '0' : '') + roomNum + '_TA1'"
+                (click)="showRoomDetails($event)"
+                filter="url(#shadow)"
+              ></rect>
+              <text
+                x="100"
+                y="40"
+                text-anchor="middle"
+                class="room-label"
+              >{{ floor }}{{ roomNum < 10 ? '0' : '' }}{{ roomNum }}</text>
+              <text
+                x="100"
+                y="70"
+                text-anchor="middle"
+                class="room-status"
+              >{{ getRoomStatus(floor + (roomNum < 10 ? '0' : '') + roomNum + '_TA1') | titlecase }}</text>
+            </g>
+          </ng-container>
+        </g>
+      </ng-container>
+    </svg>
+  </div>
+
+  <div class="modal" *ngIf="selectedRoom" (click)="closeRoomDetails()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>
+        <i class="fas fa-door-open"></i> Room {{ selectedRoom.roomCode }}
+      </h2>
+      <div class="modal-info">
+        <p>
+          <i class="fas fa-book"></i>
+          <span>Course:</span>
+          {{ selectedRoom.courseName || 'N/A' }}
+        </p>
+        <p>
+          <i class="fas fa-user-tie"></i>
+          <span>Lecturer:</span>
+          {{ selectedRoom.lecturer || 'N/A' }}
+        </p>
+        <p>
+          <i class="fas fa-users"></i>
+          <span>Students:</span>
+          {{ selectedRoom.studentQuantity || 'N/A' }}
+        </p>
+        <p>
+          <i class="fas fa-clock"></i>
+          <span>Time:</span>
+          {{ selectedRoom.periodStart }}-{{ selectedRoom.periodEnd }}
+        </p>
+      </div>
+      <button (click)="closeRoomDetails()" class="close-button">
+        <i class="fas fa-times"></i> Close
+      </button>
+    </div>
+  </div>
+</div>

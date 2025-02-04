@@ -20,11 +20,20 @@ export class ScoreService{
   private apiUpdateScholarship = `${environment.apiCodeWalker}/ranking/update/scholarship`;
   private apiUpdateAllQuery = `${environment.apiCodeWalker}/ranking/query/update`;
   private apiUpdateData = `${environment.apiCodeWalker}/ranking/update/data`;
+  private apiFetchRoom = `${environment.apiCodeWalker}/excel/filter`;
+
   private updateSubject = new Subject<string>();
   updateProgress$ = this.updateSubject.asObservable();
   postRequestWithoutPayload(apiUrl: string): Observable<any> {
     return this.http.post(apiUrl,null,{});
   }
+  fetchRoom(semester: string): Observable<any> {
+
+    const httpParams = new HttpParams().set('semester', semester);
+
+    return this.http.post<any>(this.apiFetchRoom, {}, { params: httpParams });
+  }
+
 
   constructor(private http: HttpClient) {
   }

@@ -1,10 +1,11 @@
 // https://www.laptopaz.id.vn/api/v1
 // http://localhost:8080/api/v1
+// https://codewalker-kma.onrender.com/
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://www.laptopaz.id.vn/api/v1',
-  apiLocalUrl: 'https://www.laptopaz.id.vn/api/v1',
-  apiCodeWalker: 'https://www.laptopaz.id.vn/api/v1',
+  apiBaseUrl: 'https://codewalker-kma.onrender.com/api/v1',
+  apiLocalUrl: 'https://codewalker-kma.onrender.com/api/v1',
+  apiCodeWalker: 'https://codewalker-kma.onrender.com/api/v1',
   firebaseConfig: {
     apiKey: "YOUR_API_KEY",
     authDomain: "YOUR_AUTH_DOMAIN",

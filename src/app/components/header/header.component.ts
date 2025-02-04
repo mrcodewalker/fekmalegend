@@ -41,7 +41,10 @@ export class HeaderComponent implements OnInit{
   }
   getNavLink(): string[] {
     const isWibu = localStorage.getItem('wibu') === 'true';
-    return isWibu ? ['/schedule'] : ['/login'];
+    return isWibu ? ['/kma/schedule'] : ['/login'];
+  }
+  getRoomLink(): string[] {
+    return ['/room'];
   }
   getCalendarLink(): string[] {
     const isJack = localStorage.getItem('jack') === 'true';

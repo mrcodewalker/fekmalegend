@@ -1,0 +1,121 @@
+<div class="calendar-container">
+  <div class="calendar-navigation">
+    <button (click)="prevMonth()" class="nav-button">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <h2 class="month-title">{{ currentDate | date:'MMMM yyyy' }}</h2>
+    <button (click)="nextMonth()" class="nav-button">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="calendar-actions">
+      <button
+        (click)="exportToICS()"
+        class="action-button export-button"
+        title="Export Calendar"
+      >
+        <i class="fas fa-file-export"></i>
+        <span class="button-text">Export ICS</span>
+      </button>
+
+      <button
+        (click)="logout()"
+        class="action-button logout-button"
+        title="Logout"
+      >
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="button-text">Logout</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="calendar-grid">
+    <div class="day-headers">
+      <div *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']" class="day-header">
+        {{ day }}
+      </div>
+    </div>
+
+    <div class="calendar-days">
+      <div
+        *ngFor="let day of days"
+        class="calendar-day"
+        [class.current-month]="isCurrentMonth(day)"
+        [class.has-events]="getEventsForDate(day).length > 0"
+      >
+        <div class="day-number">{{ day.getDate() }}</div>
+        <div class="day-events">
+          <div
+            *ngFor="let event of getEventsForDate(day)"
+            class="event-badge"
+            (click)="selectEvent(event)"
+          >
+            {{ event.courseCode }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event Details Modal -->
+  <div *ngIf="selectedEvent" class="event-modal-overlay" (click)="closeEventDetails()">
+    <div class="event-modal-content" (click)="$event.stopPropagation()">
+      <button class="modal-close-btn" (click)="closeEventDetails()">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="modal-header">
+        <h2>{{ selectedEvent.courseName }}</h2>
+      </div>
+
+      <div class="modal-body">
+        <div class="event-detail">
+          <i class="fas fa-code"></i>
+          <div>
+            <span class="label">Course Code</span>
+            <p>{{ selectedEvent.courseCode }}</p>
+          </div>
+        </div>
+
+        <div class="event-detail">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <div>
+            <span class="label">Teacher</span>
+            <p>{{ selectedEvent.teacher }}</p>
+          </div>
+        </div>
+
+        <div class="event-detail">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <span class="label">Location</span>
+            <p>{{ selectedEvent.studyLocation }}</p>
+          </div>
+        </div>
+
+        <div class="event-detail">
+          <i class="fas fa-clock"></i>
+          <div>
+            <span class="label">Time</span>
+            <p>{{ selectedEvent.startTime }} - {{ selectedEvent.endTime }}</p>
+          </div>
+        </div>
+
+        <div class="event-detail">
+          <i class="fas fa-list-ol"></i>
+          <div>
+            <span class="label">Lessons</span>
+            <p>{{ selectedEvent.lessons }}</p>
+          </div>
+        </div>
+
+        <div class="event-detail">
+          <i class="fas fa-calendar-alt"></i>
+          <div>
+            <span class="label">Date</span>
+            <p>{{ selectedEvent.date | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
