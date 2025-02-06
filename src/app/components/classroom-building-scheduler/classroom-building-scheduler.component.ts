@@ -33,6 +33,7 @@ export class ClassroomBuildingSchedulerComponent implements OnInit {
   floors: number[] = [1, 2, 3, 4, 5, 6, 7];
   selectedDate: string = '';
   selectedPeriod: string = '';
+  expandedLessons: Lesson[] = [];
   selectedRoom: RoomDetails | null = null;
   constructor(private scoreService: ScoreService) {}
 
@@ -45,6 +46,7 @@ export class ClassroomBuildingSchedulerComponent implements OnInit {
     this.scoreService.fetchRoom('ki2-2024-2025').subscribe(
       data => {
         this.lessons = data;
+        this.expandLessons();
         this.filterLessons();
       }
     );
@@ -80,6 +82,23 @@ export class ClassroomBuildingSchedulerComponent implements OnInit {
       }
       console.log(this.selectedRoom)
     }
+  }
+  private expandLessons() {
+    this.expandedLessons = [];
+
+    this.lessons.forEach(lesson => {
+      const startDate = new Date(lesson.startDate[0], lesson.startDate[1] - 1, lesson.startDate[2]);
+      const endDate = new Date(lesson.endDate[0], lesson.endDate[1] - 1, lesson.endDate[2]);
+
+      for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
+        if (date.getDay() + 1 === lesson.dayOfWeek) { // +1 vì getDay() trả về 0-6
+          this.expandedLessons.push({
+            ...lesson,
+            startDate: [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+          });
+        }
+      }
+    });
   }
   private extractRoomNumber(roomCode: string): string {
     const parts = roomCode.split(/[-_]/)
