@@ -21,7 +21,8 @@ export class Top100Component implements OnInit {
   }
   rankingOptions: string[] = [
     'CT08', 'DT07', 'AT20', 'CT07', 'DT06', 'AT19',
-    'CT06', 'DT05', 'AT18', 'CT05', 'DT04', 'AT17'
+    'CT06', 'DT05', 'AT18', 'CT05', 'DT04', 'AT17',
+    'AT21', 'CT09', 'DT08'
   ];
   isDropdownOpen = false;
   dropdownElement: HTMLElement | null = null;
